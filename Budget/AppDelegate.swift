@@ -9,14 +9,36 @@
 import UIKit
 import CoreData
 
+let UserIDKey = "UserID"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
+  var containerViewController: ContainerViewController!
 
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
+    
+    window = UIWindow(frame: UIScreen.main.bounds)
+    containerViewController = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+    window!.rootViewController = containerViewController
+    window!.makeKeyAndVisible()
+    
+    if !signedIn() {
+      containerViewController.presentSignInView()
+    } else {
+      containerViewController.presentExpenseEntryView()
+    }
+    
+    return true
+  }
+  
+  func signedIn() -> Bool {
+    if UserDefaults.standard.integer(forKey: UserIDKey) == 0 {
+      return false
+    }
+    
     return true
   }
 
