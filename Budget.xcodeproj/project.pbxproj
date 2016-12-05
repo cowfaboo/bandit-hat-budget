@@ -10,7 +10,6 @@
 		654D5D9B1DEFB1930089939A /* BKExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9A1DEFB1930089939A /* BKExpense.swift */; };
 		654D5D9D1DEFC0590089939A /* BKAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9C1DEFC0590089939A /* BKAmount.swift */; };
 		654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9E1DF2AB5A0089939A /* Utilities.swift */; };
-		656C88601DEE7CD000ADD18A /* default.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 656C885F1DEE7CD000ADD18A /* default.gpx */; };
 		658390F61DE8F25B001BCE1C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390F51DE8F25B001BCE1C /* Settings.swift */; };
 		658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390F71DE8FC57001BCE1C /* DataNavigationController.swift */; };
 		658390FA1DE8FC57001BCE1C /* DataNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658390F81DE8FC57001BCE1C /* DataNavigationController.xib */; };
@@ -77,7 +76,6 @@
 		654D5D9A1DEFB1930089939A /* BKExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKExpense.swift; sourceTree = "<group>"; };
 		654D5D9C1DEFC0590089939A /* BKAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKAmount.swift; sourceTree = "<group>"; };
 		654D5D9E1DF2AB5A0089939A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		656C885F1DEE7CD000ADD18A /* default.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = default.gpx; path = ../../../Downloads/default.gpx; sourceTree = "<group>"; };
 		658390F51DE8F25B001BCE1C /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		658390F71DE8FC57001BCE1C /* DataNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataNavigationController.swift; sourceTree = "<group>"; };
 		658390F81DE8FC57001BCE1C /* DataNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataNavigationController.xib; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 		659AD1101DE6B3CC0035E538 = {
 			isa = PBXGroup;
 			children = (
-				656C885F1DEE7CD000ADD18A /* default.gpx */,
 				659AD11B1DE6B3CD0035E538 /* Budget */,
 				65E5E2281DE7E75F0066944F /* BudgetKit */,
 				659AD11A1DE6B3CD0035E538 /* Products */,
@@ -355,7 +352,6 @@
 				659AD12A1DE6B3CD0035E538 /* LaunchScreen.storyboard in Resources */,
 				659AD1271DE6B3CD0035E538 /* Assets.xcassets in Resources */,
 				659AD1321DE6B5800035E538 /* ContainerViewController.xib in Resources */,
-				656C88601DEE7CD000ADD18A /* default.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
