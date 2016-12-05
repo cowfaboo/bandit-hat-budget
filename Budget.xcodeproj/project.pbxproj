@@ -7,9 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		654D5D9B1DEFB1930089939A /* BKExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9A1DEFB1930089939A /* BKExpense.swift */; };
+		654D5D9D1DEFC0590089939A /* BKAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9C1DEFC0590089939A /* BKAmount.swift */; };
+		654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9E1DF2AB5A0089939A /* Utilities.swift */; };
+		656C88601DEE7CD000ADD18A /* default.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 656C885F1DEE7CD000ADD18A /* default.gpx */; };
+		658390F61DE8F25B001BCE1C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390F51DE8F25B001BCE1C /* Settings.swift */; };
+		658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390F71DE8FC57001BCE1C /* DataNavigationController.swift */; };
+		658390FA1DE8FC57001BCE1C /* DataNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658390F81DE8FC57001BCE1C /* DataNavigationController.xib */; };
+		658390FD1DE906F3001BCE1C /* AmountDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390FB1DE906F3001BCE1C /* AmountDataViewController.swift */; };
+		658390FE1DE906F3001BCE1C /* AmountDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658390FC1DE906F3001BCE1C /* AmountDataViewController.xib */; };
+		658391011DE91BB2001BCE1C /* CategoryManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390FF1DE91BB2001BCE1C /* CategoryManagementViewController.swift */; };
+		658391021DE91BB2001BCE1C /* CategoryManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658391001DE91BB2001BCE1C /* CategoryManagementViewController.xib */; };
 		659AD11D1DE6B3CD0035E538 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659AD11C1DE6B3CD0035E538 /* AppDelegate.swift */; };
 		659AD11F1DE6B3CD0035E538 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659AD11E1DE6B3CD0035E538 /* ContainerViewController.swift */; };
-		659AD1251DE6B3CD0035E538 /* Budget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 659AD1231DE6B3CD0035E538 /* Budget.xcdatamodeld */; };
 		659AD1271DE6B3CD0035E538 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659AD1261DE6B3CD0035E538 /* Assets.xcassets */; };
 		659AD12A1DE6B3CD0035E538 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 659AD1281DE6B3CD0035E538 /* LaunchScreen.storyboard */; };
 		659AD1321DE6B5800035E538 /* ContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659AD1311DE6B5800035E538 /* ContainerViewController.xib */; };
@@ -17,6 +27,15 @@
 		659AD1361DE6B8FC0035E538 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659AD1341DE6B8FC0035E538 /* SignInViewController.xib */; };
 		659AD1391DE6B9090035E538 /* ExpenseEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659AD1371DE6B9090035E538 /* ExpenseEntryViewController.swift */; };
 		659AD13A1DE6B9090035E538 /* ExpenseEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659AD1381DE6B9090035E538 /* ExpenseEntryViewController.xib */; };
+		65A8E48F1DF371E100CEB71F /* BKModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 65C350741DF354B700F8AE10 /* BKModel.xcdatamodeld */; };
+		65A8E4921DF48E9000CEB71F /* ExpenseDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A8E4901DF48E9000CEB71F /* ExpenseDataViewController.swift */; };
+		65A8E4931DF48E9000CEB71F /* ExpenseDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65A8E4911DF48E9000CEB71F /* ExpenseDataViewController.xib */; };
+		65C350761DF354B700F8AE10 /* BKModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65C350741DF354B700F8AE10 /* BKModel.xcdatamodeld */; };
+		65C350781DF354F200F8AE10 /* BKDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C350771DF354F200F8AE10 /* BKDataController.swift */; };
+		65C3507D1DF358FE00F8AE10 /* BKUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C350791DF358FE00F8AE10 /* BKUser+CoreDataClass.swift */; };
+		65C3507E1DF358FE00F8AE10 /* BKUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C3507A1DF358FE00F8AE10 /* BKUser+CoreDataProperties.swift */; };
+		65C3507F1DF358FE00F8AE10 /* BKCategory+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C3507B1DF358FE00F8AE10 /* BKCategory+CoreDataClass.swift */; };
+		65C350801DF358FE00F8AE10 /* BKCategory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C3507C1DF358FE00F8AE10 /* BKCategory+CoreDataProperties.swift */; };
 		65E5E21C1DE7E1F10066944F /* UserCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E21A1DE7E1F10066944F /* UserCreationViewController.swift */; };
 		65E5E21D1DE7E1F10066944F /* UserCreationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E5E21B1DE7E1F10066944F /* UserCreationViewController.xib */; };
 		65E5E2201DE7E2160066944F /* UserSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E21E1DE7E2160066944F /* UserSelectionViewController.swift */; };
@@ -27,7 +46,6 @@
 		65E5E2351DE7E7E50066944F /* BKBasicRequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E2341DE7E7E50066944F /* BKBasicRequestClient.swift */; };
 		65E5E2371DE7E8C50066944F /* BKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E2361DE7E8C50066944F /* BKConstants.swift */; };
 		65E5E2391DE7EB5D0066944F /* BKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E2381DE7EB5D0066944F /* BKClient.swift */; };
-		65E5E23B1DE7F06C0066944F /* BKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E23A1DE7F06C0066944F /* BKUser.swift */; };
 		65E5E23D1DE7FF190066944F /* BKUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E23C1DE7FF190066944F /* BKUtilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,10 +74,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		654D5D9A1DEFB1930089939A /* BKExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKExpense.swift; sourceTree = "<group>"; };
+		654D5D9C1DEFC0590089939A /* BKAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKAmount.swift; sourceTree = "<group>"; };
+		654D5D9E1DF2AB5A0089939A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		656C885F1DEE7CD000ADD18A /* default.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = default.gpx; path = ../../../Downloads/default.gpx; sourceTree = "<group>"; };
+		658390F51DE8F25B001BCE1C /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		658390F71DE8FC57001BCE1C /* DataNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataNavigationController.swift; sourceTree = "<group>"; };
+		658390F81DE8FC57001BCE1C /* DataNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataNavigationController.xib; sourceTree = "<group>"; };
+		658390FB1DE906F3001BCE1C /* AmountDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountDataViewController.swift; sourceTree = "<group>"; };
+		658390FC1DE906F3001BCE1C /* AmountDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmountDataViewController.xib; sourceTree = "<group>"; };
+		658390FF1DE91BB2001BCE1C /* CategoryManagementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryManagementViewController.swift; sourceTree = "<group>"; };
+		658391001DE91BB2001BCE1C /* CategoryManagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryManagementViewController.xib; sourceTree = "<group>"; };
 		659AD1191DE6B3CD0035E538 /* Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Budget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		659AD11C1DE6B3CD0035E538 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		659AD11E1DE6B3CD0035E538 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
-		659AD1241DE6B3CD0035E538 /* Budget.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Budget.xcdatamodel; sourceTree = "<group>"; };
 		659AD1261DE6B3CD0035E538 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		659AD1291DE6B3CD0035E538 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		659AD12B1DE6B3CD0035E538 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,6 +96,14 @@
 		659AD1341DE6B8FC0035E538 /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		659AD1371DE6B9090035E538 /* ExpenseEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseEntryViewController.swift; sourceTree = "<group>"; };
 		659AD1381DE6B9090035E538 /* ExpenseEntryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpenseEntryViewController.xib; sourceTree = "<group>"; };
+		65A8E4901DF48E9000CEB71F /* ExpenseDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseDataViewController.swift; sourceTree = "<group>"; };
+		65A8E4911DF48E9000CEB71F /* ExpenseDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpenseDataViewController.xib; sourceTree = "<group>"; };
+		65C350751DF354B700F8AE10 /* BKModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BKModel.xcdatamodel; sourceTree = "<group>"; };
+		65C350771DF354F200F8AE10 /* BKDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKDataController.swift; sourceTree = "<group>"; };
+		65C350791DF358FE00F8AE10 /* BKUser+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BKUser+CoreDataClass.swift"; sourceTree = "<group>"; };
+		65C3507A1DF358FE00F8AE10 /* BKUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BKUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		65C3507B1DF358FE00F8AE10 /* BKCategory+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BKCategory+CoreDataClass.swift"; sourceTree = "<group>"; };
+		65C3507C1DF358FE00F8AE10 /* BKCategory+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BKCategory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65E5E21A1DE7E1F10066944F /* UserCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCreationViewController.swift; sourceTree = "<group>"; };
 		65E5E21B1DE7E1F10066944F /* UserCreationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCreationViewController.xib; sourceTree = "<group>"; };
 		65E5E21E1DE7E2160066944F /* UserSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionViewController.swift; sourceTree = "<group>"; };
@@ -78,7 +114,6 @@
 		65E5E2341DE7E7E50066944F /* BKBasicRequestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKBasicRequestClient.swift; sourceTree = "<group>"; };
 		65E5E2361DE7E8C50066944F /* BKConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConstants.swift; sourceTree = "<group>"; };
 		65E5E2381DE7EB5D0066944F /* BKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKClient.swift; sourceTree = "<group>"; };
-		65E5E23A1DE7F06C0066944F /* BKUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKUser.swift; sourceTree = "<group>"; };
 		65E5E23C1DE7FF190066944F /* BKUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +139,7 @@
 		659AD1101DE6B3CC0035E538 = {
 			isa = PBXGroup;
 			children = (
+				656C885F1DEE7CD000ADD18A /* default.gpx */,
 				659AD11B1DE6B3CD0035E538 /* Budget */,
 				65E5E2281DE7E75F0066944F /* BudgetKit */,
 				659AD11A1DE6B3CD0035E538 /* Products */,
@@ -123,22 +159,76 @@
 			isa = PBXGroup;
 			children = (
 				659AD11C1DE6B3CD0035E538 /* AppDelegate.swift */,
+				658390F51DE8F25B001BCE1C /* Settings.swift */,
+				654D5D9E1DF2AB5A0089939A /* Utilities.swift */,
 				659AD11E1DE6B3CD0035E538 /* ContainerViewController.swift */,
 				659AD1311DE6B5800035E538 /* ContainerViewController.xib */,
+				65E168DA1DF53C3D001A82DD /* Data Presentation */,
+				65B5443C1DE8097300FD2B54 /* Expense Entry */,
+				65B5443B1DE8094C00FD2B54 /* Sign In */,
+				65E168DB1DF53C56001A82DD /* Category Management */,
+				659AD1261DE6B3CD0035E538 /* Assets.xcassets */,
+				659AD1281DE6B3CD0035E538 /* LaunchScreen.storyboard */,
+				659AD12B1DE6B3CD0035E538 /* Info.plist */,
+			);
+			path = Budget;
+			sourceTree = "<group>";
+		};
+		65B5443B1DE8094C00FD2B54 /* Sign In */ = {
+			isa = PBXGroup;
+			children = (
 				659AD1331DE6B8FC0035E538 /* SignInViewController.swift */,
 				659AD1341DE6B8FC0035E538 /* SignInViewController.xib */,
 				65E5E21A1DE7E1F10066944F /* UserCreationViewController.swift */,
 				65E5E21B1DE7E1F10066944F /* UserCreationViewController.xib */,
 				65E5E21E1DE7E2160066944F /* UserSelectionViewController.swift */,
 				65E5E21F1DE7E2160066944F /* UserSelectionViewController.xib */,
+			);
+			name = "Sign In";
+			sourceTree = "<group>";
+		};
+		65B5443C1DE8097300FD2B54 /* Expense Entry */ = {
+			isa = PBXGroup;
+			children = (
 				659AD1371DE6B9090035E538 /* ExpenseEntryViewController.swift */,
 				659AD1381DE6B9090035E538 /* ExpenseEntryViewController.xib */,
-				659AD1261DE6B3CD0035E538 /* Assets.xcassets */,
-				659AD1281DE6B3CD0035E538 /* LaunchScreen.storyboard */,
-				659AD12B1DE6B3CD0035E538 /* Info.plist */,
-				659AD1231DE6B3CD0035E538 /* Budget.xcdatamodeld */,
 			);
-			path = Budget;
+			name = "Expense Entry";
+			sourceTree = "<group>";
+		};
+		65B5443D1DE8098100FD2B54 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				65C350791DF358FE00F8AE10 /* BKUser+CoreDataClass.swift */,
+				65C3507A1DF358FE00F8AE10 /* BKUser+CoreDataProperties.swift */,
+				65C3507B1DF358FE00F8AE10 /* BKCategory+CoreDataClass.swift */,
+				65C3507C1DF358FE00F8AE10 /* BKCategory+CoreDataProperties.swift */,
+				654D5D9C1DEFC0590089939A /* BKAmount.swift */,
+				654D5D9A1DEFB1930089939A /* BKExpense.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		65E168DA1DF53C3D001A82DD /* Data Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				658390F71DE8FC57001BCE1C /* DataNavigationController.swift */,
+				658390F81DE8FC57001BCE1C /* DataNavigationController.xib */,
+				658390FB1DE906F3001BCE1C /* AmountDataViewController.swift */,
+				658390FC1DE906F3001BCE1C /* AmountDataViewController.xib */,
+				65A8E4901DF48E9000CEB71F /* ExpenseDataViewController.swift */,
+				65A8E4911DF48E9000CEB71F /* ExpenseDataViewController.xib */,
+			);
+			name = "Data Presentation";
+			sourceTree = "<group>";
+		};
+		65E168DB1DF53C56001A82DD /* Category Management */ = {
+			isa = PBXGroup;
+			children = (
+				658390FF1DE91BB2001BCE1C /* CategoryManagementViewController.swift */,
+				658391001DE91BB2001BCE1C /* CategoryManagementViewController.xib */,
+			);
+			name = "Category Management";
 			sourceTree = "<group>";
 		};
 		65E5E2281DE7E75F0066944F /* BudgetKit */ = {
@@ -147,10 +237,12 @@
 				65E5E2291DE7E75F0066944F /* BudgetKit.h */,
 				65E5E2361DE7E8C50066944F /* BKConstants.swift */,
 				65E5E23C1DE7FF190066944F /* BKUtilities.swift */,
+				65C350771DF354F200F8AE10 /* BKDataController.swift */,
 				65E5E2381DE7EB5D0066944F /* BKClient.swift */,
 				65E5E2341DE7E7E50066944F /* BKBasicRequestClient.swift */,
-				65E5E23A1DE7F06C0066944F /* BKUser.swift */,
+				65B5443D1DE8098100FD2B54 /* Models */,
 				65E5E22A1DE7E75F0066944F /* Info.plist */,
+				65C350741DF354B700F8AE10 /* BKModel.xcdatamodeld */,
 			);
 			path = BudgetKit;
 			sourceTree = "<group>";
@@ -213,11 +305,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Bandit Hat Apps";
 				TargetAttributes = {
 					659AD1181DE6B3CD0035E538 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 225N53A79M;
 						ProvisioningStyle = Automatic;
 					};
 					65E5E2261DE7E75F0066944F = {
@@ -252,12 +345,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				659AD13A1DE6B9090035E538 /* ExpenseEntryViewController.xib in Resources */,
+				65A8E4931DF48E9000CEB71F /* ExpenseDataViewController.xib in Resources */,
+				658390FE1DE906F3001BCE1C /* AmountDataViewController.xib in Resources */,
 				659AD1361DE6B8FC0035E538 /* SignInViewController.xib in Resources */,
 				65E5E2211DE7E2160066944F /* UserSelectionViewController.xib in Resources */,
+				658390FA1DE8FC57001BCE1C /* DataNavigationController.xib in Resources */,
+				658391021DE91BB2001BCE1C /* CategoryManagementViewController.xib in Resources */,
 				65E5E21D1DE7E1F10066944F /* UserCreationViewController.xib in Resources */,
 				659AD12A1DE6B3CD0035E538 /* LaunchScreen.storyboard in Resources */,
 				659AD1271DE6B3CD0035E538 /* Assets.xcassets in Resources */,
 				659AD1321DE6B5800035E538 /* ContainerViewController.xib in Resources */,
+				656C88601DEE7CD000ADD18A /* default.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +363,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65A8E48F1DF371E100CEB71F /* BKModel.xcdatamodeld in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,10 +376,15 @@
 			files = (
 				65E5E21C1DE7E1F10066944F /* UserCreationViewController.swift in Sources */,
 				659AD1351DE6B8FC0035E538 /* SignInViewController.swift in Sources */,
+				658390F61DE8F25B001BCE1C /* Settings.swift in Sources */,
 				659AD11F1DE6B3CD0035E538 /* ContainerViewController.swift in Sources */,
 				659AD11D1DE6B3CD0035E538 /* AppDelegate.swift in Sources */,
+				658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */,
+				654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */,
+				658390FD1DE906F3001BCE1C /* AmountDataViewController.swift in Sources */,
 				65E5E2201DE7E2160066944F /* UserSelectionViewController.swift in Sources */,
-				659AD1251DE6B3CD0035E538 /* Budget.xcdatamodeld in Sources */,
+				65A8E4921DF48E9000CEB71F /* ExpenseDataViewController.swift in Sources */,
+				658391011DE91BB2001BCE1C /* CategoryManagementViewController.swift in Sources */,
 				659AD1391DE6B9090035E538 /* ExpenseEntryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,10 +393,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C3507D1DF358FE00F8AE10 /* BKUser+CoreDataClass.swift in Sources */,
+				65C3507E1DF358FE00F8AE10 /* BKUser+CoreDataProperties.swift in Sources */,
+				65C350781DF354F200F8AE10 /* BKDataController.swift in Sources */,
 				65E5E2371DE7E8C50066944F /* BKConstants.swift in Sources */,
 				65E5E2391DE7EB5D0066944F /* BKClient.swift in Sources */,
+				654D5D9D1DEFC0590089939A /* BKAmount.swift in Sources */,
+				65C350761DF354B700F8AE10 /* BKModel.xcdatamodeld in Sources */,
+				65C350801DF358FE00F8AE10 /* BKCategory+CoreDataProperties.swift in Sources */,
 				65E5E2351DE7E7E50066944F /* BKBasicRequestClient.swift in Sources */,
-				65E5E23B1DE7F06C0066944F /* BKUser.swift in Sources */,
+				65C3507F1DF358FE00F8AE10 /* BKCategory+CoreDataClass.swift in Sources */,
+				654D5D9B1DEFB1930089939A /* BKExpense.swift in Sources */,
 				65E5E23D1DE7FF190066944F /* BKUtilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +448,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -386,6 +498,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -415,6 +528,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 225N53A79M;
 				INFOPLIST_FILE = Budget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bandithatapps.Budget;
@@ -428,6 +542,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 225N53A79M;
 				INFOPLIST_FILE = Budget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bandithatapps.Budget;
@@ -511,17 +626,18 @@
 				65E5E2321DE7E75F0066944F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		659AD1231DE6B3CD0035E538 /* Budget.xcdatamodeld */ = {
+		65C350741DF354B700F8AE10 /* BKModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				659AD1241DE6B3CD0035E538 /* Budget.xcdatamodel */,
+				65C350751DF354B700F8AE10 /* BKModel.xcdatamodel */,
 			);
-			currentVersion = 659AD1241DE6B3CD0035E538 /* Budget.xcdatamodel */;
-			path = Budget.xcdatamodeld;
+			currentVersion = 65C350751DF354B700F8AE10 /* BKModel.xcdatamodel */;
+			path = BKModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

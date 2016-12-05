@@ -72,7 +72,7 @@ public class BKClient: NSObject, URLSessionDataDelegate, URLSessionDelegate {
         } else {
           
           if let data = data {
-            print(String(data: data, encoding: String.Encoding.utf8))
+            print("\(String(data: data, encoding: String.Encoding.utf8))")
           }
           completion(false, nil, nil)
         }

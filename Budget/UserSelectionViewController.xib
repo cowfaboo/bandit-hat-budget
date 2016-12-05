@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserSelectionViewController" customModule="Budget" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="9WI-Fk-2pP" id="IaW-9a-VNn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,7 +16,23 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9WI-Fk-2pP">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="78E-cs-B7U"/>
+                        <outlet property="delegate" destination="-1" id="Shx-Qp-Nah"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" red="0.90147084" green="0.3324760497" blue="0.4747905731" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="9WI-Fk-2pP" secondAttribute="trailing" id="4mp-xk-fCV"/>
+                <constraint firstAttribute="bottom" secondItem="9WI-Fk-2pP" secondAttribute="bottom" id="8FN-oI-fY4"/>
+                <constraint firstItem="9WI-Fk-2pP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8Tm-Rd-m4J"/>
+                <constraint firstItem="9WI-Fk-2pP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Yie-nh-7FK"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
         </view>
     </objects>
 </document>

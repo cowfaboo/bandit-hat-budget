@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol SignInDelegate: class {
+  func signInCompleted()
+}
+
 class SignInViewController: UIViewController {
 
+  weak var signInDelegate: SignInDelegate?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -21,6 +27,7 @@ class SignInViewController: UIViewController {
   @IBAction func createUserButtonTapped() {
     
     let userCreationViewController = UserCreationViewController(nibName: "UserCreationViewController", bundle: nil)
+    userCreationViewController.signInDelegate = signInDelegate
     
     if let navigationController = navigationController {
       navigationController.pushViewController(userCreationViewController, animated: true)
@@ -30,6 +37,7 @@ class SignInViewController: UIViewController {
   @IBAction func chooseUserButtonTapped() {
     
     let userSelectionViewController = UserSelectionViewController(nibName: "UserSelectionViewController", bundle: nil)
+    userSelectionViewController.signInDelegate = signInDelegate
     
     if let navigationController = navigationController {
       navigationController.pushViewController(userSelectionViewController, animated: true)

@@ -16,5 +16,13 @@ let ExpensesEndpoint = APIPrefix + "/expenses"
 let AmountEndpoint = ExpensesEndpoint + "/amount"
 
 public typealias BKGetUsersCompletionBlock = (Bool, Array<BKUser>?) -> ()
+public typealias BKGetCategoriesCompletionBlock = (Bool, Array<BKCategory>?) -> ()
+public typealias BKGetExpensesCompletionBlock = (Bool, Array<BKExpense>?) -> ()
+public typealias BKGetAmountsCompletionBlock = (Bool, Array<BKAmount>?) -> ()
+public typealias BKGetAmountCompletionBlock = (Bool, BKAmount?) -> ()
+public typealias BKCreateUserCompletionBlock = (Bool, BKUser?) -> ()
+public typealias BKCreateCategoryCompletionBlock = (Bool, BKCategory?) -> ()
+public typealias BKCreateExpenseCompletionBlock = (Bool, BKExpense?) -> ()
 
+public let BKSharedDataController = BKDataController.sharedInstance
 public let BKSharedBasicRequestClient = BKBasicRequestClient.sharedInstance
