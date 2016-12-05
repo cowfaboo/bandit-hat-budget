@@ -32,12 +32,13 @@ class UserCreationViewController: UIViewController {
     
     BKSharedBasicRequestClient.createUser(withName: text) { (success, user) in
       
-      if success, let user = user {
-        Settings.signInWithUser(user)
-        self.signInDelegate?.signInCompleted()
-      } else {
+      guard success, let user = user else {
         print("failed to create user")
+        return
       }
+      
+      Settings.signInWithUser(user)
+      self.signInDelegate?.signInCompleted()
     }
   }
 }

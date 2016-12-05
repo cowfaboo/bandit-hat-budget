@@ -70,14 +70,13 @@ class ExpenseEntryViewController: UIViewController {
     
     BKSharedBasicRequestClient.createExpense(withName: name, amount: amount, userID: userID, categoryID: category.cloudID, date: nil) { (success, expense) in
       
-      if success, let expense = expense {
-        
-        Utilities.setDataViewNeedsUpdate()
-        self.expenseEntryDelegate?.expenseEntryDismissed()
-        
-      } else {
+      guard success, let expense = expense else {
         print("failed to create expense")
+        return
       }
+        
+      Utilities.setDataViewNeedsUpdate()
+      self.expenseEntryDelegate?.expenseEntryDismissed()
     }
   }
 }

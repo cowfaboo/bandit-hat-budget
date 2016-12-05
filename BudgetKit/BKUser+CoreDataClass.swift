@@ -72,25 +72,4 @@ public class BKUser: NSManagedObject {
   
     return true
   }
-  
-  /*init?(userDictionary: Dictionary<String, AnyObject>) {
-    
-    guard let cloudID = userDictionary["id"] as? Int,
-      let name = userDictionary["name"] as? String,
-      let dateCreatedString = userDictionary["created_at"] as? String,
-      let dateUpdatedString = userDictionary["updated_at"] as? String else {
-        return nil
-    }
-    
-    guard let dateCreated = BKUtilities.dateTime(from: dateCreatedString),
-      let dateUpdated = BKUtilities.dateTime(from: dateUpdatedString) else {
-        return nil
-    }
-    
-    self.cloudID = Int64(cloudID)
-    self.name = name
-    self.dateCreated = dateCreated as NSDate
-    self.dateUpdated = dateUpdated as NSDate
-  }*/
-  
 }

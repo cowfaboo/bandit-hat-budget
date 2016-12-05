@@ -72,16 +72,17 @@ class CategoryManagementViewController: UIViewController {
     
     BKSharedBasicRequestClient.createCategory(withName: name, monthlyBudget: monthlyBudget, description: description) { (success, category) in
       
-      if success, let category = category {
-        self.categoryArray.append(category)
-        self.tableView.reloadData()
-        self.nameTextField.text = ""
-        self.monthlyBudgetTextField.text = ""
-        self.descriptionTextView.text = ""
-        Utilities.setDataViewNeedsUpdate()
-      } else {
+      guard success, let category = category else {
         print("failed to create category")
+        return
       }
+      
+      self.categoryArray.append(category)
+      self.tableView.reloadData()
+      self.nameTextField.text = ""
+      self.monthlyBudgetTextField.text = ""
+      self.descriptionTextView.text = ""
+      Utilities.setDataViewNeedsUpdate()
     }
   }
   
