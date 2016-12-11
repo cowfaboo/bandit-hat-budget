@@ -36,7 +36,7 @@
                     </connections>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.92769908909999999" blue="0.66998070480000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="P5Y-3e-ZxF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="8uH-kI-xkF"/>
                 <constraint firstItem="P5Y-3e-ZxF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="Gdc-Sb-3WF"/>

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */; };
+		653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */; };
+		65335D001DFD2400000B6081 /* BHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65335CFF1DFD2400000B6081 /* BHButton.swift */; };
 		654D5D9B1DEFB1930089939A /* BKExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9A1DEFB1930089939A /* BKExpense.swift */; };
 		654D5D9D1DEFC0590089939A /* BKAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9C1DEFC0590089939A /* BKAmount.swift */; };
 		654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9E1DF2AB5A0089939A /* Utilities.swift */; };
@@ -73,6 +76,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionCell.swift; sourceTree = "<group>"; };
+		653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserSelectionCell.xib; sourceTree = "<group>"; };
+		65335CFF1DFD2400000B6081 /* BHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BHButton.swift; sourceTree = "<group>"; };
 		654D5D9A1DEFB1930089939A /* BKExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKExpense.swift; sourceTree = "<group>"; };
 		654D5D9C1DEFC0590089939A /* BKAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKAmount.swift; sourceTree = "<group>"; };
 		654D5D9E1DF2AB5A0089939A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -134,6 +140,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65335D011DFD2778000B6081 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				654D5D9E1DF2AB5A0089939A /* Utilities.swift */,
+				65335CFF1DFD2400000B6081 /* BHButton.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		659AD1101DE6B3CC0035E538 = {
 			isa = PBXGroup;
 			children = (
@@ -157,9 +172,9 @@
 			children = (
 				659AD11C1DE6B3CD0035E538 /* AppDelegate.swift */,
 				658390F51DE8F25B001BCE1C /* Settings.swift */,
-				654D5D9E1DF2AB5A0089939A /* Utilities.swift */,
 				659AD11E1DE6B3CD0035E538 /* ContainerViewController.swift */,
 				659AD1311DE6B5800035E538 /* ContainerViewController.xib */,
+				65335D011DFD2778000B6081 /* Utilities */,
 				65E168DA1DF53C3D001A82DD /* Data Presentation */,
 				65B5443C1DE8097300FD2B54 /* Expense Entry */,
 				65B5443B1DE8094C00FD2B54 /* Sign In */,
@@ -176,10 +191,12 @@
 			children = (
 				659AD1331DE6B8FC0035E538 /* SignInViewController.swift */,
 				659AD1341DE6B8FC0035E538 /* SignInViewController.xib */,
-				65E5E21A1DE7E1F10066944F /* UserCreationViewController.swift */,
-				65E5E21B1DE7E1F10066944F /* UserCreationViewController.xib */,
 				65E5E21E1DE7E2160066944F /* UserSelectionViewController.swift */,
 				65E5E21F1DE7E2160066944F /* UserSelectionViewController.xib */,
+				653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */,
+				653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */,
+				65E5E21A1DE7E1F10066944F /* UserCreationViewController.swift */,
+				65E5E21B1DE7E1F10066944F /* UserCreationViewController.xib */,
 			);
 			name = "Sign In";
 			sourceTree = "<group>";
@@ -352,6 +369,7 @@
 				659AD12A1DE6B3CD0035E538 /* LaunchScreen.storyboard in Resources */,
 				659AD1271DE6B3CD0035E538 /* Assets.xcassets in Resources */,
 				659AD1321DE6B5800035E538 /* ContainerViewController.xib in Resources */,
+				653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,7 +395,9 @@
 				659AD11D1DE6B3CD0035E538 /* AppDelegate.swift in Sources */,
 				658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */,
 				654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */,
+				653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */,
 				658390FD1DE906F3001BCE1C /* AmountDataViewController.swift in Sources */,
+				65335D001DFD2400000B6081 /* BHButton.swift in Sources */,
 				65E5E2201DE7E2160066944F /* UserSelectionViewController.swift in Sources */,
 				65A8E4921DF48E9000CEB71F /* ExpenseDataViewController.swift in Sources */,
 				658391011DE91BB2001BCE1C /* CategoryManagementViewController.swift in Sources */,

@@ -11,12 +11,16 @@ import UIKit
 class ContainerViewController: UIViewController {
 
   @IBOutlet weak var dataNavigationContainerView: UIView!
-  @IBOutlet weak var addExpenseButton: UIButton!
+  @IBOutlet weak var addExpenseButton: BHButton!
+  @IBOutlet weak var settingsButton: BHButton!
   
   var dataNavigationController: DataNavigationController!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    addExpenseButton.isCircular = true
+    settingsButton.isCircular = true
     
     dataNavigationController = DataNavigationController(nibName: "DataNavigationController", bundle: nil)
     addChildViewController(dataNavigationController)
@@ -37,6 +41,7 @@ class ContainerViewController: UIViewController {
     let signInViewController = SignInViewController(nibName: "SignInViewController", bundle: nil)
     signInViewController.signInDelegate = self
     let navigationController = UINavigationController(rootViewController: signInViewController)
+    navigationController.navigationBar.isHidden = true
     present(navigationController, animated: true, completion: nil)
   }
   

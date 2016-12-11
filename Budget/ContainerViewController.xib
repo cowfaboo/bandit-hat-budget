@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="addExpenseButton" destination="HIt-HV-fur" id="XuD-dc-NlF"/>
                 <outlet property="dataNavigationContainerView" destination="ZDS-qP-yfi" id="M9B-EL-j2c"/>
+                <outlet property="settingsButton" destination="S7R-3g-jiF" id="ris-ze-x4n"/>
                 <outlet property="view" destination="iN0-l3-epB" id="qb5-7M-K3p"/>
             </connections>
         </placeholder>
@@ -25,32 +26,54 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIt-HV-fur">
-                    <rect key="frame" x="8" y="28" width="90" height="30"/>
-                    <state key="normal" title="Add Expense"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIt-HV-fur" customClass="BHButton" customModule="Budget" customModuleProvider="target">
+                    <rect key="frame" x="8" y="599" width="60" height="60"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="9vq-uU-T2u"/>
+                        <constraint firstAttribute="width" constant="60" id="b1U-p5-TMG"/>
+                    </constraints>
+                    <state key="normal" image="plusButton">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
                         <action selector="addExpenseButtonTapped" destination="-1" eventType="touchUpInside" id="qjV-MS-vvd"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pht-EA-lWz">
-                    <rect key="frame" x="292" y="28" width="75" height="30"/>
-                    <state key="normal" title="Categories"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7R-3g-jiF" customClass="BHButton" customModule="Budget" customModuleProvider="target">
+                    <rect key="frame" x="8" y="8" width="44" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="NyI-Fn-v25"/>
+                        <constraint firstAttribute="height" constant="44" id="fuf-lg-eec"/>
+                    </constraints>
+                    <state key="normal" image="settingsButton">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
-                        <action selector="manageCategoriesButtonTapped" destination="-1" eventType="touchUpInside" id="Jf2-hf-3zt"/>
+                        <action selector="addExpenseButtonTapped" destination="-1" eventType="touchUpInside" id="bwP-pL-Moy"/>
+                        <action selector="manageCategoriesButtonTapped" destination="-1" eventType="touchUpInside" id="9ip-bL-4kK"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.99215686270000003" green="0.4549019608" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="HIt-HV-fur" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="28" id="1Ja-RH-1UB"/>
-                <constraint firstAttribute="trailing" secondItem="pht-EA-lWz" secondAttribute="trailing" constant="8" id="1rG-4y-2kb"/>
-                <constraint firstItem="HIt-HV-fur" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="6dB-OI-dMM"/>
+                <constraint firstItem="S7R-3g-jiF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="2zb-cJ-hw9"/>
                 <constraint firstItem="ZDS-qP-yfi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8LX-Bf-aIE"/>
                 <constraint firstAttribute="bottom" secondItem="ZDS-qP-yfi" secondAttribute="bottom" id="BZl-DK-2oW"/>
+                <constraint firstItem="HIt-HV-fur" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="GcK-O5-kTb"/>
+                <constraint firstItem="S7R-3g-jiF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="Jj0-px-2dg"/>
                 <constraint firstItem="ZDS-qP-yfi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Khc-TO-C4N"/>
-                <constraint firstItem="pht-EA-lWz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="28" id="bHG-Hn-Eqk"/>
+                <constraint firstAttribute="bottom" secondItem="HIt-HV-fur" secondAttribute="bottom" constant="8" id="Nkl-c6-WRc"/>
                 <constraint firstAttribute="trailing" secondItem="ZDS-qP-yfi" secondAttribute="trailing" id="i24-aw-l1D"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="plusButton" width="60" height="60"/>
+        <image name="settingsButton" width="44" height="44"/>
+    </resources>
 </document>

@@ -102,7 +102,7 @@ extension CategoryManagementViewController: UITableViewDataSource {
     
     let monthlyBudget = categoryArray[indexPath.row].monthlyBudget
     if monthlyBudget != 0 {
-      cell.textLabel?.text = categoryArray[indexPath.row].name + " - $\(monthlyBudget.dollarAmount)"
+      cell.textLabel?.text = categoryArray[indexPath.row].name + " - \(monthlyBudget.dollarAmount)"
     } else {
       cell.textLabel?.text = categoryArray[indexPath.row].name
     }
