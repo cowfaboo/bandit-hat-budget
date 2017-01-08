@@ -12,7 +12,13 @@ import CoreData
 
 @objc(BKCategory)
 public class BKCategory: NSManagedObject {
-
+  
+  public var color: UIColor {
+    get {
+      return UIColor(hexString: colorString)
+    }
+  }
+  
   public class func createOrUpdate(with categoryDictionary: Dictionary<String, AnyObject>) -> BKCategory? {
     
     guard let cloudID = categoryDictionary["id"] as? Int64 else {
@@ -55,6 +61,7 @@ public class BKCategory: NSManagedObject {
     
     guard let cloudID = categoryDictionary["id"] as? Int,
       let name = categoryDictionary["name"] as? String,
+      let colorString = categoryDictionary["color"] as? String,
       let dateCreatedString = categoryDictionary["created_at"] as? String,
       let dateUpdatedString = categoryDictionary["updated_at"] as? String else {
         return false
@@ -67,6 +74,7 @@ public class BKCategory: NSManagedObject {
     
     self.cloudID = Int64(cloudID)
     self.name = name
+    self.colorString = colorString
     self.dateCreated = dateCreated as NSDate
     self.dateUpdated = dateUpdated as NSDate
     

@@ -10,6 +10,10 @@
 		653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */; };
 		653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */; };
 		65335D001DFD2400000B6081 /* BHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65335CFF1DFD2400000B6081 /* BHButton.swift */; };
+		65335D041DFE288C000B6081 /* AmountDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65335D021DFE288C000B6081 /* AmountDataCell.swift */; };
+		65335D051DFE288C000B6081 /* AmountDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65335D031DFE288C000B6081 /* AmountDataCell.xib */; };
+		65335D071DFE359F000B6081 /* AmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65335D061DFE359F000B6081 /* AmountView.swift */; };
+		65457CA31E13437800E02912 /* AmountLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65457CA21E13437800E02912 /* AmountLayer.swift */; };
 		654D5D9B1DEFB1930089939A /* BKExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9A1DEFB1930089939A /* BKExpense.swift */; };
 		654D5D9D1DEFC0590089939A /* BKAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9C1DEFC0590089939A /* BKAmount.swift */; };
 		654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9E1DF2AB5A0089939A /* Utilities.swift */; };
@@ -32,6 +36,11 @@
 		65A8E48F1DF371E100CEB71F /* BKModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 65C350741DF354B700F8AE10 /* BKModel.xcdatamodeld */; };
 		65A8E4921DF48E9000CEB71F /* ExpenseDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A8E4901DF48E9000CEB71F /* ExpenseDataViewController.swift */; };
 		65A8E4931DF48E9000CEB71F /* ExpenseDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65A8E4911DF48E9000CEB71F /* ExpenseDataViewController.xib */; };
+		65A98B331DFF7DA300465E3E /* ExpenseDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A98B311DFF7DA300465E3E /* ExpenseDataCell.swift */; };
+		65A98B341DFF7DA300465E3E /* ExpenseDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65A98B321DFF7DA300465E3E /* ExpenseDataCell.xib */; };
+		65A98B381E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A98B371E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift */; };
+		65C183B91E07586200CC5EE8 /* DataHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C183B71E07586200CC5EE8 /* DataHeaderViewController.swift */; };
+		65C183BA1E07586200CC5EE8 /* DataHeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C183B81E07586200CC5EE8 /* DataHeaderViewController.xib */; };
 		65C350761DF354B700F8AE10 /* BKModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65C350741DF354B700F8AE10 /* BKModel.xcdatamodeld */; };
 		65C350781DF354F200F8AE10 /* BKDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C350771DF354F200F8AE10 /* BKDataController.swift */; };
 		65C3507D1DF358FE00F8AE10 /* BKUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C350791DF358FE00F8AE10 /* BKUser+CoreDataClass.swift */; };
@@ -79,6 +88,10 @@
 		653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionCell.swift; sourceTree = "<group>"; };
 		653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserSelectionCell.xib; sourceTree = "<group>"; };
 		65335CFF1DFD2400000B6081 /* BHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BHButton.swift; sourceTree = "<group>"; };
+		65335D021DFE288C000B6081 /* AmountDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountDataCell.swift; sourceTree = "<group>"; };
+		65335D031DFE288C000B6081 /* AmountDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmountDataCell.xib; sourceTree = "<group>"; };
+		65335D061DFE359F000B6081 /* AmountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountView.swift; sourceTree = "<group>"; };
+		65457CA21E13437800E02912 /* AmountLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountLayer.swift; sourceTree = "<group>"; };
 		654D5D9A1DEFB1930089939A /* BKExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKExpense.swift; sourceTree = "<group>"; };
 		654D5D9C1DEFC0590089939A /* BKAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKAmount.swift; sourceTree = "<group>"; };
 		654D5D9E1DF2AB5A0089939A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -102,6 +115,11 @@
 		659AD1381DE6B9090035E538 /* ExpenseEntryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpenseEntryViewController.xib; sourceTree = "<group>"; };
 		65A8E4901DF48E9000CEB71F /* ExpenseDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseDataViewController.swift; sourceTree = "<group>"; };
 		65A8E4911DF48E9000CEB71F /* ExpenseDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpenseDataViewController.xib; sourceTree = "<group>"; };
+		65A98B311DFF7DA300465E3E /* ExpenseDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseDataCell.swift; sourceTree = "<group>"; };
+		65A98B321DFF7DA300465E3E /* ExpenseDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpenseDataCell.xib; sourceTree = "<group>"; };
+		65A98B371E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionalPanGestureRecognizer.swift; sourceTree = "<group>"; };
+		65C183B71E07586200CC5EE8 /* DataHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHeaderViewController.swift; sourceTree = "<group>"; };
+		65C183B81E07586200CC5EE8 /* DataHeaderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataHeaderViewController.xib; sourceTree = "<group>"; };
 		65C350751DF354B700F8AE10 /* BKModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BKModel.xcdatamodel; sourceTree = "<group>"; };
 		65C350771DF354F200F8AE10 /* BKDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKDataController.swift; sourceTree = "<group>"; };
 		65C350791DF358FE00F8AE10 /* BKUser+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BKUser+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -143,8 +161,11 @@
 		65335D011DFD2778000B6081 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				65A98B371E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift */,
 				654D5D9E1DF2AB5A0089939A /* Utilities.swift */,
 				65335CFF1DFD2400000B6081 /* BHButton.swift */,
+				65335D061DFE359F000B6081 /* AmountView.swift */,
+				65457CA21E13437800E02912 /* AmountLayer.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -226,12 +247,18 @@
 		65E168DA1DF53C3D001A82DD /* Data Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				65C183B71E07586200CC5EE8 /* DataHeaderViewController.swift */,
+				65C183B81E07586200CC5EE8 /* DataHeaderViewController.xib */,
 				658390F71DE8FC57001BCE1C /* DataNavigationController.swift */,
 				658390F81DE8FC57001BCE1C /* DataNavigationController.xib */,
 				658390FB1DE906F3001BCE1C /* AmountDataViewController.swift */,
 				658390FC1DE906F3001BCE1C /* AmountDataViewController.xib */,
+				65335D021DFE288C000B6081 /* AmountDataCell.swift */,
+				65335D031DFE288C000B6081 /* AmountDataCell.xib */,
 				65A8E4901DF48E9000CEB71F /* ExpenseDataViewController.swift */,
 				65A8E4911DF48E9000CEB71F /* ExpenseDataViewController.xib */,
+				65A98B311DFF7DA300465E3E /* ExpenseDataCell.swift */,
+				65A98B321DFF7DA300465E3E /* ExpenseDataCell.xib */,
 			);
 			name = "Data Presentation";
 			sourceTree = "<group>";
@@ -364,9 +391,12 @@
 				659AD1361DE6B8FC0035E538 /* SignInViewController.xib in Resources */,
 				65E5E2211DE7E2160066944F /* UserSelectionViewController.xib in Resources */,
 				658390FA1DE8FC57001BCE1C /* DataNavigationController.xib in Resources */,
+				65A98B341DFF7DA300465E3E /* ExpenseDataCell.xib in Resources */,
 				658391021DE91BB2001BCE1C /* CategoryManagementViewController.xib in Resources */,
 				65E5E21D1DE7E1F10066944F /* UserCreationViewController.xib in Resources */,
 				659AD12A1DE6B3CD0035E538 /* LaunchScreen.storyboard in Resources */,
+				65C183BA1E07586200CC5EE8 /* DataHeaderViewController.xib in Resources */,
+				65335D051DFE288C000B6081 /* AmountDataCell.xib in Resources */,
 				659AD1271DE6B3CD0035E538 /* Assets.xcassets in Resources */,
 				659AD1321DE6B5800035E538 /* ContainerViewController.xib in Resources */,
 				653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */,
@@ -392,15 +422,21 @@
 				659AD1351DE6B8FC0035E538 /* SignInViewController.swift in Sources */,
 				658390F61DE8F25B001BCE1C /* Settings.swift in Sources */,
 				659AD11F1DE6B3CD0035E538 /* ContainerViewController.swift in Sources */,
+				65457CA31E13437800E02912 /* AmountLayer.swift in Sources */,
 				659AD11D1DE6B3CD0035E538 /* AppDelegate.swift in Sources */,
+				65335D041DFE288C000B6081 /* AmountDataCell.swift in Sources */,
 				658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */,
 				654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */,
 				653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */,
 				658390FD1DE906F3001BCE1C /* AmountDataViewController.swift in Sources */,
+				65335D071DFE359F000B6081 /* AmountView.swift in Sources */,
 				65335D001DFD2400000B6081 /* BHButton.swift in Sources */,
+				65C183B91E07586200CC5EE8 /* DataHeaderViewController.swift in Sources */,
 				65E5E2201DE7E2160066944F /* UserSelectionViewController.swift in Sources */,
+				65A98B331DFF7DA300465E3E /* ExpenseDataCell.swift in Sources */,
 				65A8E4921DF48E9000CEB71F /* ExpenseDataViewController.swift in Sources */,
 				658391011DE91BB2001BCE1C /* CategoryManagementViewController.swift in Sources */,
+				65A98B381E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift in Sources */,
 				659AD1391DE6B9090035E538 /* ExpenseEntryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

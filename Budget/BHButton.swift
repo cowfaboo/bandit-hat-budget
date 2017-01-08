@@ -24,6 +24,8 @@ class BHButton: UIButton {
     setTitleColor(themeColor, for: .normal)
     setTitleColor(themeColor.withAlphaComponent(0.5), for: .disabled)
     tintColor = themeColor
+    
+    backgroundColor = UIColor.white
   }
 
   override var isEnabled: Bool {

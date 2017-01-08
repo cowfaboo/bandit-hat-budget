@@ -33,7 +33,7 @@ class SignInViewController: UIViewController {
     
     self.view.layer.cornerRadius = 8.0
     
-    let themeColor = Utilities.getRandomColor()
+    let themeColor = UIColor.text
     selectUserButton.themeColor = themeColor
     createUserButton.themeColor = themeColor
     titleLabel.textColor = themeColor

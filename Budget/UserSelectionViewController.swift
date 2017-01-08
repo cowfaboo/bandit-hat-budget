@@ -24,7 +24,7 @@ class UserSelectionViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   
   var userArray = [BKUser]()
-  var themeColor = Utilities.getRandomColor()
+  var themeColor = UIColor.text
   
   override func viewDidLoad() {
     super.viewDidLoad()

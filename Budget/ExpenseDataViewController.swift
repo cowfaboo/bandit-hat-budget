@@ -11,6 +11,7 @@ import BudgetKit
 
 protocol ExpenseDataDelegate: class {
   func shouldDismissExpenseData()
+  func didFinishLoadingExpenseData()
 }
 
 class ExpenseDataViewController: UIViewController {
@@ -18,18 +19,27 @@ class ExpenseDataViewController: UIViewController {
   weak var expenseDataDelegate: ExpenseDataDelegate?
   
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var headerView: UIView!
+  
   @IBOutlet weak var closeButton: UIButton!
   
   var expenseArray = [BKExpense]()
-  var startDate: Date?
-  var endDate: Date?
+  var date: Date = Date()
+  var timeRangeType: TimeRangeType = .monthly
   var category: BKCategory?
   var user: BKUser?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    let dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
+    dataHeaderViewController.date = date
+    dataHeaderViewController.timeRangeType = timeRangeType
+    add(dataHeaderViewController, to: headerView)
+
+    
+    tableView.register(UINib(nibName: "ExpenseDataCell", bundle: nil), forCellReuseIdentifier: "ExpenseDataCell")
+    tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 76))
     
     fetchExpenses()
   }
@@ -56,7 +66,14 @@ class ExpenseDataViewController: UIViewController {
   
   func fetchExpenses() {
     
-    BKSharedBasicRequestClient.getExpenses(forUserID: user?.cloudID, categoryID: category?.cloudID, startDate: startDate, endDate: endDate) { (success, expenseArray) in
+    var dates: (startDate: Date, endDate: Date)
+    if timeRangeType == .monthly {
+      dates = Utilities.getStartAndEndOfMonth(from: date)
+    } else {
+      dates = Utilities.getStartAndEndOfYear(from: date)
+    }
+    
+    BKSharedBasicRequestClient.getExpenses(forUserID: user?.cloudID, categoryID: category?.cloudID, startDate: dates.startDate, endDate: dates.endDate) { (success, expenseArray) in
       
       guard success, let expenseArray = expenseArray else {
         print("failed to get expenses")
@@ -65,6 +82,7 @@ class ExpenseDataViewController: UIViewController {
       
       self.expenseArray = expenseArray
       self.tableView.reloadData()
+      self.expenseDataDelegate?.didFinishLoadingExpenseData()
     }
   }
   
@@ -87,11 +105,8 @@ extension ExpenseDataViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-    let expense = expenseArray[indexPath.row]
-    
-    cell.textLabel?.text = "\(expense.name) - \(expense.amount.dollarAmount)"
-    
+    let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseDataCell") as! ExpenseDataCell
+    cell.expense = expenseArray[indexPath.row]
     return cell
   }
 }

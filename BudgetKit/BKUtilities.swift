@@ -48,3 +48,25 @@ public class BKUtilities {
     return dateFormatter.string(from: date)
   }
 }
+
+extension UIColor {
+  
+  public convenience init(hexString: String) {
+    var sanitizedString = hexString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+    if sanitizedString.hasPrefix("#") {
+      sanitizedString.remove(at: sanitizedString.startIndex)
+    }
+    
+    if sanitizedString.characters.count != 6 {
+      self.init(white: 0.25, alpha: 1.0)
+    } else {
+      var rgbValue: UInt32 = 0
+      Scanner(string: sanitizedString).scanHexInt32(&rgbValue)
+      self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+                green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+                blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+                alpha: CGFloat(1.0))
+    }
+  }
+}
+

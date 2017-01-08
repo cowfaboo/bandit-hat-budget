@@ -19,7 +19,7 @@ extension BKUser {
 
     @NSManaged public var cloudID: Int64
     @NSManaged public var name: String?
-    @NSManaged public var dateCreated: NSDate
-    @NSManaged public var dateUpdated: NSDate
+    @NSManaged var dateCreated: NSDate
+    @NSManaged var dateUpdated: NSDate
 
 }

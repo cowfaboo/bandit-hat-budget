@@ -25,7 +25,7 @@ class UserCreationViewController: UIViewController {
   @IBOutlet weak var nameUnderlineView: UIView!
   @IBOutlet weak var createButton: BHButton!
   
-  var themeColor = Utilities.getRandomColor()
+  var themeColor = UIColor.text
   
   override func viewDidLoad() {
     super.viewDidLoad()

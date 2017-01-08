@@ -9,10 +9,16 @@
 import UIKit
 import BudgetKit
 
+protocol AmountDataDelegate: class {
+  func didFinishLoadingAmountData()
+}
+
 class AmountDataViewController: UIViewController {
   
-  @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var dateLabel: UILabel!
+  weak var amountDataDelegate: AmountDataDelegate?
+  
+  @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet weak var headerView: UIView!
   
   var amountArray = [BKAmount]()
   var date: Date = Date()
@@ -21,14 +27,12 @@ class AmountDataViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    let dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
+    dataHeaderViewController.date = date
+    dataHeaderViewController.timeRangeType = timeRangeType
+    add(dataHeaderViewController, to: headerView)
     
-    if timeRangeType == .monthly {
-      dateLabel.text = Utilities.getMonthYearString(from: date)
-    } else {
-      dateLabel.text = Utilities.getYearString(from: date)
-    }
-    
+    collectionView.register(UINib(nibName: "AmountDataCell", bundle: nil), forCellWithReuseIdentifier: "AmountDataCell")
     
     fetchAmounts()
   }
@@ -39,7 +43,7 @@ class AmountDataViewController: UIViewController {
     if Utilities.dataViewNeedsUpdate() {
       fetchAmounts()
     } else {
-      tableView.reloadData()
+      collectionView.reloadData()
     }
   }
   
@@ -64,56 +68,43 @@ class AmountDataViewController: UIViewController {
       }
       
       self.amountArray = amountArray
-      self.tableView.reloadData()
+      self.collectionView.reloadData()
+      self.amountDataDelegate?.didFinishLoadingAmountData()
     }
   }
 }
 
-// MARK: - Table View Delegate Methods
-extension AmountDataViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+// MARK: - Collection View Flow Layout Delegate Methods
+extension AmountDataViewController: UICollectionViewDelegateFlowLayout {
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     
-    let amount = amountArray[indexPath.row]
-    let category = BKCategory.fetchCategory(withCloudID: amount.categoryID!)
-    let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
-    expenseDataViewController.expenseDataDelegate = self
-    expenseDataViewController.category = category
-    
-    if timeRangeType == .monthly {
-      expenseDataViewController.startDate = Utilities.getStartAndEndOfMonth(from: date).startDate
-      expenseDataViewController.endDate = Utilities.getStartAndEndOfMonth(from: date).endDate
-    } else {
-      expenseDataViewController.startDate = Utilities.getStartAndEndOfYear(from: date).startDate
-      expenseDataViewController.startDate = Utilities.getStartAndEndOfYear(from: date).endDate
-    }
-    
-    present(expenseDataViewController, animated: true, completion: nil)
+    let inset = (collectionView.frame.size.width - (136 * 2.0)) / 3.0
+    return UIEdgeInsetsMake(0, inset, 0, inset)
   }
 }
 
-// MARK: - Table View Data Source Methods
-extension AmountDataViewController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+// MARK: - Collection View Data Source Methods
+extension AmountDataViewController: UICollectionViewDataSource {
+  
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return amountArray.count
   }
   
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-    let amount = amountArray[indexPath.row]
-    let category = BKCategory.fetchCategory(withCloudID: amount.categoryID!)
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
-    if let category = category {
-      
-      var budget: Float
-      if timeRangeType == .monthly {
-        budget = category.monthlyBudget
-      } else {
-        budget = category.monthlyBudget * 12
-      }
-      
-      cell.textLabel?.text = "\(category.name) - \(amountArray[indexPath.row].amount.dollarAmount) / \(budget.dollarAmount)"
-    } else {
-      cell.textLabel?.text = "Unknown Category - \(amountArray[indexPath.row].amount.dollarAmount)"
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmountDataCell", for: indexPath) as! AmountDataCell
+    
+    cell.amount = amountArray[indexPath.item]
+    cell.timeRangeType = timeRangeType
+    if (timeRangeType == .monthly && Utilities.isMonthOf(firstDate: date, equalToMonthOf: Date())) {
+      cell.completionPercentage = Utilities.getCompletionPercentageOfMonth(from: Date())
+    } else if (timeRangeType == .annual && Utilities.isYearOf(firstDate: date, equalToMonthOf: Date())) {
+      cell.completionPercentage = Utilities.getCompletionPercentageOfYear(from: Date())
     }
     
     return cell
@@ -125,5 +116,9 @@ extension AmountDataViewController: ExpenseDataDelegate {
   
   func shouldDismissExpenseData() {
     dismiss(animated: true, completion: nil)
+  }
+  
+  func didFinishLoadingExpenseData() {
+    
   }
 }

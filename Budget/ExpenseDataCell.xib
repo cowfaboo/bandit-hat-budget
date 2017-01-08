@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="ExpenseDataCell" rowHeight="60" id="KGk-i7-Jjw" customClass="ExpenseDataCell" customModule="Budget" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Farm Boy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rT3-a9-gPs">
+                        <rect key="frame" x="16" y="8" width="74.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Groceries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c15-4B-uf0">
+                        <rect key="frame" x="16" y="33" width="66.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="126.55" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuF-kc-bcj">
+                        <rect key="frame" x="233" y="16" width="71" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="c15-4B-uf0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="7rl-23-WHY"/>
+                    <constraint firstAttribute="trailing" secondItem="CuF-kc-bcj" secondAttribute="trailing" constant="16" id="Php-ex-7CN"/>
+                    <constraint firstItem="CuF-kc-bcj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="QvY-w1-xKs"/>
+                    <constraint firstItem="c15-4B-uf0" firstAttribute="top" secondItem="rT3-a9-gPs" secondAttribute="bottom" constant="4" id="Yec-CH-Ank"/>
+                    <constraint firstItem="rT3-a9-gPs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="aTv-mh-bj5"/>
+                    <constraint firstItem="rT3-a9-gPs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="d3P-ne-xBk"/>
+                    <constraint firstItem="CuF-kc-bcj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rT3-a9-gPs" secondAttribute="trailing" constant="16" id="uHS-zY-1fB"/>
+                    <constraint firstItem="CuF-kc-bcj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="c15-4B-uf0" secondAttribute="trailing" constant="16" id="vhw-XU-ZLC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="amountLabel" destination="CuF-kc-bcj" id="RN9-nF-Upn"/>
+                <outlet property="categoryLabel" destination="c15-4B-uf0" id="0ap-7Q-2Br"/>
+                <outlet property="nameLabel" destination="rT3-a9-gPs" id="M83-5E-mmJ"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="95.5"/>
+        </tableViewCell>
+    </objects>
+</document>
