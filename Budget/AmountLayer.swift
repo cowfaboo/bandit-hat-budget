@@ -16,11 +16,7 @@ class AmountLayer: CAShapeLayer {
     }
   }
   
-  var totalAmount: Float = 0 {
-    didSet {
-      //setNeedsDisplay()
-    }
-  }
+  var totalAmount: Float = 0
   
   @NSManaged var primaryAmount: Float
   
@@ -42,8 +38,6 @@ class AmountLayer: CAShapeLayer {
     let cgTotalAmount = CGFloat(totalAmount)
     var cgPrimaryAmount = CGFloat((presentation()?.primaryAmount) ?? 0)
     let cgSecondaryAmount = CGFloat((presentation()?.secondaryAmount) ?? 0)
-    
-    let percentage = cgPrimaryAmount / CGFloat(max(primaryAmount, 1))
     
     let cgExcessAmount = max(cgPrimaryAmount - cgTotalAmount, 0)
     if cgExcessAmount > 0 {
@@ -125,7 +119,6 @@ class AmountLayer: CAShapeLayer {
     
     
     // fill in excess angle
-    
     if cgExcessAmount > 0 {
       
       let excessRadius = min(frame.size.width - 12, frame.size.height - 12) * 0.5
@@ -139,18 +132,6 @@ class AmountLayer: CAShapeLayer {
       context?.closePath()
       context?.drawPath(using: .fillStroke)
     }
-    
-    /*let secondaryRadius = min(frame.size.width - 8, frame.size.height - 8) * 0.5
-    print("***\(cgTotalAmount)")
-    let secondaryEndAngle = startAngle + CGFloat(M_PI * 2) * (10 / cgTotalAmount)
-    
-    context?.setStrokeColor(UIColor(red: 0.2, green: 0.6, blue: 1.0, alpha: 1.0).cgColor)
-    
-    context?.setLineWidth(8.0)
-    
-    //context?.move(to: CGPoint(x: viewCenter.x, y: 4))
-    context?.addArc(center: CGPoint(x: viewCenter.x, y: viewCenter.y), radius: secondaryRadius, startAngle: startAngle, endAngle: secondaryEndAngle, clockwise: false)
-    context?.drawPath(using: .stroke)*/
     
     contents = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
     UIGraphicsEndImageContext()

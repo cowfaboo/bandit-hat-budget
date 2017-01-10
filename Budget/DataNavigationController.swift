@@ -37,7 +37,7 @@ class DataNavigationController: UIViewController {
   @IBOutlet weak var amountsButton: BHButton!
   @IBOutlet weak var expensesButton: BHButton!
   
-  var currentDate = Utilities.getStartAndEndOfMonth(from: Date()).startDate
+  var currentDate = Date().startAndEndOfMonth().startDate
   
   var timeRangeType = TimeRangeType.monthly
   
@@ -344,7 +344,7 @@ class DataNavigationController: UIViewController {
     let previousDate: Date
     
     if timeRangeType == .monthly {
-      previousDate = Utilities.getStartOfPreviousMonth(from: currentDate)
+      previousDate = currentDate.startOfPreviousMonth()
     } else {
       previousDate = currentDate
     }
@@ -368,7 +368,7 @@ class DataNavigationController: UIViewController {
   
   func buildDummyNextView() {
     
-    var nextDate = Utilities.getStartOfNextMonth(from: currentDate)
+    var nextDate = currentDate.startOfNextMonth()
     let nextTimeRangeType: TimeRangeType
     
     if nextDate > Date() {
@@ -398,7 +398,7 @@ class DataNavigationController: UIViewController {
   func buildPreviousDataViewController() {
     
     if timeRangeType == .monthly {
-      currentDate = Utilities.getStartOfPreviousMonth(from: currentDate)
+      currentDate = currentDate.startOfPreviousMonth()
     } else {
       timeRangeType = .monthly
     }
@@ -421,7 +421,7 @@ class DataNavigationController: UIViewController {
   
   func buildNextDataViewController() {
     
-    let nextDate = Utilities.getStartOfNextMonth(from: currentDate)
+    let nextDate = currentDate.startOfNextMonth()
     
     if nextDate > Date() {
       
@@ -532,8 +532,7 @@ extension DataNavigationController: UICollectionViewDataSource {
     let amount = amountDataViewController.amountArray[indexPath.item]
     amount.amount = 0
     
-    cell.amount = amount
-    cell.timeRangeType = timeRangeType
+    cell.initialize(withAmount: amount, timeRangeType: timeRangeType, completionPercentage: nil)
     cell.isPlaceholder = true
     
     return cell

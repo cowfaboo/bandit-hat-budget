@@ -21,23 +21,9 @@ class AmountDataCell: UICollectionViewCell {
     }
   }
   
-  var timeRangeType: TimeRangeType = .monthly {
-    didSet {
-      refreshView()
-    }
-  }
-  
-  var amount: BKAmount! {
-    didSet {
-      refreshView()
-    }
-  }
-  
-  var completionPercentage: Float = 0 {
-    didSet {
-      refreshView()
-    }
-  }
+  private var timeRangeType: TimeRangeType = .monthly
+  private var amount: BKAmount!
+  private var completionPercentage: Float = 0
   
   private var category: BKCategory! {
     didSet {
@@ -48,6 +34,21 @@ class AmountDataCell: UICollectionViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     print("awake from nib")
+  }
+  
+  func initialize(withAmount amount: BKAmount, timeRangeType: TimeRangeType?, completionPercentage: Float?) {
+    
+    self.amount = amount
+    
+    if let timeRangeType = timeRangeType {
+      self.timeRangeType = timeRangeType
+    }
+    
+    if let completionPercentage = completionPercentage {
+      self.completionPercentage = completionPercentage
+    }
+    
+    refreshView()
   }
   
   func refreshView() {

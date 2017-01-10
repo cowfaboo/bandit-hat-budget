@@ -20,9 +20,9 @@ class DataHeaderViewController: UIViewController {
     super.viewDidLoad()
     
     if timeRangeType == .monthly {
-      dateLabel.text = Utilities.getMonthYearString(from: date)
+      dateLabel.text = date.monthYearString()
     } else {
-      dateLabel.text = Utilities.getYearString(from: date)
+      dateLabel.text = date.yearString()
     }
     
     dateLabel.textColor = UIColor.text

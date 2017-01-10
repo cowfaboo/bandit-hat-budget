@@ -30,7 +30,7 @@ class UserCreationViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.view.layer.cornerRadius = 8.0
+    view.layer.cornerRadius = 8.0
     
     titleLabel.textColor = themeColor
     subtitleLabel.textColor = themeColor.withAlphaComponent(0.5)

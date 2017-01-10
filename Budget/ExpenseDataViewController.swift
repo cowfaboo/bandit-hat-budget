@@ -20,23 +20,48 @@ class ExpenseDataViewController: UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var headerView: UIView!
-  
+  @IBOutlet weak var headerLabel: UILabel!
   @IBOutlet weak var closeButton: UIButton!
+  @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
   
   var expenseArray = [BKExpense]()
   var date: Date = Date()
   var timeRangeType: TimeRangeType = .monthly
   var category: BKCategory?
   var user: BKUser?
+  var shouldIncludeDataHeader: Bool = true
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
-    dataHeaderViewController.date = date
-    dataHeaderViewController.timeRangeType = timeRangeType
-    add(dataHeaderViewController, to: headerView)
-
+    if shouldIncludeDataHeader {
+      let dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
+      dataHeaderViewController.date = date
+      dataHeaderViewController.timeRangeType = timeRangeType
+      add(dataHeaderViewController, to: headerView)
+    } else {
+      
+      if let category = category {
+        
+        headerLabel.text = category.name
+        headerLabel.textColor = category.color
+        closeButton.setTitleColor(category.color, for: .normal)
+        
+        headerViewHeightConstraint.constant = 44
+        view.layoutIfNeeded()
+        
+      } else if let user = user {
+        
+        headerLabel.text = user.name
+        
+        headerViewHeightConstraint.constant = 44
+        view.layoutIfNeeded()
+        
+      } else {
+        headerViewHeightConstraint.constant = 0
+        view.layoutIfNeeded()
+      }
+    }
     
     tableView.register(UINib(nibName: "ExpenseDataCell", bundle: nil), forCellReuseIdentifier: "ExpenseDataCell")
     tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 76))
@@ -68,9 +93,9 @@ class ExpenseDataViewController: UIViewController {
     
     var dates: (startDate: Date, endDate: Date)
     if timeRangeType == .monthly {
-      dates = Utilities.getStartAndEndOfMonth(from: date)
+      dates = date.startAndEndOfMonth()
     } else {
-      dates = Utilities.getStartAndEndOfYear(from: date)
+      dates = date.startAndEndOfYear()
     }
     
     BKSharedBasicRequestClient.getExpenses(forUserID: user?.cloudID, categoryID: category?.cloudID, startDate: dates.startDate, endDate: dates.endDate) { (success, expenseArray) in

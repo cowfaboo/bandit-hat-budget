@@ -14,6 +14,8 @@ class ExpenseDataCell: UITableViewCell {
   @IBOutlet var nameLabel: UILabel!
   @IBOutlet var categoryLabel: UILabel!
   @IBOutlet var amountLabel: UILabel!
+  @IBOutlet var dateLabel: UILabel!
+  
   
   var expense: BKExpense! {
     didSet {
@@ -22,6 +24,7 @@ class ExpenseDataCell: UITableViewCell {
       nameLabel.textColor = UIColor.text
       amountLabel.text = expense.amount.dollarAmount
       amountLabel.textColor = UIColor.text
+      dateLabel.text = "\(expense.date.dayOfMonth())"
       
       if let categoryID = expense.categoryID {
         if let category = BKCategory.fetchCategory(withCloudID: categoryID) {

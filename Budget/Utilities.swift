@@ -37,9 +37,26 @@ class Utilities {
     }
   }
   
-  class func isMonthOf(firstDate: Date, equalToMonthOf secondDate: Date) -> Bool {
-    let firstDateComponents = Calendar.current.dateComponents([.month, .year], from: firstDate)
-    let secondDateComponents = Calendar.current.dateComponents([.month, .year], from: secondDate)
+  class func dataViewNeedsUpdate() -> Bool {
+    let dataViewNeedsUpdate = UserDefaults.standard.bool(forKey: DataViewNeedsUpdateKey)
+    UserDefaults.standard.set(false, forKey: DataViewNeedsUpdateKey)
+    return dataViewNeedsUpdate
+  }
+  
+  class func setDataViewNeedsUpdate() {
+    UserDefaults.standard.set(true, forKey: DataViewNeedsUpdateKey)
+  }
+  
+  class func getRandomColor() -> UIColor {
+    return Colors[Int(arc4random_uniform(UInt32(Colors.count)))]
+  }
+}
+
+extension Date {
+  
+  func isMonthEqualTo(_ comparisonDate: Date) -> Bool {
+    let firstDateComponents = Calendar.current.dateComponents([.month, .year], from: self)
+    let secondDateComponents = Calendar.current.dateComponents([.month, .year], from: comparisonDate)
     
     if firstDateComponents.year == secondDateComponents.year && firstDateComponents.month == secondDateComponents.month {
       return true
@@ -48,9 +65,9 @@ class Utilities {
     return false
   }
   
-  class func isYearOf(firstDate: Date, equalToMonthOf secondDate: Date) -> Bool {
-    let firstDateComponents = Calendar.current.dateComponents([.year], from: firstDate)
-    let secondDateComponents = Calendar.current.dateComponents([.year], from: secondDate)
+  func isYearEqualTo(_ comparisonDate: Date) -> Bool {
+    let firstDateComponents = Calendar.current.dateComponents([.year], from: self)
+    let secondDateComponents = Calendar.current.dateComponents([.year], from: comparisonDate)
     
     if firstDateComponents.year == secondDateComponents.year {
       return true
@@ -59,11 +76,11 @@ class Utilities {
     return false
   }
   
-  class func getCompletionPercentageOfMonth(from date: Date) -> Float {
-    let dayRange = Calendar.current.range(of: .day, in: .month, for: date)
+  func completionPercentageOfMonth() -> Float {
+    let dayRange = Calendar.current.range(of: .day, in: .month, for: self)
     let lastDate = dayRange!.upperBound - 1
     
-    let dateComponents = Calendar.current.dateComponents([.day], from: date)
+    let dateComponents = Calendar.current.dateComponents([.day], from: self)
     let currentDate = dateComponents.day
     
     if let currentDate = currentDate {
@@ -73,8 +90,8 @@ class Utilities {
     return 0
   }
   
-  class func getNumberOfDaysInYear(from date: Date) -> Int {
-    var dateComponents = Calendar.current.dateComponents([.year], from: date)
+  func numberOfDaysInYear() -> Int {
+    var dateComponents = Calendar.current.dateComponents([.year], from: self)
     dateComponents.month = 12
     dateComponents.day = 31
     
@@ -87,10 +104,16 @@ class Utilities {
     return 365
   }
   
-  class func getCompletionPercentageOfYear(from date: Date) -> Float {
-    let lastDate = self.getNumberOfDaysInYear(from: date)
+  func dayOfMonth() -> Int {
     
-    let currentDate = Calendar.current.ordinality(of: .day, in: .year, for: date)
+    let dateComponents = Calendar.current.dateComponents([.day], from: self)
+    return dateComponents.day!
+  }
+  
+  func completionPercentageOfYear() -> Float {
+    let lastDate = self.numberOfDaysInYear()
+    
+    let currentDate = Calendar.current.ordinality(of: .day, in: .year, for: self)
     
     if let currentDate = currentDate {
       return Float(currentDate - 1) / Float(lastDate)
@@ -99,10 +122,10 @@ class Utilities {
     return 0
   }
   
-  class func getStartAndEndOfMonth(from date: Date) -> (startDate: Date, endDate: Date) {
+  func startAndEndOfMonth() -> (startDate: Date, endDate: Date) {
     
-    let dateComponents = Calendar.current.dateComponents([.month, .year], from: date)
-    let dayRange = Calendar.current.range(of: .day, in: .month, for: date)
+    let dateComponents = Calendar.current.dateComponents([.month, .year], from: self)
+    let dayRange = Calendar.current.range(of: .day, in: .month, for: self)
     
     var startDateComponents = dateComponents
     var endDateComponents = dateComponents
@@ -115,9 +138,9 @@ class Utilities {
     return (startDate!, endDate!)
   }
   
-  class func getStartAndEndOfYear(from date: Date) -> (startDate: Date, endDate: Date) {
+  func startAndEndOfYear() -> (startDate: Date, endDate: Date) {
     
-    let dateComponents = Calendar.current.dateComponents([.year], from: date)
+    let dateComponents = Calendar.current.dateComponents([.year], from: self)
     
     var startDateComponents = dateComponents
     var endDateComponents = dateComponents
@@ -132,9 +155,9 @@ class Utilities {
     return (startDate!, endDate!)
   }
   
-  class func getStartOfPreviousMonth(from date: Date) -> Date {
+  func startOfPreviousMonth() -> Date {
     
-    var dateComponents = Calendar.current.dateComponents([.month, .year], from: date)
+    var dateComponents = Calendar.current.dateComponents([.month, .year], from: self)
     dateComponents.day = 1
     dateComponents.month! -= 1
     
@@ -143,9 +166,9 @@ class Utilities {
     return date!
   }
   
-  class func getStartOfNextMonth(from date: Date) -> Date {
+  func startOfNextMonth() -> Date {
     
-    var dateComponents = Calendar.current.dateComponents([.month, .year], from: date)
+    var dateComponents = Calendar.current.dateComponents([.month, .year], from: self)
     dateComponents.day = 1
     dateComponents.month! += 1
     
@@ -154,31 +177,18 @@ class Utilities {
     return date!
   }
   
-  class func getMonthYearString(from date: Date) -> String {
+  func monthYearString() -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "MMMM yyyy"
-    return dateFormatter.string(from: date)
+    return dateFormatter.string(from: self)
   }
   
-  class func getYearString(from date: Date) -> String {
+  func yearString() -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy"
-    return dateFormatter.string(from: date)
+    return dateFormatter.string(from: self)
   }
   
-  class func dataViewNeedsUpdate() -> Bool {
-    let dataViewNeedsUpdate = UserDefaults.standard.bool(forKey: DataViewNeedsUpdateKey)
-    UserDefaults.standard.set(false, forKey: DataViewNeedsUpdateKey)
-    return dataViewNeedsUpdate
-  }
-  
-  class func setDataViewNeedsUpdate() {
-    UserDefaults.standard.set(true, forKey: DataViewNeedsUpdateKey)
-  }
-  
-  class func getRandomColor() -> UIColor {
-    return Colors[Int(arc4random_uniform(UInt32(Colors.count)))]
-  }
 }
 
 extension Float {

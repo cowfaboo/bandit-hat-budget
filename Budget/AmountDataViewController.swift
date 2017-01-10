@@ -55,9 +55,9 @@ class AmountDataViewController: UIViewController {
     
     var dates: (startDate: Date, endDate: Date)
     if timeRangeType == .monthly {
-      dates = Utilities.getStartAndEndOfMonth(from: date)
+      dates = date.startAndEndOfMonth()
     } else {
-      dates = Utilities.getStartAndEndOfYear(from: date)
+      dates = date.startAndEndOfYear()
     }
     
     BKSharedBasicRequestClient.getAmountsByCategory(forUserID: Settings.currentUserID(), startDate: dates.startDate, endDate: dates.endDate) { (success, amountArray) in
@@ -82,6 +82,28 @@ extension AmountDataViewController: UICollectionViewDelegateFlowLayout {
     let inset = (collectionView.frame.size.width - (136 * 2.0)) / 3.0
     return UIEdgeInsetsMake(0, inset, 0, inset)
   }
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
+    expenseDataViewController.date = date
+    expenseDataViewController.timeRangeType = timeRangeType
+    expenseDataViewController.shouldIncludeDataHeader = false
+    
+    if let categoryID = amountArray[indexPath.item].categoryID {
+      if let category = BKCategory.fetchCategory(withCloudID: categoryID) {
+        expenseDataViewController.category = category
+      }
+    }
+    
+    let bottomSlideViewController = BottomSlideViewController(nibName: "BottomSlideViewController", bundle: nil)
+    bottomSlideViewController.viewController = expenseDataViewController
+    bottomSlideViewController.modalPresentationStyle = .overFullScreen
+    bottomSlideViewController.bottomSlideDelegate = self
+    expenseDataViewController.expenseDataDelegate = bottomSlideViewController
+    
+    present(bottomSlideViewController, animated: true, completion: nil)
+  }
 }
 
 // MARK: - Collection View Data Source Methods
@@ -99,26 +121,25 @@ extension AmountDataViewController: UICollectionViewDataSource {
     
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmountDataCell", for: indexPath) as! AmountDataCell
     
-    cell.amount = amountArray[indexPath.item]
-    cell.timeRangeType = timeRangeType
-    if (timeRangeType == .monthly && Utilities.isMonthOf(firstDate: date, equalToMonthOf: Date())) {
-      cell.completionPercentage = Utilities.getCompletionPercentageOfMonth(from: Date())
-    } else if (timeRangeType == .annual && Utilities.isYearOf(firstDate: date, equalToMonthOf: Date())) {
-      cell.completionPercentage = Utilities.getCompletionPercentageOfYear(from: Date())
+    let completionPercentage: Float
+    if (timeRangeType == .monthly && date.isMonthEqualTo(Date())) {
+      completionPercentage = Date().completionPercentageOfMonth()
+    } else if (timeRangeType == .annual && date.isYearEqualTo(Date())) {
+      completionPercentage = Date().completionPercentageOfYear()
+    } else {
+      completionPercentage = 0
     }
+    
+    cell.initialize(withAmount: amountArray[indexPath.item], timeRangeType: timeRangeType, completionPercentage: completionPercentage)
     
     return cell
   }
 }
 
-// MARK: - Expense List Delegate Methods
-extension AmountDataViewController: ExpenseDataDelegate {
+// MARK: - Bottom Slide Delegate Methods
+extension AmountDataViewController: BottomSlideDelegate {
   
-  func shouldDismissExpenseData() {
+  func shouldDismissBottomSlideViewController() {
     dismiss(animated: true, completion: nil)
-  }
-  
-  func didFinishLoadingExpenseData() {
-    
   }
 }
