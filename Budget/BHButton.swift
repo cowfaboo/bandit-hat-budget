@@ -23,11 +23,22 @@ class BHButton: UIButton {
     
     setTitleColor(themeColor, for: .normal)
     setTitleColor(themeColor.withAlphaComponent(0.5), for: .disabled)
+    setTitleShadowColor(UIColor.clear, for: .normal)
     tintColor = themeColor
     
     backgroundColor = UIColor.white
   }
 
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    if isCircular {
+      layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: bounds.width / 2.0).cgPath
+    } else {
+      layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 8.0).cgPath
+    }
+  }
+  
   override var isEnabled: Bool {
     didSet {
       if isEnabled {

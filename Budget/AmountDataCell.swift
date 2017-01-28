@@ -33,7 +33,6 @@ class AmountDataCell: UICollectionViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    print("awake from nib")
   }
   
   func initialize(withAmount amount: BKAmount, timeRangeType: TimeRangeType?, completionPercentage: Float?) {
@@ -52,7 +51,6 @@ class AmountDataCell: UICollectionViewCell {
   }
   
   func refreshView() {
-    print("refresh view")
     if let category = BKCategory.fetchCategory(withCloudID: amount.categoryID!) {
       self.category = category
       
@@ -63,6 +61,7 @@ class AmountDataCell: UICollectionViewCell {
       } else {
         totalAmount = category.monthlyBudget * 12
       }
+      
       amountView.totalAmount = totalAmount
       amountView.primaryAmount = amount.amount
       amountView.secondaryAmount = totalAmount * completionPercentage

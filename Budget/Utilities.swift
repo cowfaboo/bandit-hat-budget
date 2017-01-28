@@ -52,6 +52,21 @@ class Utilities {
   }
 }
 
+extension String {
+  
+  func isCompleteDollarAmount() -> Bool {
+    
+    if Float(self) != nil {
+      let decimalArray = self.characters.split(separator: ".")
+      if decimalArray.count == 2 && decimalArray[1].count == 2 {
+        return true
+      }
+    }
+    
+    return false
+  }
+}
+
 extension Date {
   
   func isMonthEqualTo(_ comparisonDate: Date) -> Bool {

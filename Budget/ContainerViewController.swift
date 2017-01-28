@@ -46,8 +46,10 @@ class ContainerViewController: UIViewController {
   }
   
   func presentExpenseEntryView() {
+    
     let expenseEntryViewController = ExpenseEntryViewController(nibName: "ExpenseEntryViewController", bundle: nil)
     expenseEntryViewController.expenseEntryDelegate = self
+    
     present(expenseEntryViewController, animated: true, completion: nil)
   }
   

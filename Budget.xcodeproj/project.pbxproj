@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650714611E2DD82E008468ED /* CategorySelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507145F1E2DD82E008468ED /* CategorySelectionCell.swift */; };
+		650714621E2DD82E008468ED /* CategorySelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650714601E2DD82E008468ED /* CategorySelectionCell.xib */; };
 		653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */; };
 		653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */; };
 		65335D001DFD2400000B6081 /* BHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65335CFF1DFD2400000B6081 /* BHButton.swift */; };
@@ -87,6 +89,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6507145F1E2DD82E008468ED /* CategorySelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySelectionCell.swift; sourceTree = "<group>"; };
+		650714601E2DD82E008468ED /* CategorySelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySelectionCell.xib; sourceTree = "<group>"; };
 		653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionCell.swift; sourceTree = "<group>"; };
 		653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserSelectionCell.xib; sourceTree = "<group>"; };
 		65335CFF1DFD2400000B6081 /* BHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BHButton.swift; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 			children = (
 				659AD1371DE6B9090035E538 /* ExpenseEntryViewController.swift */,
 				659AD1381DE6B9090035E538 /* ExpenseEntryViewController.xib */,
+				6507145F1E2DD82E008468ED /* CategorySelectionCell.swift */,
+				650714601E2DD82E008468ED /* CategorySelectionCell.xib */,
 			);
 			name = "Expense Entry";
 			sourceTree = "<group>";
@@ -396,6 +402,7 @@
 				658390FE1DE906F3001BCE1C /* AmountDataViewController.xib in Resources */,
 				659AD1361DE6B8FC0035E538 /* SignInViewController.xib in Resources */,
 				65E5E2211DE7E2160066944F /* UserSelectionViewController.xib in Resources */,
+				650714621E2DD82E008468ED /* CategorySelectionCell.xib in Resources */,
 				658390FA1DE8FC57001BCE1C /* DataNavigationController.xib in Resources */,
 				65A98B341DFF7DA300465E3E /* ExpenseDataCell.xib in Resources */,
 				658391021DE91BB2001BCE1C /* CategoryManagementViewController.xib in Resources */,
@@ -429,6 +436,7 @@
 				659AD1351DE6B8FC0035E538 /* SignInViewController.swift in Sources */,
 				658390F61DE8F25B001BCE1C /* Settings.swift in Sources */,
 				659AD11F1DE6B3CD0035E538 /* ContainerViewController.swift in Sources */,
+				650714611E2DD82E008468ED /* CategorySelectionCell.swift in Sources */,
 				65457CA31E13437800E02912 /* AmountLayer.swift in Sources */,
 				659AD11D1DE6B3CD0035E538 /* AppDelegate.swift in Sources */,
 				65335D041DFE288C000B6081 /* AmountDataCell.swift in Sources */,

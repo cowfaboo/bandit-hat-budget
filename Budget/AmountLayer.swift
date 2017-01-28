@@ -144,7 +144,7 @@ class AmountLayer: CAShapeLayer {
       let animation = CABasicAnimation(keyPath: event)
       animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
       animation.duration = 0.6
-      animation.fromValue = primaryAmount
+      animation.fromValue = 0
       return animation
       
     } else if event == #keyPath(secondaryAmount) {
@@ -152,7 +152,7 @@ class AmountLayer: CAShapeLayer {
       let animation = CABasicAnimation(keyPath: event)
       animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
       animation.duration = 0.6
-      animation.fromValue = secondaryAmount
+      animation.fromValue = 0
       return animation
     }
     
