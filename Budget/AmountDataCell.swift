@@ -37,6 +37,9 @@ class AmountDataCell: UICollectionViewCell {
   
   func initialize(withAmount amount: BKAmount, timeRangeType: TimeRangeType?, completionPercentage: Float?) {
     
+    amountView.primaryAmount = 0
+    amountView.secondaryAmount = 0
+    
     self.amount = amount
     
     if let timeRangeType = timeRangeType {

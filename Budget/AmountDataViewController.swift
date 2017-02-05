@@ -15,6 +15,8 @@ protocol AmountDataDelegate: class {
 
 class AmountDataViewController: UIViewController {
   
+  var bottomSlideAnimator = BottomSlideAnimator()
+  
   weak var amountDataDelegate: AmountDataDelegate?
   
   @IBOutlet weak var collectionView: UICollectionView!
@@ -34,14 +36,14 @@ class AmountDataViewController: UIViewController {
     
     collectionView.register(UINib(nibName: "AmountDataCell", bundle: nil), forCellWithReuseIdentifier: "AmountDataCell")
     
-    fetchAmounts()
+    updateData()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     if Utilities.dataViewNeedsUpdate() {
-      fetchAmounts()
+      updateData()
     } else {
       collectionView.reloadData()
     }
@@ -50,8 +52,12 @@ class AmountDataViewController: UIViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
   }
+}
+
+// MARK: - Data Displaying Protocol Methods
+extension AmountDataViewController: DataDisplaying {
   
-  func fetchAmounts() {
+  func updateData() {
     
     var dates: (startDate: Date, endDate: Date)
     if timeRangeType == .monthly {
@@ -98,7 +104,9 @@ extension AmountDataViewController: UICollectionViewDelegateFlowLayout {
     
     let bottomSlideViewController = BottomSlideViewController(nibName: "BottomSlideViewController", bundle: nil)
     bottomSlideViewController.viewController = expenseDataViewController
-    bottomSlideViewController.modalPresentationStyle = .overFullScreen
+    bottomSlideViewController.interactivePresenter = self
+    bottomSlideViewController.modalPresentationStyle = .custom
+    bottomSlideViewController.transitioningDelegate = self
     bottomSlideViewController.bottomSlideDelegate = self
     expenseDataViewController.expenseDataDelegate = bottomSlideViewController
     
@@ -141,5 +149,67 @@ extension AmountDataViewController: BottomSlideDelegate {
   
   func shouldDismissBottomSlideViewController() {
     dismiss(animated: true, completion: nil)
+  }
+}
+
+// MARK: - Interactive Presenter Methods
+extension AmountDataViewController: InteractivePresenter {
+  
+  func interactiveDismissalBegan() {
+    print("interactive dismissal began")
+    bottomSlideAnimator.interactive = true
+    dismiss(animated: true)
+  }
+  
+  func interactiveDismissalChanged(withProgress progress: CGFloat) {
+    print("interactive dismissal changed")
+    bottomSlideAnimator.update(progress)
+  }
+  
+  func interactiveDismissalCanceled(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
+    bottomSlideAnimator.distanceToTravel = distanceToTravel
+    bottomSlideAnimator.velocity = velocity
+    bottomSlideAnimator.cancel()
+    bottomSlideAnimator.interactive = false
+  }
+  
+  func interactiveDismissalFinished(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
+    print("interactive dismissal finished")
+    bottomSlideAnimator.distanceToTravel = distanceToTravel
+    bottomSlideAnimator.velocity = velocity
+    bottomSlideAnimator.finish()
+    bottomSlideAnimator.interactive = false
+  }
+}
+
+// MARK: - View Controller Transitioning Delegate Methods
+extension AmountDataViewController: UIViewControllerTransitioningDelegate {
+  
+  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    bottomSlideAnimator.presenting = true
+    return bottomSlideAnimator
+  }
+  
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    bottomSlideAnimator.presenting = false
+    return bottomSlideAnimator
+  }
+  
+  func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    
+    if bottomSlideAnimator.interactive {
+      bottomSlideAnimator.presenting = true
+      return bottomSlideAnimator
+    }
+    return nil
+  }
+  
+  func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    
+    if bottomSlideAnimator.interactive {
+      bottomSlideAnimator.presenting = false
+      return bottomSlideAnimator
+    }
+    return nil
   }
 }

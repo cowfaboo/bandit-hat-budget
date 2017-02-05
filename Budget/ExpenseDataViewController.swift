@@ -14,7 +14,7 @@ protocol ExpenseDataDelegate: class {
   func didFinishLoadingExpenseData()
 }
 
-class ExpenseDataViewController: UIViewController {
+class ExpenseDataViewController: UIViewController, TableViewController {
   
   weak var expenseDataDelegate: ExpenseDataDelegate?
   
@@ -66,7 +66,7 @@ class ExpenseDataViewController: UIViewController {
     tableView.register(UINib(nibName: "ExpenseDataCell", bundle: nil), forCellReuseIdentifier: "ExpenseDataCell")
     tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 76))
     
-    fetchExpenses()
+    updateData()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -79,7 +79,7 @@ class ExpenseDataViewController: UIViewController {
     }
     
     if Utilities.dataViewNeedsUpdate() {
-      fetchExpenses()
+      updateData()
     } else {
       tableView.reloadData()
     }
@@ -89,7 +89,15 @@ class ExpenseDataViewController: UIViewController {
     super.didReceiveMemoryWarning()
   }
   
-  func fetchExpenses() {
+  @IBAction func closeButtonTapped() {
+    expenseDataDelegate?.shouldDismissExpenseData()
+  }
+}
+
+// MARK: - Data Displaying Protocol Methods
+extension ExpenseDataViewController: DataDisplaying {
+  
+  func updateData() {
     
     var dates: (startDate: Date, endDate: Date)
     if timeRangeType == .monthly {
@@ -109,10 +117,6 @@ class ExpenseDataViewController: UIViewController {
       self.tableView.reloadData()
       self.expenseDataDelegate?.didFinishLoadingExpenseData()
     }
-  }
-  
-  @IBAction func closeButtonTapped() {
-    expenseDataDelegate?.shouldDismissExpenseData()
   }
 }
 

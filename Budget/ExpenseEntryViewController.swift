@@ -11,9 +11,10 @@ import BudgetKit
 
 protocol ExpenseEntryDelegate: class {
   func expenseEntryDismissed()
+  func expenseEntered()
 }
 
-class ExpenseEntryViewController: UIViewController {
+class ExpenseEntryViewController: TopLevelViewController {
   
   weak var expenseEntryDelegate: ExpenseEntryDelegate?
   
@@ -119,7 +120,7 @@ class ExpenseEntryViewController: UIViewController {
       }
         
       Utilities.setDataViewNeedsUpdate()
-      self.expenseEntryDelegate?.expenseEntryDismissed()
+      self.expenseEntryDelegate?.expenseEntered()
     }
   }
   

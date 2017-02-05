@@ -19,6 +19,9 @@
 		654D5D9B1DEFB1930089939A /* BKExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9A1DEFB1930089939A /* BKExpense.swift */; };
 		654D5D9D1DEFC0590089939A /* BKAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9C1DEFC0590089939A /* BKAmount.swift */; };
 		654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D5D9E1DF2AB5A0089939A /* Utilities.swift */; };
+		6563FCC41E479FFF00949E80 /* InteractivePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563FCC31E479FFF00949E80 /* InteractivePresenter.swift */; };
+		6563FCC61E47BF8100949E80 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563FCC51E47BF8100949E80 /* TableViewController.swift */; };
+		6563FCC81E47C1E900949E80 /* OneWayPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6563FCC71E47C1E900949E80 /* OneWayPanGestureRecognizer.swift */; };
 		658390F61DE8F25B001BCE1C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390F51DE8F25B001BCE1C /* Settings.swift */; };
 		658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390F71DE8FC57001BCE1C /* DataNavigationController.swift */; };
 		658390FA1DE8FC57001BCE1C /* DataNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658390F81DE8FC57001BCE1C /* DataNavigationController.xib */; };
@@ -41,6 +44,10 @@
 		65A98B331DFF7DA300465E3E /* ExpenseDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A98B311DFF7DA300465E3E /* ExpenseDataCell.swift */; };
 		65A98B341DFF7DA300465E3E /* ExpenseDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65A98B321DFF7DA300465E3E /* ExpenseDataCell.xib */; };
 		65A98B381E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A98B371E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift */; };
+		65B688671E3E9D95003E1323 /* BottomSlideAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B688661E3E9D95003E1323 /* BottomSlideAnimator.swift */; };
+		65B6886A1E3EABFD003E1323 /* TopLayerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B688691E3EABFD003E1323 /* TopLayerAnimator.swift */; };
+		65B6886C1E4181CD003E1323 /* DataDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B6886B1E4181CD003E1323 /* DataDisplaying.swift */; };
+		65B6886E1E41A3DE003E1323 /* TopLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B6886D1E41A3DE003E1323 /* TopLevelViewController.swift */; };
 		65C183B91E07586200CC5EE8 /* DataHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C183B71E07586200CC5EE8 /* DataHeaderViewController.swift */; };
 		65C183BA1E07586200CC5EE8 /* DataHeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C183B81E07586200CC5EE8 /* DataHeaderViewController.xib */; };
 		65C350761DF354B700F8AE10 /* BKModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65C350741DF354B700F8AE10 /* BKModel.xcdatamodeld */; };
@@ -101,6 +108,9 @@
 		654D5D9A1DEFB1930089939A /* BKExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKExpense.swift; sourceTree = "<group>"; };
 		654D5D9C1DEFC0590089939A /* BKAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKAmount.swift; sourceTree = "<group>"; };
 		654D5D9E1DF2AB5A0089939A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		6563FCC31E479FFF00949E80 /* InteractivePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractivePresenter.swift; sourceTree = "<group>"; };
+		6563FCC51E47BF8100949E80 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		6563FCC71E47C1E900949E80 /* OneWayPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneWayPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		658390F51DE8F25B001BCE1C /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		658390F71DE8FC57001BCE1C /* DataNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataNavigationController.swift; sourceTree = "<group>"; };
 		658390F81DE8FC57001BCE1C /* DataNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataNavigationController.xib; sourceTree = "<group>"; };
@@ -124,6 +134,10 @@
 		65A98B311DFF7DA300465E3E /* ExpenseDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseDataCell.swift; sourceTree = "<group>"; };
 		65A98B321DFF7DA300465E3E /* ExpenseDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpenseDataCell.xib; sourceTree = "<group>"; };
 		65A98B371E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionalPanGestureRecognizer.swift; sourceTree = "<group>"; };
+		65B688661E3E9D95003E1323 /* BottomSlideAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSlideAnimator.swift; sourceTree = "<group>"; };
+		65B688691E3EABFD003E1323 /* TopLayerAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopLayerAnimator.swift; sourceTree = "<group>"; };
+		65B6886B1E4181CD003E1323 /* DataDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDisplaying.swift; sourceTree = "<group>"; };
+		65B6886D1E41A3DE003E1323 /* TopLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopLevelViewController.swift; sourceTree = "<group>"; };
 		65C183B71E07586200CC5EE8 /* DataHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHeaderViewController.swift; sourceTree = "<group>"; };
 		65C183B81E07586200CC5EE8 /* DataHeaderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataHeaderViewController.xib; sourceTree = "<group>"; };
 		65C350751DF354B700F8AE10 /* BKModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BKModel.xcdatamodel; sourceTree = "<group>"; };
@@ -170,10 +184,14 @@
 			isa = PBXGroup;
 			children = (
 				65A98B371E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift */,
+				6563FCC71E47C1E900949E80 /* OneWayPanGestureRecognizer.swift */,
 				654D5D9E1DF2AB5A0089939A /* Utilities.swift */,
 				65335CFF1DFD2400000B6081 /* BHButton.swift */,
 				65335D061DFE359F000B6081 /* AmountView.swift */,
 				65457CA21E13437800E02912 /* AmountLayer.swift */,
+				65B6886B1E4181CD003E1323 /* DataDisplaying.swift */,
+				6563FCC31E479FFF00949E80 /* InteractivePresenter.swift */,
+				6563FCC51E47BF8100949E80 /* TableViewController.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -208,6 +226,7 @@
 				65B5443C1DE8097300FD2B54 /* Expense Entry */,
 				65B5443B1DE8094C00FD2B54 /* Sign In */,
 				65E168DB1DF53C56001A82DD /* Category Management */,
+				65B688681E3E9DA0003E1323 /* Animators */,
 				659AD1261DE6B3CD0035E538 /* Assets.xcassets */,
 				659AD1281DE6B3CD0035E538 /* LaunchScreen.storyboard */,
 				659AD12B1DE6B3CD0035E538 /* Info.plist */,
@@ -237,6 +256,7 @@
 				659AD1381DE6B9090035E538 /* ExpenseEntryViewController.xib */,
 				6507145F1E2DD82E008468ED /* CategorySelectionCell.swift */,
 				650714601E2DD82E008468ED /* CategorySelectionCell.xib */,
+				65B6886D1E41A3DE003E1323 /* TopLevelViewController.swift */,
 			);
 			name = "Expense Entry";
 			sourceTree = "<group>";
@@ -252,6 +272,15 @@
 				654D5D9A1DEFB1930089939A /* BKExpense.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		65B688681E3E9DA0003E1323 /* Animators */ = {
+			isa = PBXGroup;
+			children = (
+				65B688691E3EABFD003E1323 /* TopLayerAnimator.swift */,
+				65B688661E3E9D95003E1323 /* BottomSlideAnimator.swift */,
+			);
+			name = Animators;
 			sourceTree = "<group>";
 		};
 		65E168DA1DF53C3D001A82DD /* Data Presentation */ = {
@@ -437,22 +466,29 @@
 				658390F61DE8F25B001BCE1C /* Settings.swift in Sources */,
 				659AD11F1DE6B3CD0035E538 /* ContainerViewController.swift in Sources */,
 				650714611E2DD82E008468ED /* CategorySelectionCell.swift in Sources */,
+				6563FCC81E47C1E900949E80 /* OneWayPanGestureRecognizer.swift in Sources */,
 				65457CA31E13437800E02912 /* AmountLayer.swift in Sources */,
 				659AD11D1DE6B3CD0035E538 /* AppDelegate.swift in Sources */,
 				65335D041DFE288C000B6081 /* AmountDataCell.swift in Sources */,
 				658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */,
 				654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */,
 				653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */,
+				65B6886C1E4181CD003E1323 /* DataDisplaying.swift in Sources */,
 				65D32F6C1E235C3E008475DD /* BottomSlideViewController.swift in Sources */,
 				658390FD1DE906F3001BCE1C /* AmountDataViewController.swift in Sources */,
 				65335D071DFE359F000B6081 /* AmountView.swift in Sources */,
+				6563FCC61E47BF8100949E80 /* TableViewController.swift in Sources */,
 				65335D001DFD2400000B6081 /* BHButton.swift in Sources */,
 				65C183B91E07586200CC5EE8 /* DataHeaderViewController.swift in Sources */,
 				65E5E2201DE7E2160066944F /* UserSelectionViewController.swift in Sources */,
 				65A98B331DFF7DA300465E3E /* ExpenseDataCell.swift in Sources */,
 				65A8E4921DF48E9000CEB71F /* ExpenseDataViewController.swift in Sources */,
 				658391011DE91BB2001BCE1C /* CategoryManagementViewController.swift in Sources */,
+				65B6886E1E41A3DE003E1323 /* TopLevelViewController.swift in Sources */,
+				6563FCC41E479FFF00949E80 /* InteractivePresenter.swift in Sources */,
+				65B6886A1E3EABFD003E1323 /* TopLayerAnimator.swift in Sources */,
 				65A98B381E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift in Sources */,
+				65B688671E3E9D95003E1323 /* BottomSlideAnimator.swift in Sources */,
 				659AD1391DE6B9090035E538 /* ExpenseEntryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

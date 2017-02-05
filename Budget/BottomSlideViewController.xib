@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BottomSlideViewController">
             <connections>
                 <outlet property="containerView" destination="MMf-HP-n7c" id="MNd-Cd-BDu"/>
+                <outlet property="containerViewTopConstraint" destination="1Z2-pc-cNS" id="g3E-vp-lKU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,7 +23,6 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydl-jz-CtC">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <state key="normal" title="Button"/>
                     <connections>
                         <action selector="dismissButtonTapped" destination="-1" eventType="touchUpInside" id="qHm-78-3Uw"/>
                     </connections>
