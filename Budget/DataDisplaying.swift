@@ -10,4 +10,6 @@ import Foundation
 
 protocol DataDisplaying {
   func updateData()
+  func fadeOut(completion: (() -> ())?)
+  func fadeIn(completion: (() -> ())?)
 }

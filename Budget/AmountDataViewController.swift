@@ -78,6 +78,28 @@ extension AmountDataViewController: DataDisplaying {
       self.amountDataDelegate?.didFinishLoadingAmountData()
     }
   }
+  
+  func fadeOut(completion: (() -> ())?) {
+    collectionView.alpha = 1.0
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseOut], animations: {
+      self.collectionView.alpha = 0.0
+    }) { (success) in
+      if let completion = completion {
+        completion()
+      }
+    }
+  }
+  
+  func fadeIn(completion: (() -> ())?) {
+    collectionView.alpha = 0.0
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseIn], animations: {
+      self.collectionView.alpha = 1.0
+    }) { (success) in
+      if let completion = completion {
+        completion()
+      }
+    }
+  }
 }
 
 // MARK: - Collection View Flow Layout Delegate Methods
@@ -156,13 +178,11 @@ extension AmountDataViewController: BottomSlideDelegate {
 extension AmountDataViewController: InteractivePresenter {
   
   func interactiveDismissalBegan() {
-    print("interactive dismissal began")
     bottomSlideAnimator.interactive = true
     dismiss(animated: true)
   }
   
   func interactiveDismissalChanged(withProgress progress: CGFloat) {
-    print("interactive dismissal changed")
     bottomSlideAnimator.update(progress)
   }
   
@@ -174,7 +194,6 @@ extension AmountDataViewController: InteractivePresenter {
   }
   
   func interactiveDismissalFinished(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
-    print("interactive dismissal finished")
     bottomSlideAnimator.distanceToTravel = distanceToTravel
     bottomSlideAnimator.velocity = velocity
     bottomSlideAnimator.finish()

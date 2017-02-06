@@ -326,8 +326,16 @@ class DataNavigationController: UIViewController {
     
     expenseDataViewController.date = currentDate
     expenseDataViewController.timeRangeType = timeRangeType
-    navigate(to: expenseDataViewController)
-    dataPresentationType = .expenses
+    
+    if let dataDisplayingViewController = currentViewController as? DataDisplaying {
+      dataDisplayingViewController.fadeOut() {
+        self.navigate(to: expenseDataViewController, withAnimatedTransition: true)
+        self.dataPresentationType = .expenses
+      }
+    } else {
+      self.navigate(to: expenseDataViewController, withAnimatedTransition: true)
+      self.dataPresentationType = .expenses
+    }
   }
   
   @IBAction func amountsButtonTapped() {
@@ -335,8 +343,16 @@ class DataNavigationController: UIViewController {
     let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
     amountDataViewController.date = currentDate
     amountDataViewController.timeRangeType = timeRangeType
-    navigate(to: amountDataViewController)
-    dataPresentationType = .amounts
+    
+    if let dataDisplayingViewController = currentViewController as? DataDisplaying {
+      dataDisplayingViewController.fadeOut() {
+        self.navigate(to: amountDataViewController, withAnimatedTransition: true)
+        self.dataPresentationType = .amounts
+      }
+    } else {
+      self.navigate(to: amountDataViewController, withAnimatedTransition: true)
+      self.dataPresentationType = .amounts
+    }
   }
   
   func buildDummyPreviousView() {
@@ -465,14 +481,14 @@ class DataNavigationController: UIViewController {
     }
   }
   
-  func navigate(to viewController: UIViewController) {
+  func navigate(to viewController: UIViewController, withAnimatedTransition shouldAnimateTransition: Bool = false) {
     
     if let currentViewController = currentViewController {
       currentViewController.removeFromContainerView()
     }
     
     currentViewController = viewController
-    add(currentViewController, to: currentView)
+    add(currentViewController, to: currentView, withAnimatedTransition: shouldAnimateTransition)
   }
   
   func repositionViews() {

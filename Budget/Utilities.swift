@@ -257,12 +257,16 @@ extension UIColor {
 
 extension UIViewController {
   
-  func add(_ viewController: UIViewController, to containerView: UIView) {
+  func add(_ viewController: UIViewController, to containerView: UIView, withAnimatedTransition shouldAnimateTransition: Bool = false) {
     
     addChildViewController(viewController)
     viewController.view.frame = containerView.bounds
     containerView.addSubview(viewController.view)
     viewController.didMove(toParentViewController: self)
+    
+    if shouldAnimateTransition, let dataDisplayingViewController = viewController as? DataDisplaying {
+      dataDisplayingViewController.fadeIn(completion: nil)
+    }
   }
   
   func removeFromContainerView() {

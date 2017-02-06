@@ -118,6 +118,28 @@ extension ExpenseDataViewController: DataDisplaying {
       self.expenseDataDelegate?.didFinishLoadingExpenseData()
     }
   }
+  
+  func fadeOut(completion: (() -> ())?) {
+    tableView.alpha = 1.0
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseOut], animations: {
+      self.tableView.alpha = 0.0
+    }) { (success) in
+      if let completion = completion {
+        completion()
+      }
+    }
+  }
+  
+  func fadeIn(completion: (() -> ())?) {
+    tableView.alpha = 0.0
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseIn], animations: {
+      self.tableView.alpha = 1.0
+    }) { (success) in
+      if let completion = completion {
+        completion()
+      }
+    }
+  }
 }
 
 // MARK: - Table View Delegate Methods
