@@ -70,6 +70,7 @@ public class BKBasicRequestClient: BKClient {
                                     categoryID: Int64? = nil,
                                     startDate: Date? = nil,
                                     endDate: Date? = nil,
+                                    page: Int? = nil,
                                     completion: @escaping BKGetExpensesCompletionBlock) {
     
     var parameterString: String?
@@ -78,6 +79,7 @@ public class BKBasicRequestClient: BKClient {
     var categoryParameterString: String?
     var startDateParameterString: String?
     var endDateParameterString: String?
+    var pageParameterString: String?
     
     if let userID = userID {
       userParameterString = "user_id=\(userID)"
@@ -95,6 +97,10 @@ public class BKBasicRequestClient: BKClient {
     if let endDate = endDate {
       let endDateString = BKUtilities.dateString(from: endDate)
       endDateParameterString = "end_date=\(endDateString)"
+    }
+    
+    if let page = page {
+      pageParameterString = "per_page=25&page=\(page)"
     }
     
     if let userParameterString = userParameterString {
@@ -122,6 +128,14 @@ public class BKBasicRequestClient: BKClient {
         parameterString! += "&\(endDateParameterString)"
       } else {
         parameterString = endDateParameterString
+      }
+    }
+    
+    if let pageParameterString = pageParameterString {
+      if parameterString != nil {
+        parameterString! += "&\(pageParameterString)"
+      } else {
+        parameterString = pageParameterString
       }
     }
     
