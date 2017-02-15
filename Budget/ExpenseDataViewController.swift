@@ -70,35 +70,8 @@ class ExpenseDataViewController: UIViewController, TableViewController {
     }
     
     tableView.register(UINib(nibName: "ExpenseDataCell", bundle: nil), forCellReuseIdentifier: "ExpenseDataCell")
-    tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 76))
     
-    nextPageActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    nextPageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-    nextPageActivityIndicatorView.color = category?.color
-    tableView.tableFooterView?.addSubview(nextPageActivityIndicatorView)
-    
-    let activityViewCenterXConstraint = NSLayoutConstraint(item: nextPageActivityIndicatorView, attribute: .centerX, relatedBy: .equal, toItem: tableView.tableFooterView, attribute: .centerX, multiplier: 1.0, constant: 0.0)
-    
-    let activityViewCenterYConstraint = NSLayoutConstraint(item: nextPageActivityIndicatorView, attribute: .centerY, relatedBy: .equal, toItem: tableView.tableFooterView, attribute: .centerY, multiplier: 1.0, constant: -8.0)
-    
-    tableView.tableFooterView?.addConstraint(activityViewCenterXConstraint)
-    tableView.tableFooterView?.addConstraint(activityViewCenterYConstraint)
-    
-    lastPageFooterLabel = UILabel()
-    lastPageFooterLabel.translatesAutoresizingMaskIntoConstraints = false
-    lastPageFooterLabel.textColor = category?.color.withAlphaComponent(0.2)
-    lastPageFooterLabel.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
-    lastPageFooterLabel.text = "Nothing else to see here."
-    lastPageFooterLabel.isHidden = true
-    tableView.tableFooterView?.addSubview(lastPageFooterLabel)
-    
-    let footerViewCenterXConstraint = NSLayoutConstraint(item: lastPageFooterLabel, attribute: .centerX, relatedBy: .equal, toItem: tableView.tableFooterView, attribute: .centerX, multiplier: 1.0, constant: 0.0)
-    
-    let footerViewCenterYConstraint = NSLayoutConstraint(item: lastPageFooterLabel, attribute: .centerY, relatedBy: .equal, toItem: tableView.tableFooterView, attribute: .centerY, multiplier: 1.0, constant: -8.0)
-    
-    tableView.tableFooterView?.addConstraint(footerViewCenterXConstraint)
-    tableView.tableFooterView?.addConstraint(footerViewCenterYConstraint)
-    
+    setUpFooterView()
     updateData()
   }
   
@@ -121,6 +94,42 @@ class ExpenseDataViewController: UIViewController, TableViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
   }
+  
+  // MARK: - Private Utility Methods
+  
+  func setUpFooterView() {
+    
+    tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 76))
+    
+    nextPageActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    nextPageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+    nextPageActivityIndicatorView.color = category?.color
+    tableView.tableFooterView?.addSubview(nextPageActivityIndicatorView)
+    
+    let activityViewCenterXConstraint = NSLayoutConstraint(item: nextPageActivityIndicatorView, attribute: .centerX, relatedBy: .equal, toItem: tableView.tableFooterView, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+    
+    let activityViewCenterYConstraint = NSLayoutConstraint(item: nextPageActivityIndicatorView, attribute: .centerY, relatedBy: .equal, toItem: tableView.tableFooterView, attribute: .centerY, multiplier: 1.0, constant: -8.0)
+    
+    tableView.tableFooterView?.addConstraint(activityViewCenterXConstraint)
+    tableView.tableFooterView?.addConstraint(activityViewCenterYConstraint)
+    
+    lastPageFooterLabel = UILabel()
+    lastPageFooterLabel.translatesAutoresizingMaskIntoConstraints = false
+    lastPageFooterLabel.textColor = category?.color.withAlphaComponent(0.2)
+    lastPageFooterLabel.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+    lastPageFooterLabel.text = "---"
+    lastPageFooterLabel.isHidden = true
+    tableView.tableFooterView?.addSubview(lastPageFooterLabel)
+    
+    let footerViewCenterXConstraint = NSLayoutConstraint(item: lastPageFooterLabel, attribute: .centerX, relatedBy: .equal, toItem: tableView.tableFooterView, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+    
+    let footerViewCenterYConstraint = NSLayoutConstraint(item: lastPageFooterLabel, attribute: .centerY, relatedBy: .equal, toItem: tableView.tableFooterView, attribute: .centerY, multiplier: 1.0, constant: -8.0)
+    
+    tableView.tableFooterView?.addConstraint(footerViewCenterXConstraint)
+    tableView.tableFooterView?.addConstraint(footerViewCenterYConstraint)
+  }
+  
+  // MARK: - Action Methods
   
   @IBAction func closeButtonTapped() {
     expenseDataDelegate?.shouldDismissExpenseData()
