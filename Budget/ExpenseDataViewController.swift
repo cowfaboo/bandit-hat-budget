@@ -64,6 +64,7 @@ class ExpenseDataViewController: UIViewController, TableViewController {
         view.layoutIfNeeded()
         
       } else {
+        closeButton.isHidden = true
         headerViewHeightConstraint.constant = 0
         view.layoutIfNeeded()
       }

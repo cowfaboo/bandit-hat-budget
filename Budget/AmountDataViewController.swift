@@ -66,7 +66,7 @@ extension AmountDataViewController: DataDisplaying {
       dates = date.startAndEndOfYear()
     }
     
-    BKSharedBasicRequestClient.getAmountsByCategory(forUserID: Settings.currentUserID(), startDate: dates.startDate, endDate: dates.endDate) { (success, amountArray) in
+    BKSharedBasicRequestClient.getAmountsByCategory(forUserID: nil, startDate: dates.startDate, endDate: dates.endDate) { (success, amountArray) in
       
       guard success, let amountArray = amountArray else {
         print("failed to get amounts")
