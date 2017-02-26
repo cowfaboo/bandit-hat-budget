@@ -8,10 +8,16 @@
 
 import UIKit
 
+enum OneWayPanGestureDirection {
+  case up
+  case down
+}
+
 class OneWayPanGestureRecognizer: UIPanGestureRecognizer {
   var drag: Bool = false
   var moveX: Int = 0
   var moveY: Int = 0
+  var direction: OneWayPanGestureDirection = .down
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
     super.touchesMoved(touches, with: event)
@@ -27,7 +33,7 @@ class OneWayPanGestureRecognizer: UIPanGestureRecognizer {
     moveY += Int(prevPoint.y - nowPoint.y)
     
     if !drag {
-      if moveY > 0 {
+      if (direction == .down && moveY > 0) || (direction == .up && moveY < 0) {
         state = .failed
       } else {
         drag = true

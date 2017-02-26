@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,7 +15,9 @@
                 <outlet property="addExpenseButtonContainerViewBottomConstraint" destination="qEf-9E-DKv" id="AL8-3e-gUN"/>
                 <outlet property="amountTextField" destination="U4o-bU-E39" id="hhS-7c-Ldz"/>
                 <outlet property="categoryCollectionView" destination="k0f-bm-2zh" id="ufy-I1-ABT"/>
+                <outlet property="changeDateButton" destination="K4K-Hk-Mzx" id="Eey-qP-cAO"/>
                 <outlet property="closeButton" destination="Eyu-PK-rTY" id="kjL-Qy-aH2"/>
+                <outlet property="dateTextButton" destination="BML-Z5-8GY" id="Ld8-mc-sGa"/>
                 <outlet property="dollarSignTextField" destination="0B2-SD-UBx" id="4PJ-hx-h8w"/>
                 <outlet property="nameTextField" destination="9Hq-Vq-KQc" id="vk3-Gp-M4g"/>
                 <outlet property="tintView" destination="HyU-iK-11N" id="TXw-Vu-wZH"/>
@@ -31,6 +33,32 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BML-Z5-8GY">
+                    <rect key="frame" x="303" y="0.0" width="30" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="Lwz-XB-xe8"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="1" alpha="0.080512152777777776" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="changeDateButtonTapped" destination="-1" eventType="touchUpInside" id="hJZ-Fz-scu"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K4K-Hk-Mzx">
+                    <rect key="frame" x="331" y="0.0" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="nx4-iD-nK5"/>
+                        <constraint firstAttribute="height" constant="44" id="uR6-xq-5zg"/>
+                    </constraints>
+                    <state key="normal" image="calendarButton">
+                        <color key="titleShadowColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="changeDateButtonTapped" destination="-1" eventType="touchUpInside" id="79G-0T-QPS"/>
+                    </connections>
+                </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U4o-bU-E39">
                     <rect key="frame" x="97" y="76" width="262" height="44"/>
                     <constraints>
@@ -97,13 +125,13 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I spent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSM-Cj-s86">
-                    <rect key="frame" x="16" y="91" width="49.5" height="19.5"/>
+                    <rect key="frame" x="16" y="91" width="50" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" white="0.65291391692546585" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="on" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2h-VZ-Umz">
-                    <rect key="frame" x="16" y="168" width="18.5" height="19.5"/>
+                    <rect key="frame" x="16" y="168" width="19" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" white="0.65497622282608692" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -161,6 +189,7 @@
                 <constraint firstItem="hiX-i0-yNH" firstAttribute="top" secondItem="k0f-bm-2zh" secondAttribute="bottom" id="247-lv-N39"/>
                 <constraint firstItem="5zj-ju-Xkg" firstAttribute="top" secondItem="9Hq-Vq-KQc" secondAttribute="bottom" id="3Sf-q6-rex"/>
                 <constraint firstAttribute="trailing" secondItem="Vj1-3K-54e" secondAttribute="trailing" id="3na-lz-NBd"/>
+                <constraint firstItem="BML-Z5-8GY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3nv-RS-mVC"/>
                 <constraint firstAttribute="bottom" secondItem="HyU-iK-11N" secondAttribute="bottom" id="3st-cm-Ejt"/>
                 <constraint firstItem="Eyu-PK-rTY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="4yP-zy-LGH"/>
                 <constraint firstAttribute="trailing" secondItem="U4o-bU-E39" secondAttribute="trailing" constant="16" id="Ao9-GP-C3x"/>
@@ -175,6 +204,7 @@
                 <constraint firstItem="Vj1-3K-54e" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="N9d-xn-rgO"/>
                 <constraint firstAttribute="trailing" secondItem="HyU-iK-11N" secondAttribute="trailing" id="Nry-It-RJT"/>
                 <constraint firstItem="U4o-bU-E39" firstAttribute="leading" secondItem="0B2-SD-UBx" secondAttribute="trailing" constant="-2" id="Owm-5Q-dYn"/>
+                <constraint firstItem="K4K-Hk-Mzx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OzY-I3-ODc"/>
                 <constraint firstItem="k0f-bm-2zh" firstAttribute="top" secondItem="5zj-ju-Xkg" secondAttribute="bottom" constant="32" id="QWP-JH-XwJ"/>
                 <constraint firstAttribute="trailing" secondItem="hiX-i0-yNH" secondAttribute="trailing" constant="16" id="Spi-ur-kML"/>
                 <constraint firstAttribute="trailing" secondItem="44W-F5-Lav" secondAttribute="trailing" constant="16" id="TPX-wb-AAY"/>
@@ -184,6 +214,7 @@
                 <constraint firstItem="0B2-SD-UBx" firstAttribute="top" secondItem="Eyu-PK-rTY" secondAttribute="bottom" constant="32" id="c8F-0C-gnO"/>
                 <constraint firstItem="HyU-iK-11N" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cVM-MM-oun"/>
                 <constraint firstItem="U4o-bU-E39" firstAttribute="top" secondItem="Eyu-PK-rTY" secondAttribute="bottom" constant="32" id="e5e-80-3J8"/>
+                <constraint firstAttribute="trailing" secondItem="K4K-Hk-Mzx" secondAttribute="trailing" id="go5-Jc-dbb"/>
                 <constraint firstItem="gSM-Cj-s86" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="hrn-Vy-xtT"/>
                 <constraint firstItem="Vj1-3K-54e" firstAttribute="top" secondItem="hiX-i0-yNH" secondAttribute="bottom" id="j0M-Wx-Lbd"/>
                 <constraint firstItem="9Hq-Vq-KQc" firstAttribute="baseline" secondItem="J2h-VZ-Umz" secondAttribute="baseline" id="krk-4y-EhO"/>
@@ -194,12 +225,14 @@
                 <constraint firstAttribute="bottom" secondItem="Vj1-3K-54e" secondAttribute="bottom" id="qEf-9E-DKv"/>
                 <constraint firstItem="0B2-SD-UBx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="rI5-eW-zuH"/>
                 <constraint firstItem="Eyu-PK-rTY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tA0-wC-iIV"/>
+                <constraint firstItem="K4K-Hk-Mzx" firstAttribute="leading" secondItem="BML-Z5-8GY" secondAttribute="trailing" constant="-2" id="zxH-An-5vJ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="34.5" y="53.5"/>
         </view>
     </objects>
     <resources>
+        <image name="calendarButton" width="44" height="44"/>
         <image name="closeButton" width="44" height="44"/>
     </resources>
 </document>

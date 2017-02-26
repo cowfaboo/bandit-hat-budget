@@ -78,6 +78,13 @@
 		65E5E2371DE7E8C50066944F /* BKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E2361DE7E8C50066944F /* BKConstants.swift */; };
 		65E5E2391DE7EB5D0066944F /* BKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E2381DE7EB5D0066944F /* BKClient.swift */; };
 		65E5E23D1DE7FF190066944F /* BKUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E23C1DE7FF190066944F /* BKUtilities.swift */; };
+		65E96BD71E5A186000EDE0A2 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E96BD51E5A186000EDE0A2 /* CalendarViewController.swift */; };
+		65E96BD81E5A186000EDE0A2 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E96BD61E5A186000EDE0A2 /* CalendarViewController.xib */; };
+		65E96BE01E5A202600EDE0A2 /* TopSlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E96BDE1E5A202600EDE0A2 /* TopSlideViewController.swift */; };
+		65E96BE11E5A202600EDE0A2 /* TopSlideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E96BDF1E5A202600EDE0A2 /* TopSlideViewController.xib */; };
+		65E96BE31E5B92F600EDE0A2 /* TopSlideAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E96BE21E5B92F600EDE0A2 /* TopSlideAnimator.swift */; };
+		65E96BE61E5BACB300EDE0A2 /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E96BE41E5BACB300EDE0A2 /* CalendarCell.xib */; };
+		65E96BE71E5BACB300EDE0A2 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E96BE51E5BACB300EDE0A2 /* CalendarCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +185,13 @@
 		65E5E2361DE7E8C50066944F /* BKConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKConstants.swift; sourceTree = "<group>"; };
 		65E5E2381DE7EB5D0066944F /* BKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKClient.swift; sourceTree = "<group>"; };
 		65E5E23C1DE7FF190066944F /* BKUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BKUtilities.swift; sourceTree = "<group>"; };
+		65E96BD51E5A186000EDE0A2 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		65E96BD61E5A186000EDE0A2 /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
+		65E96BDE1E5A202600EDE0A2 /* TopSlideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopSlideViewController.swift; sourceTree = "<group>"; };
+		65E96BDF1E5A202600EDE0A2 /* TopSlideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopSlideViewController.xib; sourceTree = "<group>"; };
+		65E96BE21E5B92F600EDE0A2 /* TopSlideAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopSlideAnimator.swift; sourceTree = "<group>"; };
+		65E96BE41E5BACB300EDE0A2 /* CalendarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
+		65E96BE51E5BACB300EDE0A2 /* CalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +234,10 @@
 				65B6886B1E4181CD003E1323 /* DataDisplaying.swift */,
 				6563FCC31E479FFF00949E80 /* InteractivePresenter.swift */,
 				6563FCC51E47BF8100949E80 /* TableViewController.swift */,
+				65E96BD51E5A186000EDE0A2 /* CalendarViewController.swift */,
+				65E96BD61E5A186000EDE0A2 /* CalendarViewController.xib */,
+				65E96BE51E5BACB300EDE0A2 /* CalendarCell.swift */,
+				65E96BE41E5BACB300EDE0A2 /* CalendarCell.xib */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -325,6 +343,7 @@
 			children = (
 				65B688691E3EABFD003E1323 /* TopLayerAnimator.swift */,
 				65B688661E3E9D95003E1323 /* BottomSlideAnimator.swift */,
+				65E96BE21E5B92F600EDE0A2 /* TopSlideAnimator.swift */,
 			);
 			name = Animators;
 			sourceTree = "<group>";
@@ -342,10 +361,12 @@
 				65335D031DFE288C000B6081 /* AmountDataCell.xib */,
 				65A8E4901DF48E9000CEB71F /* ExpenseDataViewController.swift */,
 				65A8E4911DF48E9000CEB71F /* ExpenseDataViewController.xib */,
-				65D32F6A1E235C3E008475DD /* BottomSlideViewController.swift */,
-				65D32F6B1E235C3E008475DD /* BottomSlideViewController.xib */,
 				65A98B311DFF7DA300465E3E /* ExpenseDataCell.swift */,
 				65A98B321DFF7DA300465E3E /* ExpenseDataCell.xib */,
+				65D32F6A1E235C3E008475DD /* BottomSlideViewController.swift */,
+				65D32F6B1E235C3E008475DD /* BottomSlideViewController.xib */,
+				65E96BDE1E5A202600EDE0A2 /* TopSlideViewController.swift */,
+				65E96BDF1E5A202600EDE0A2 /* TopSlideViewController.xib */,
 			);
 			name = "Data Presentation";
 			sourceTree = "<group>";
@@ -475,6 +496,7 @@
 			files = (
 				659AD13A1DE6B9090035E538 /* ExpenseEntryViewController.xib in Resources */,
 				65A8E4931DF48E9000CEB71F /* ExpenseDataViewController.xib in Resources */,
+				65E96BD81E5A186000EDE0A2 /* CalendarViewController.xib in Resources */,
 				658390FE1DE906F3001BCE1C /* AmountDataViewController.xib in Resources */,
 				659AD1361DE6B8FC0035E538 /* SignInViewController.xib in Resources */,
 				65E5E2211DE7E2160066944F /* UserSelectionViewController.xib in Resources */,
@@ -486,10 +508,12 @@
 				65E5E21D1DE7E1F10066944F /* UserCreationViewController.xib in Resources */,
 				659AD12A1DE6B3CD0035E538 /* LaunchScreen.storyboard in Resources */,
 				65C183BA1E07586200CC5EE8 /* DataHeaderViewController.xib in Resources */,
+				65E96BE11E5A202600EDE0A2 /* TopSlideViewController.xib in Resources */,
 				65335D051DFE288C000B6081 /* AmountDataCell.xib in Resources */,
 				659AD1271DE6B3CD0035E538 /* Assets.xcassets in Resources */,
 				659AD1321DE6B5800035E538 /* ContainerViewController.xib in Resources */,
 				653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */,
+				65E96BE61E5BACB300EDE0A2 /* CalendarCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +532,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E96BD71E5A186000EDE0A2 /* CalendarViewController.swift in Sources */,
 				65E5E21C1DE7E1F10066944F /* UserCreationViewController.swift in Sources */,
 				659AD1351DE6B8FC0035E538 /* SignInViewController.swift in Sources */,
 				658390F61DE8F25B001BCE1C /* Settings.swift in Sources */,
@@ -523,6 +548,7 @@
 				65B6886C1E4181CD003E1323 /* DataDisplaying.swift in Sources */,
 				65D32F6C1E235C3E008475DD /* BottomSlideViewController.swift in Sources */,
 				658390FD1DE906F3001BCE1C /* AmountDataViewController.swift in Sources */,
+				65E96BE31E5B92F600EDE0A2 /* TopSlideAnimator.swift in Sources */,
 				65335D071DFE359F000B6081 /* AmountView.swift in Sources */,
 				6563FCC61E47BF8100949E80 /* TableViewController.swift in Sources */,
 				65335D001DFD2400000B6081 /* BHButton.swift in Sources */,
@@ -534,6 +560,8 @@
 				65B6886E1E41A3DE003E1323 /* TopLevelViewController.swift in Sources */,
 				6563FCC41E479FFF00949E80 /* InteractivePresenter.swift in Sources */,
 				65B6886A1E3EABFD003E1323 /* TopLayerAnimator.swift in Sources */,
+				65E96BE71E5BACB300EDE0A2 /* CalendarCell.swift in Sources */,
+				65E96BE01E5A202600EDE0A2 /* TopSlideViewController.swift in Sources */,
 				65A98B381E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift in Sources */,
 				65B688671E3E9D95003E1323 /* BottomSlideAnimator.swift in Sources */,
 				659AD1391DE6B9090035E538 /* ExpenseEntryViewController.swift in Sources */,

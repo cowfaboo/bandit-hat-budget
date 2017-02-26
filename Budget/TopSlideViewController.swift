@@ -1,22 +1,21 @@
 //
-//  BottomSlideViewController.swift
+//  TopSlideViewController.swift
 //  Budget
 //
-//  Created by Daniel Gauthier on 2017-01-09.
+//  Created by Daniel Gauthier on 2017-02-19.
 //  Copyright © 2017 Bandit Hat Apps. All rights reserved.
 //
 
 import UIKit
 
-protocol BottomSlideDelegate: class {
-  func shouldDismissBottomSlideViewController()
+protocol TopSlideDelegate: class {
+  func shouldDismissTopSlideViewController()
 }
 
-class BottomSlideViewController: UIViewController {
+class TopSlideViewController: UIViewController {
   
-  weak var bottomSlideDelegate: BottomSlideDelegate?
+  weak var topSlideDelegate: TopSlideDelegate?
   weak var interactivePresenter: InteractivePresenter?
-
   
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var containerViewTopConstraint: NSLayoutConstraint!
@@ -35,18 +34,8 @@ class BottomSlideViewController: UIViewController {
     containerView.layer.allowsEdgeAntialiasing = true
     
     let panGestureRecognizer = OneWayPanGestureRecognizer(target: self, action: #selector(handleDrag(recognizer:)))
+    panGestureRecognizer.direction = .up
     view.addGestureRecognizer(panGestureRecognizer)
-    
-    
-    if let tableViewController = viewController as? TableViewController {
-      
-      let scrollGestureRecognizer = OneWayPanGestureRecognizer(target: self, action: #selector(handleDrag(recognizer:)))
-      scrollGestureRecognizer.delegate = self
-      
-      tableViewController.tableView.addGestureRecognizer(scrollGestureRecognizer)
-      tableViewController.tableView.panGestureRecognizer.require(toFail: scrollGestureRecognizer)
-      tableViewController.tableView.layer.allowsEdgeAntialiasing = true
-    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -54,7 +43,7 @@ class BottomSlideViewController: UIViewController {
   }
   
   @IBAction func dismissButtonTapped() {
-    bottomSlideDelegate?.shouldDismissBottomSlideViewController()
+    topSlideDelegate?.shouldDismissTopSlideViewController()
   }
   
   func handleDrag(recognizer: UIPanGestureRecognizer) {
@@ -64,8 +53,7 @@ class BottomSlideViewController: UIViewController {
       interactivePresenter?.interactiveDismissalBegan()
       
     } else if recognizer.state == .changed {
-      var progress = recognizer.translation(in: view).y / (Utilities.screenHeight - 115.0)
-      
+      var progress = -recognizer.translation(in: view).y / (96.0 + containerView.frame.size.height)
       if progress < 0.0 {
         progress = progress / (4.0 * (1.0 - progress))
       }
@@ -84,12 +72,12 @@ class BottomSlideViewController: UIViewController {
       containerView.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_4 / 10.0) * xTranslationPercent)
       
     } else if recognizer.state == .ended {
-      var progress = recognizer.translation(in: view).y / (Utilities.screenHeight - 115.0)
+      var progress = -recognizer.translation(in: view).y / (96.0 + containerView.frame.size.height)
       progress = min(1.0, max(0.0, progress))
       var velocity = recognizer.velocity(in: view).y
       
-      if (progress > 0.5 || velocity > 300) && velocity > -300 {
-        var distanceToTravel = (1.0 - progress) * (Utilities.screenHeight - 115.0)
+      if (progress > 0.5 || velocity < -300) && velocity < 300 {
+        var distanceToTravel = (1.0 - progress) * (96.0 + containerView.frame.size.height)
         if distanceToTravel < 0 {
           distanceToTravel *= -1.0
           velocity *= -1
@@ -102,7 +90,7 @@ class BottomSlideViewController: UIViewController {
         }, completion: nil)
         
       } else {
-        var distanceToTravel = progress * (Utilities.screenHeight - 115.0)
+        var distanceToTravel = progress * (96.0 + containerView.frame.size.height)
         if distanceToTravel < 0 {
           distanceToTravel *= -1.0
           velocity *= -1
@@ -115,20 +103,5 @@ class BottomSlideViewController: UIViewController {
         }, completion: nil)
       }
     }
-  }
-}
-
-// MARK: - Gesture Recognizer Delegate Methods
-extension BottomSlideViewController: UIGestureRecognizerDelegate {
-  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    
-    if let tableViewController = viewController as? TableViewController {
-      if tableViewController.tableView.contentOffset.y <= 0 {
-        return true
-      } else {
-        return false
-      }
-    }
-    return true
   }
 }

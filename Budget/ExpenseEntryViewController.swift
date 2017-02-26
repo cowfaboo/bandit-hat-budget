@@ -16,6 +16,8 @@ protocol ExpenseEntryDelegate: class {
 
 class ExpenseEntryViewController: TopLevelViewController {
   
+  var topSlideAnimator = TopSlideAnimator()
+  
   weak var expenseEntryDelegate: ExpenseEntryDelegate?
   
   @IBOutlet weak var tintView: UIView!
@@ -25,6 +27,8 @@ class ExpenseEntryViewController: TopLevelViewController {
   @IBOutlet weak var dollarSignTextField: UITextField!
   
   @IBOutlet weak var addExpenseButton: BHButton!
+  @IBOutlet weak var changeDateButton: UIButton!
+  @IBOutlet weak var dateTextButton: UIButton!
   @IBOutlet weak var closeButton: UIButton!
   
   @IBOutlet weak var categoryCollectionView: UICollectionView!
@@ -41,6 +45,21 @@ class ExpenseEntryViewController: TopLevelViewController {
         amountTextField.tintColor = selectedCategory.color
         closeButton.tintColor = selectedCategory.color
         addExpenseButton.themeColor = selectedCategory.color
+        changeDateButton.tintColor = selectedCategory.color
+        dateTextButton.tintColor = selectedCategory.color
+      }
+    }
+  }
+  
+  var selectedDate: Date? {
+    didSet {
+      if selectedDate != nil && selectedDate!.isDateEqualTo(Date()) {
+        dateTextButton.alpha = 0.0
+      } else {
+        dateTextButton.setTitle(selectedDate?.monthDayYearString(), for: .normal)
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseIn], animations: { 
+          self.dateTextButton.alpha = 1.0
+        }, completion: nil)
       }
     }
   }
@@ -112,7 +131,7 @@ class ExpenseEntryViewController: TopLevelViewController {
     let name = nameTextField.text!
     let amount = Float(amountTextField.text!)!
     
-    BKSharedBasicRequestClient.createExpense(withName: name, amount: amount, userID: userID, categoryID: selectedCategory!.cloudID, date: nil) { (success, expense) in
+    BKSharedBasicRequestClient.createExpense(withName: name, amount: amount, userID: userID, categoryID: selectedCategory!.cloudID, date: selectedDate) { (success, expense) in
       
       guard success, let _ = expense else {
         print("failed to create expense")
@@ -122,6 +141,29 @@ class ExpenseEntryViewController: TopLevelViewController {
       Utilities.setDataViewNeedsUpdate()
       self.expenseEntryDelegate?.expenseEntered()
     }
+  }
+  
+  @IBAction func changeDateButtonTapped() {
+    
+    view.endEditing(true)
+    
+    let calendarViewController = CalendarViewController(nibName: "CalendarViewController", bundle: nil)
+    calendarViewController.calendarDelegate = self
+    if let themeColor = selectedCategory?.color {
+      calendarViewController.themeColor = themeColor
+    }
+    if let selectedDate = selectedDate {
+      calendarViewController.selectedDate = selectedDate
+    }
+    
+    let topSlideViewController = TopSlideViewController(nibName: "TopSlideViewController", bundle: nil)
+    topSlideViewController.viewController = calendarViewController
+    topSlideViewController.interactivePresenter = self
+    topSlideViewController.modalPresentationStyle = .custom
+    topSlideViewController.transitioningDelegate = self
+    topSlideViewController.topSlideDelegate = self
+    
+    present(topSlideViewController, animated: true, completion: nil)
   }
   
   
@@ -144,10 +186,6 @@ class ExpenseEntryViewController: TopLevelViewController {
 
 // MARK: - Collection View Flow Layout Delegate Methods
 extension ExpenseEntryViewController: UICollectionViewDelegateFlowLayout {
-  
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
-  }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return CGSize(width: Utilities.screenWidth, height: 44)
@@ -225,5 +263,91 @@ extension ExpenseEntryViewController: UITextFieldDelegate {
     } else {
       addExpenseButton.isEnabled = false
     }
+  }
+}
+
+// MARK: - Top Slide Delegate Methods
+extension ExpenseEntryViewController: TopSlideDelegate {
+  func shouldDismissTopSlideViewController() {
+    dismiss(animated: true, completion: nil)
+  }
+}
+
+// MARK: - Calendar Delegate Methods
+extension ExpenseEntryViewController: CalendarDelegate {
+  func shouldDismissCalendar(withChosenDate date: Date?) {
+    dismiss(animated: true, completion: nil)
+    if let date = date {
+      if date.isDateEqualTo(Date()) {
+        selectedDate = nil
+      } else {
+        selectedDate = date
+      }
+    }
+    
+    if !(amountTextField.text?.isCompleteDollarAmount() ?? false) {
+      amountTextField.becomeFirstResponder()
+    } else if (nameTextField.text ?? "").characters.count == 0 {
+      nameTextField.becomeFirstResponder()
+    }
+  }
+}
+
+// MARK: - Interactive Presenter Methods
+extension ExpenseEntryViewController: InteractivePresenter {
+  
+  func interactiveDismissalBegan() {
+    topSlideAnimator.interactive = true
+    dismiss(animated: true)
+  }
+  
+  func interactiveDismissalChanged(withProgress progress: CGFloat) {
+    topSlideAnimator.update(progress)
+  }
+  
+  func interactiveDismissalCanceled(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
+    topSlideAnimator.distanceToTravel = distanceToTravel
+    topSlideAnimator.velocity = velocity
+    topSlideAnimator.cancel()
+    topSlideAnimator.interactive = false
+  }
+  
+  func interactiveDismissalFinished(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
+    topSlideAnimator.distanceToTravel = distanceToTravel
+    topSlideAnimator.velocity = velocity
+    topSlideAnimator.finish()
+    topSlideAnimator.interactive = false
+  }
+}
+
+// MARK: - View Controller Transitioning Delegate Methods
+extension ExpenseEntryViewController: UIViewControllerTransitioningDelegate {
+  
+  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    topSlideAnimator.presenting = true
+    return topSlideAnimator
+  }
+  
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    topSlideAnimator.presenting = false
+    return topSlideAnimator
+  }
+  
+  func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    
+    if topSlideAnimator.interactive {
+      topSlideAnimator.presenting = true
+      return topSlideAnimator
+    }
+    return nil
+  }
+  
+  func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    
+    if topSlideAnimator.interactive {
+      topSlideAnimator.presenting = false
+      return topSlideAnimator
+    }
+    return nil
   }
 }

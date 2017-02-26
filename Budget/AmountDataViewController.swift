@@ -117,6 +117,7 @@ extension AmountDataViewController: UICollectionViewDelegateFlowLayout {
     expenseDataViewController.date = date
     expenseDataViewController.timeRangeType = timeRangeType
     expenseDataViewController.shouldIncludeDataHeader = false
+    expenseDataViewController.expenseDataDelegate = self
     
     if let categoryID = amountArray[indexPath.item].categoryID {
       if let category = BKCategory.fetchCategory(withCloudID: categoryID) {
@@ -130,7 +131,7 @@ extension AmountDataViewController: UICollectionViewDelegateFlowLayout {
     bottomSlideViewController.modalPresentationStyle = .custom
     bottomSlideViewController.transitioningDelegate = self
     bottomSlideViewController.bottomSlideDelegate = self
-    expenseDataViewController.expenseDataDelegate = bottomSlideViewController
+
     
     present(bottomSlideViewController, animated: true, completion: nil)
   }
@@ -171,6 +172,16 @@ extension AmountDataViewController: BottomSlideDelegate {
   
   func shouldDismissBottomSlideViewController() {
     dismiss(animated: true, completion: nil)
+  }
+}
+
+extension AmountDataViewController: ExpenseDataDelegate {
+  func shouldDismissExpenseData() {
+    dismiss(animated: true, completion: nil)
+  }
+  
+  func didFinishLoadingExpenseData() {
+    
   }
 }
 

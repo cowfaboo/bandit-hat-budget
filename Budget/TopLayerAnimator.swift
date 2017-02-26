@@ -43,7 +43,7 @@ class TopLayerAnimator: UIPercentDrivenInteractiveTransition {
       return
     }
     
-    transitionContext!.updateInteractiveTransition(percentComplete)
+    transitionContext?.updateInteractiveTransition(percentComplete)
     
     let containerViewController = transitionContext!.viewController(forKey: .to)
     let presentedViewController = transitionContext!.viewController(forKey: .from)
@@ -83,8 +83,8 @@ class TopLayerAnimator: UIPercentDrivenInteractiveTransition {
       containerViewController?.view.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
       }, completion: { (finished: Bool) -> Void in
         containerViewController?.view.isHidden = true
-        self.transitionContext!.cancelInteractiveTransition()
-        self.transitionContext!.completeTransition(false)
+        self.transitionContext?.cancelInteractiveTransition()
+        self.transitionContext?.completeTransition(false)
     })
   }
   
@@ -111,8 +111,8 @@ class TopLayerAnimator: UIPercentDrivenInteractiveTransition {
       containerViewController?.view.transform = CGAffineTransform.identity
       }, completion: { (finished: Bool) -> Void in
         self.darkView.removeFromSuperview()
-        self.transitionContext!.cancelInteractiveTransition()
-        self.transitionContext!.completeTransition(true)
+        self.transitionContext?.cancelInteractiveTransition()
+        self.transitionContext?.completeTransition(true)
     })
   }
 }

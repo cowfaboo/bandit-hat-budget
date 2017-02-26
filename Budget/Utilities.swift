@@ -91,6 +91,17 @@ extension Date {
     return false
   }
   
+  func isDateEqualTo(_ comparisonDate: Date) -> Bool {
+    let firstDateComponents = Calendar.current.dateComponents([.month, .year, .day], from: self)
+    let secondDateComponents = Calendar.current.dateComponents([.month, .year, .day], from: comparisonDate)
+    
+    if firstDateComponents.year == secondDateComponents.year && firstDateComponents.month == secondDateComponents.month && firstDateComponents.day == secondDateComponents.day {
+      return true
+    }
+    
+    return false
+  }
+  
   func completionPercentageOfMonth() -> Float {
     let dayRange = Calendar.current.range(of: .day, in: .month, for: self)
     let lastDate = dayRange!.upperBound - 1
@@ -195,6 +206,12 @@ extension Date {
   func monthYearString() -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "MMMM yyyy"
+    return dateFormatter.string(from: self)
+  }
+  
+  func monthDayYearString() -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MMMM d yyyy"
     return dateFormatter.string(from: self)
   }
   

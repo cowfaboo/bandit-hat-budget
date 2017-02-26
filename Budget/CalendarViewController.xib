@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalendarViewController" customModule="Budget" customModuleProvider="target">
+            <connections>
+                <outlet property="calendarCollectionView" destination="0lw-iN-8Qc" id="Ylo-lo-OAb"/>
+                <outlet property="leftButton" destination="AYf-80-QaJ" id="BzF-Bo-b46"/>
+                <outlet property="rightButton" destination="2Jg-SY-rl2" id="Ydo-ma-qnA"/>
+                <outlet property="titleLabel" destination="AXU-Qr-WlF" id="970-4D-iKh"/>
+                <outlet property="topView" destination="HG9-Ku-BIO" id="qN6-Oq-T49"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="weekdayLabels" destination="M2m-a6-vVZ" collectionClass="NSMutableArray" id="klz-au-3Qa"/>
+                <outletCollection property="weekdayLabels" destination="yks-Pm-9po" collectionClass="NSMutableArray" id="JbF-WY-gOZ"/>
+                <outletCollection property="weekdayLabels" destination="AyT-IW-suT" collectionClass="NSMutableArray" id="PXQ-fd-V1q"/>
+                <outletCollection property="weekdayLabels" destination="6az-WA-7F2" collectionClass="NSMutableArray" id="B4d-Ni-uSx"/>
+                <outletCollection property="weekdayLabels" destination="SEh-rS-OEm" collectionClass="NSMutableArray" id="8k1-uv-ZR9"/>
+                <outletCollection property="weekdayLabels" destination="e0O-0v-OHp" collectionClass="NSMutableArray" id="ffM-oN-RU2"/>
+                <outletCollection property="weekdayLabels" destination="BVC-7s-Fpc" collectionClass="NSMutableArray" id="L8F-X6-lLx"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="308" height="308"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HG9-Ku-BIO">
+                    <rect key="frame" x="0.0" y="0.0" width="308" height="64"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="February 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AXU-Qr-WlF">
+                            <rect key="frame" x="97.5" y="12" width="113" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYf-80-QaJ">
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                            <state key="normal" image="leftArrowButton"/>
+                            <connections>
+                                <action selector="leftButtonTapped" destination="-1" eventType="touchUpInside" id="esT-1p-UTX"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Jg-SY-rl2">
+                            <rect key="frame" x="264" y="0.0" width="44" height="44"/>
+                            <state key="normal" image="rightArrowButton"/>
+                            <connections>
+                                <action selector="rightButtonTapped" destination="-1" eventType="touchUpInside" id="5Hr-sh-F5C"/>
+                            </connections>
+                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tw0-Wq-sQp">
+                            <rect key="frame" x="0.0" y="40" width="308" height="24"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2m-a6-vVZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="44" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yks-Pm-9po">
+                                    <rect key="frame" x="44" y="0.0" width="44" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyT-IW-suT">
+                                    <rect key="frame" x="88" y="0.0" width="44" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6az-WA-7F2">
+                                    <rect key="frame" x="132" y="0.0" width="44" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEh-rS-OEm">
+                                    <rect key="frame" x="176" y="0.0" width="44" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0O-0v-OHp">
+                                    <rect key="frame" x="220" y="0.0" width="44" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVC-7s-Fpc">
+                                    <rect key="frame" x="264" y="0.0" width="44" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="uke-kh-ypo"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="AXU-Qr-WlF" firstAttribute="centerY" secondItem="HG9-Ku-BIO" secondAttribute="centerY" constant="-10" id="0ah-tV-XmD"/>
+                        <constraint firstItem="AYf-80-QaJ" firstAttribute="centerY" secondItem="HG9-Ku-BIO" secondAttribute="centerY" constant="-10" id="IG8-HE-0IH"/>
+                        <constraint firstAttribute="trailing" secondItem="2Jg-SY-rl2" secondAttribute="trailing" id="LTd-dR-U0W"/>
+                        <constraint firstAttribute="bottom" secondItem="tw0-Wq-sQp" secondAttribute="bottom" id="dQ4-sQ-EXK"/>
+                        <constraint firstAttribute="height" constant="64" id="kgv-g6-DJ9"/>
+                        <constraint firstItem="AYf-80-QaJ" firstAttribute="leading" secondItem="HG9-Ku-BIO" secondAttribute="leading" id="m1J-Kr-g0v"/>
+                        <constraint firstItem="2Jg-SY-rl2" firstAttribute="centerY" secondItem="HG9-Ku-BIO" secondAttribute="centerY" constant="-10" id="mRb-W9-RE6"/>
+                        <constraint firstItem="tw0-Wq-sQp" firstAttribute="leading" secondItem="HG9-Ku-BIO" secondAttribute="leading" id="ndr-Ev-g2z"/>
+                        <constraint firstAttribute="trailing" secondItem="tw0-Wq-sQp" secondAttribute="trailing" id="sWc-Z8-Q0K"/>
+                        <constraint firstItem="AXU-Qr-WlF" firstAttribute="centerX" secondItem="HG9-Ku-BIO" secondAttribute="centerX" id="scl-SM-mkl"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="0lw-iN-8Qc">
+                    <rect key="frame" x="0.0" y="64" width="308" height="244"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="IxA-Si-GpL">
+                        <size key="itemSize" width="44" height="44"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="ggu-yI-Njq"/>
+                        <outlet property="delegate" destination="-1" id="HYj-7W-n13"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="HG9-Ku-BIO" secondAttribute="trailing" id="0Ur-Rc-7ka"/>
+                <constraint firstItem="0lw-iN-8Qc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8c8-JL-IpJ"/>
+                <constraint firstAttribute="bottom" secondItem="0lw-iN-8Qc" secondAttribute="bottom" id="TCJ-ld-PrW"/>
+                <constraint firstAttribute="trailing" secondItem="0lw-iN-8Qc" secondAttribute="trailing" id="V6x-oA-pLM"/>
+                <constraint firstItem="HG9-Ku-BIO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="aRe-yr-bES"/>
+                <constraint firstItem="0lw-iN-8Qc" firstAttribute="top" secondItem="HG9-Ku-BIO" secondAttribute="bottom" id="cgP-gO-cvO"/>
+                <constraint firstItem="HG9-Ku-BIO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zyj-75-ZGo"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-2" y="-127"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="leftArrowButton" width="44" height="44"/>
+        <image name="rightArrowButton" width="44" height="44"/>
+    </resources>
+</document>
