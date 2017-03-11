@@ -23,6 +23,25 @@ class BottomSlideViewController: UIViewController {
   
   var viewController: UIViewController?
   
+  init(presenting presentedViewController: UIViewController, from delegateViewController: InteractivePresenter & UIViewControllerTransitioningDelegate & BottomSlideDelegate) {
+    super.init(nibName: "BottomSlideViewController", bundle: nil)
+    
+    viewController = presentedViewController
+    interactivePresenter = delegateViewController
+    modalPresentationStyle = .custom
+    transitioningDelegate = delegateViewController
+    bottomSlideDelegate = delegateViewController
+    
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     

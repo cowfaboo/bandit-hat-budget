@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import BudgetKit
 
-protocol DataDisplaying {
+protocol DataDisplaying: class {
+  var userFilter: BKUser? { get set }
+  
   func updateData()
   func fadeOut(completion: (() -> ())?)
   func fadeIn(completion: (() -> ())?)

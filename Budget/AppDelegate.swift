@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     BuddyBuildSDK.setup()
     
     window = UIWindow(frame: UIScreen.main.bounds)
-    containerViewController = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+    containerViewController = ContainerViewController.sharedInstance
     window!.rootViewController = containerViewController
     window!.makeKeyAndVisible()
     

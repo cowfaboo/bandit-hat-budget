@@ -156,13 +156,7 @@ class ExpenseEntryViewController: TopLevelViewController {
       calendarViewController.selectedDate = selectedDate
     }
     
-    let topSlideViewController = TopSlideViewController(nibName: "TopSlideViewController", bundle: nil)
-    topSlideViewController.viewController = calendarViewController
-    topSlideViewController.interactivePresenter = self
-    topSlideViewController.modalPresentationStyle = .custom
-    topSlideViewController.transitioningDelegate = self
-    topSlideViewController.topSlideDelegate = self
-    
+    let topSlideViewController = TopSlideViewController(presenting: calendarViewController, from: self)
     present(topSlideViewController, animated: true, completion: nil)
   }
   

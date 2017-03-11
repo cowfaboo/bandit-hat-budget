@@ -38,6 +38,13 @@ class DataNavigationController: UIViewController {
   @IBOutlet weak var expensesButton: BHButton!
   
   var currentDate = Date().startAndEndOfMonth().startDate
+  var currentUser: BKUser? {
+    didSet {
+      if let currentViewController = currentViewController as? DataDisplaying {
+        currentViewController.userFilter = currentUser
+      }
+    }
+  }
   
   var timeRangeType = TimeRangeType.monthly
   
@@ -83,6 +90,7 @@ class DataNavigationController: UIViewController {
     let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
     amountDataViewController.date = currentDate
     amountDataViewController.timeRangeType = .monthly
+    amountDataViewController.userFilter = currentUser
     navigate(to: amountDataViewController)
   }
   
@@ -325,6 +333,7 @@ class DataNavigationController: UIViewController {
     let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
     
     expenseDataViewController.date = currentDate
+    expenseDataViewController.userFilter = currentUser
     expenseDataViewController.timeRangeType = timeRangeType
     
     if let dataDisplayingViewController = currentViewController as? DataDisplaying {
@@ -342,6 +351,7 @@ class DataNavigationController: UIViewController {
     
     let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
     amountDataViewController.date = currentDate
+    amountDataViewController.userFilter = currentUser
     amountDataViewController.timeRangeType = timeRangeType
     
     if let dataDisplayingViewController = currentViewController as? DataDisplaying {
@@ -371,6 +381,7 @@ class DataNavigationController: UIViewController {
     
     previousDataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
     previousDataHeaderViewController.date = previousDate
+    previousDataHeaderViewController.user = currentUser
     previousDataHeaderViewController.timeRangeType = .monthly
     add(previousDataHeaderViewController, to: previousDummyHeaderView)
     
@@ -400,6 +411,7 @@ class DataNavigationController: UIViewController {
     
     nextDataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
     nextDataHeaderViewController.date = nextDate
+    nextDataHeaderViewController.user = currentUser
     nextDataHeaderViewController.timeRangeType = nextTimeRangeType
     add(nextDataHeaderViewController, to: nextDummyHeaderView)
     
@@ -423,6 +435,7 @@ class DataNavigationController: UIViewController {
       
       let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
       amountDataViewController.date = currentDate
+      amountDataViewController.userFilter = currentUser
       amountDataViewController.amountDataDelegate = self
       navigate(to: amountDataViewController)
       
@@ -430,6 +443,7 @@ class DataNavigationController: UIViewController {
       
       let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
       expenseDataViewController.date = currentDate
+      expenseDataViewController.userFilter = currentUser
       expenseDataViewController.expenseDataDelegate = self
       navigate(to: expenseDataViewController)
     }
@@ -445,6 +459,7 @@ class DataNavigationController: UIViewController {
         
         let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
         amountDataViewController.timeRangeType = .annual
+        amountDataViewController.userFilter = currentUser
         amountDataViewController.amountDataDelegate = self
         navigate(to: amountDataViewController)
         
@@ -452,6 +467,7 @@ class DataNavigationController: UIViewController {
         
         let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
         expenseDataViewController.timeRangeType = .annual
+        expenseDataViewController.userFilter = currentUser
         expenseDataViewController.expenseDataDelegate = self
         navigate(to: expenseDataViewController)
       }
@@ -466,6 +482,7 @@ class DataNavigationController: UIViewController {
         
         let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
         amountDataViewController.date = currentDate
+        amountDataViewController.userFilter = currentUser
         amountDataViewController.amountDataDelegate = self
         navigate(to: amountDataViewController)
         
@@ -473,6 +490,7 @@ class DataNavigationController: UIViewController {
         
         let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
         expenseDataViewController.date = currentDate
+        expenseDataViewController.userFilter = currentUser
         expenseDataViewController.expenseDataDelegate = self
         navigate(to: expenseDataViewController)
       }
@@ -555,13 +573,19 @@ extension DataNavigationController: UICollectionViewDataSource {
   }
 }
 
+// MARK: - Amount Data Delegate Methods
 extension DataNavigationController: AmountDataDelegate {
   
   func didFinishLoadingAmountData() {
     repositionViews()
   }
+  
+  func shouldFilterByUser(_ user: BKUser?) {
+    currentUser = user
+  }
 }
 
+// MARK: - Expense Data Delegate Methods
 extension DataNavigationController: ExpenseDataDelegate {
   
   func shouldDismissExpenseData() {

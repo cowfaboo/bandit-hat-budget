@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		650714611E2DD82E008468ED /* CategorySelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507145F1E2DD82E008468ED /* CategorySelectionCell.swift */; };
 		650714621E2DD82E008468ED /* CategorySelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650714601E2DD82E008468ED /* CategorySelectionCell.xib */; };
+		652589781E63512D009CC4AC /* UserFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652589761E63512D009CC4AC /* UserFilterViewController.swift */; };
+		652589791E63512D009CC4AC /* UserFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652589771E63512D009CC4AC /* UserFilterViewController.xib */; };
+		6525897C1E636163009CC4AC /* UserFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6525897A1E636163009CC4AC /* UserFilterCell.swift */; };
+		6525897D1E636163009CC4AC /* UserFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6525897B1E636163009CC4AC /* UserFilterCell.xib */; };
+		6525897F1E63D064009CC4AC /* ViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6525897E1E63D064009CC4AC /* ViewContainer.swift */; };
 		653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */; };
 		653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */; };
 		65335D001DFD2400000B6081 /* BHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65335CFF1DFD2400000B6081 /* BHButton.swift */; };
@@ -114,6 +119,11 @@
 /* Begin PBXFileReference section */
 		6507145F1E2DD82E008468ED /* CategorySelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySelectionCell.swift; sourceTree = "<group>"; };
 		650714601E2DD82E008468ED /* CategorySelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySelectionCell.xib; sourceTree = "<group>"; };
+		652589761E63512D009CC4AC /* UserFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFilterViewController.swift; sourceTree = "<group>"; };
+		652589771E63512D009CC4AC /* UserFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFilterViewController.xib; sourceTree = "<group>"; };
+		6525897A1E636163009CC4AC /* UserFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFilterCell.swift; sourceTree = "<group>"; };
+		6525897B1E636163009CC4AC /* UserFilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFilterCell.xib; sourceTree = "<group>"; };
+		6525897E1E63D064009CC4AC /* ViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewContainer.swift; sourceTree = "<group>"; };
 		653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionCell.swift; sourceTree = "<group>"; };
 		653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserSelectionCell.xib; sourceTree = "<group>"; };
 		65335CFF1DFD2400000B6081 /* BHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BHButton.swift; sourceTree = "<group>"; };
@@ -232,6 +242,7 @@
 				65335D061DFE359F000B6081 /* AmountView.swift */,
 				65457CA21E13437800E02912 /* AmountLayer.swift */,
 				65B6886B1E4181CD003E1323 /* DataDisplaying.swift */,
+				6525897E1E63D064009CC4AC /* ViewContainer.swift */,
 				6563FCC31E479FFF00949E80 /* InteractivePresenter.swift */,
 				6563FCC51E47BF8100949E80 /* TableViewController.swift */,
 				65E96BD51E5A186000EDE0A2 /* CalendarViewController.swift */,
@@ -353,6 +364,10 @@
 			children = (
 				65C183B71E07586200CC5EE8 /* DataHeaderViewController.swift */,
 				65C183B81E07586200CC5EE8 /* DataHeaderViewController.xib */,
+				652589761E63512D009CC4AC /* UserFilterViewController.swift */,
+				652589771E63512D009CC4AC /* UserFilterViewController.xib */,
+				6525897A1E636163009CC4AC /* UserFilterCell.swift */,
+				6525897B1E636163009CC4AC /* UserFilterCell.xib */,
 				658390F71DE8FC57001BCE1C /* DataNavigationController.swift */,
 				658390F81DE8FC57001BCE1C /* DataNavigationController.xib */,
 				658390FB1DE906F3001BCE1C /* AmountDataViewController.swift */,
@@ -498,11 +513,13 @@
 				65A8E4931DF48E9000CEB71F /* ExpenseDataViewController.xib in Resources */,
 				65E96BD81E5A186000EDE0A2 /* CalendarViewController.xib in Resources */,
 				658390FE1DE906F3001BCE1C /* AmountDataViewController.xib in Resources */,
+				6525897D1E636163009CC4AC /* UserFilterCell.xib in Resources */,
 				659AD1361DE6B8FC0035E538 /* SignInViewController.xib in Resources */,
 				65E5E2211DE7E2160066944F /* UserSelectionViewController.xib in Resources */,
 				650714621E2DD82E008468ED /* CategorySelectionCell.xib in Resources */,
 				658390FA1DE8FC57001BCE1C /* DataNavigationController.xib in Resources */,
 				65A98B341DFF7DA300465E3E /* ExpenseDataCell.xib in Resources */,
+				652589791E63512D009CC4AC /* UserFilterViewController.xib in Resources */,
 				658391021DE91BB2001BCE1C /* CategoryManagementViewController.xib in Resources */,
 				65D32F6D1E235C3E008475DD /* BottomSlideViewController.xib in Resources */,
 				65E5E21D1DE7E1F10066944F /* UserCreationViewController.xib in Resources */,
@@ -536,15 +553,18 @@
 				65E5E21C1DE7E1F10066944F /* UserCreationViewController.swift in Sources */,
 				659AD1351DE6B8FC0035E538 /* SignInViewController.swift in Sources */,
 				658390F61DE8F25B001BCE1C /* Settings.swift in Sources */,
+				6525897F1E63D064009CC4AC /* ViewContainer.swift in Sources */,
 				659AD11F1DE6B3CD0035E538 /* ContainerViewController.swift in Sources */,
 				650714611E2DD82E008468ED /* CategorySelectionCell.swift in Sources */,
 				6563FCC81E47C1E900949E80 /* OneWayPanGestureRecognizer.swift in Sources */,
 				65457CA31E13437800E02912 /* AmountLayer.swift in Sources */,
 				659AD11D1DE6B3CD0035E538 /* AppDelegate.swift in Sources */,
+				6525897C1E636163009CC4AC /* UserFilterCell.swift in Sources */,
 				65335D041DFE288C000B6081 /* AmountDataCell.swift in Sources */,
 				658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */,
 				654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */,
 				653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */,
+				652589781E63512D009CC4AC /* UserFilterViewController.swift in Sources */,
 				65B6886C1E4181CD003E1323 /* DataDisplaying.swift in Sources */,
 				65D32F6C1E235C3E008475DD /* BottomSlideViewController.swift in Sources */,
 				658390FD1DE906F3001BCE1C /* AmountDataViewController.swift in Sources */,

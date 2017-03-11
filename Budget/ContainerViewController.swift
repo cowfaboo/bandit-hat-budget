@@ -10,6 +10,8 @@ import UIKit
 
 class ContainerViewController: UIViewController {
 
+  static let sharedInstance = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+  
   @IBOutlet weak var dataNavigationContainerView: UIView!
   @IBOutlet weak var addExpenseButton: BHButton!
   @IBOutlet weak var settingsButton: BHButton!

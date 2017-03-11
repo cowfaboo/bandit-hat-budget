@@ -18,6 +18,8 @@ class ExpenseDataViewController: UIViewController, TableViewController {
   
   weak var expenseDataDelegate: ExpenseDataDelegate?
   
+  var dataHeaderViewController: DataHeaderViewController?
+  
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var headerView: UIView!
   @IBOutlet weak var headerLabel: UILabel!
@@ -31,20 +33,29 @@ class ExpenseDataViewController: UIViewController, TableViewController {
   var date: Date = Date()
   var timeRangeType: TimeRangeType = .monthly
   var category: BKCategory?
-  var user: BKUser?
+  var userFilter: BKUser? {
+    didSet {
+      if viewIsLoaded {
+        dataHeaderViewController?.user = userFilter
+        updateData()
+      }
+    }
+  }
   var shouldIncludeDataHeader: Bool = true
   var currentPage: Int = 0
   var currentlyLoading: Bool = false
   var hasNextPage: Bool = true
+  var viewIsLoaded = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     if shouldIncludeDataHeader {
-      let dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
-      dataHeaderViewController.date = date
-      dataHeaderViewController.timeRangeType = timeRangeType
-      add(dataHeaderViewController, to: headerView)
+      dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
+      dataHeaderViewController!.date = date
+      dataHeaderViewController!.user = userFilter
+      dataHeaderViewController!.timeRangeType = timeRangeType
+      add(dataHeaderViewController!, to: headerView)
     } else {
       
       if let category = category {
@@ -56,9 +67,9 @@ class ExpenseDataViewController: UIViewController, TableViewController {
         headerViewHeightConstraint.constant = 44
         view.layoutIfNeeded()
         
-      } else if let user = user {
+      } else if let userFilter = userFilter {
         
-        headerLabel.text = user.name
+        headerLabel.text = userFilter.name
         
         headerViewHeightConstraint.constant = 44
         view.layoutIfNeeded()
@@ -74,6 +85,8 @@ class ExpenseDataViewController: UIViewController, TableViewController {
     
     setUpFooterView()
     updateData()
+    
+    viewIsLoaded = true
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -151,7 +164,7 @@ class ExpenseDataViewController: UIViewController, TableViewController {
       self.nextPageActivityIndicatorView.alpha = 1.0
     }, completion: nil)
     
-    BKSharedBasicRequestClient.getExpenses(forUserID: user?.cloudID, categoryID: category?.cloudID, startDate: dates.startDate, endDate: dates.endDate, page: currentPage + 1) { (success, expenseArray) in
+    BKSharedBasicRequestClient.getExpenses(forUserID: userFilter?.cloudID, categoryID: category?.cloudID, startDate: dates.startDate, endDate: dates.endDate, page: currentPage + 1) { (success, expenseArray) in
       
       self.nextPageActivityIndicatorView.stopAnimating()
       
@@ -197,7 +210,7 @@ extension ExpenseDataViewController: DataDisplaying {
       dates = date.startAndEndOfYear()
     }
     
-    BKSharedBasicRequestClient.getExpenses(forUserID: user?.cloudID, categoryID: category?.cloudID, startDate: dates.startDate, endDate: dates.endDate, page: currentPage) { (success, expenseArray) in
+    BKSharedBasicRequestClient.getExpenses(forUserID: userFilter?.cloudID, categoryID: category?.cloudID, startDate: dates.startDate, endDate: dates.endDate, page: currentPage) { (success, expenseArray) in
       
       guard success, let expenseArray = expenseArray else {
         print("failed to get expenses")
@@ -271,10 +284,6 @@ extension ExpenseDataViewController: UIScrollViewDelegate {
     let currentContentHeight = scrollView.contentSize.height
     let scrollViewHeight = scrollView.frame.height
     let difference = currentContentHeight - scrollViewHeight
-    print("\(currentOffset)")
-    print("content height: \(currentContentHeight)")
-    print("scroll height: \(scrollViewHeight)")
-    print("difference: \(difference)")
     
     if currentOffset >= difference - 32 {
       currentlyLoading = true

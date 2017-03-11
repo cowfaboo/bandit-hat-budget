@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopSlideViewController" customModule="Budget" customModuleProvider="target">
             <connections>
                 <outlet property="containerView" destination="Xcw-Ej-WJu" id="FDt-J7-5eB"/>
+                <outlet property="containerViewHeightConstraint" destination="rUk-zY-Zqp" id="mbn-xL-Dxl"/>
                 <outlet property="containerViewTopConstraint" destination="N3m-GZ-8qS" id="T8A-DO-cb8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

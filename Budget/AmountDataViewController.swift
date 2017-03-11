@@ -11,6 +11,7 @@ import BudgetKit
 
 protocol AmountDataDelegate: class {
   func didFinishLoadingAmountData()
+  func shouldFilterByUser(_ user: BKUser?)
 }
 
 class AmountDataViewController: UIViewController {
@@ -22,21 +23,36 @@ class AmountDataViewController: UIViewController {
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var headerView: UIView!
   
+  var dataHeaderViewController: DataHeaderViewController?
+  
   var amountArray = [BKAmount]()
   var date: Date = Date()
+  var userFilter: BKUser? {
+    didSet {
+      if viewIsLoaded {
+        dataHeaderViewController?.user = userFilter
+        updateData()
+      }
+    }
+  }
   var timeRangeType: TimeRangeType = .monthly
+  
+  var viewIsLoaded = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
-    dataHeaderViewController.date = date
-    dataHeaderViewController.timeRangeType = timeRangeType
-    add(dataHeaderViewController, to: headerView)
+    dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
+    dataHeaderViewController!.date = date
+    dataHeaderViewController!.timeRangeType = timeRangeType
+    dataHeaderViewController!.user = userFilter
+    add(dataHeaderViewController!, to: headerView)
     
     collectionView.register(UINib(nibName: "AmountDataCell", bundle: nil), forCellWithReuseIdentifier: "AmountDataCell")
     
     updateData()
+    
+    viewIsLoaded = true
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +82,7 @@ extension AmountDataViewController: DataDisplaying {
       dates = date.startAndEndOfYear()
     }
     
-    BKSharedBasicRequestClient.getAmountsByCategory(forUserID: nil, startDate: dates.startDate, endDate: dates.endDate) { (success, amountArray) in
+    BKSharedBasicRequestClient.getAmountsByCategory(forUserID: userFilter?.cloudID, startDate: dates.startDate, endDate: dates.endDate) { (success, amountArray) in
       
       guard success, let amountArray = amountArray else {
         print("failed to get amounts")
@@ -115,6 +131,7 @@ extension AmountDataViewController: UICollectionViewDelegateFlowLayout {
     
     let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
     expenseDataViewController.date = date
+    expenseDataViewController.userFilter = userFilter
     expenseDataViewController.timeRangeType = timeRangeType
     expenseDataViewController.shouldIncludeDataHeader = false
     expenseDataViewController.expenseDataDelegate = self
@@ -125,14 +142,7 @@ extension AmountDataViewController: UICollectionViewDelegateFlowLayout {
       }
     }
     
-    let bottomSlideViewController = BottomSlideViewController(nibName: "BottomSlideViewController", bundle: nil)
-    bottomSlideViewController.viewController = expenseDataViewController
-    bottomSlideViewController.interactivePresenter = self
-    bottomSlideViewController.modalPresentationStyle = .custom
-    bottomSlideViewController.transitioningDelegate = self
-    bottomSlideViewController.bottomSlideDelegate = self
-
-    
+    let bottomSlideViewController = BottomSlideViewController(presenting: expenseDataViewController, from: self)
     present(bottomSlideViewController, animated: true, completion: nil)
   }
 }
@@ -175,7 +185,9 @@ extension AmountDataViewController: BottomSlideDelegate {
   }
 }
 
+// MARK: - Expense Data Delegate Methods
 extension AmountDataViewController: ExpenseDataDelegate {
+
   func shouldDismissExpenseData() {
     dismiss(animated: true, completion: nil)
   }
