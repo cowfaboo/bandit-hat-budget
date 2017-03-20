@@ -14,17 +14,20 @@ protocol AmountDataDelegate: class {
   func shouldFilterByUser(_ user: BKUser?)
 }
 
-class AmountDataViewController: UIViewController {
+class AmountDataViewController: UIViewController, InteractivePresenter {
   
-  var bottomSlideAnimator = BottomSlideAnimator()
+  var presentationAnimator: PresentationAnimator = BottomSlideAnimator()
   
   weak var amountDataDelegate: AmountDataDelegate?
   
-  @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var headerView: UIView!
+  @IBOutlet weak var dataScrollView: UIScrollView!
+  
   
   var dataHeaderViewController: DataHeaderViewController?
   
+  var amountWidgetArray = [AmountWidgetViewController]()
+  var containerViewArray = [UIView]()
   var amountArray = [BKAmount]()
   var date: Date = Date()
   var userFilter: BKUser? {
@@ -48,8 +51,6 @@ class AmountDataViewController: UIViewController {
     dataHeaderViewController!.user = userFilter
     add(dataHeaderViewController!, to: headerView)
     
-    collectionView.register(UINib(nibName: "AmountDataCell", bundle: nil), forCellWithReuseIdentifier: "AmountDataCell")
-    
     updateData()
     
     viewIsLoaded = true
@@ -61,12 +62,111 @@ class AmountDataViewController: UIViewController {
     if Utilities.dataViewNeedsUpdate() {
       updateData()
     } else {
-      collectionView.reloadData()
+      updateDataViews()
     }
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+  }
+  
+  func updateDataViews() {
+    if (amountArray.count != containerViewArray.count) {
+      resetDataViews()
+    }
+    
+    var index = 0
+    for amountWidget in amountWidgetArray {
+      if amountWidget.amount.amount != amountArray[index].amount || amountWidget.amount.categoryID != amountArray[index].categoryID {
+        amountWidget.amount = amountArray[index]
+        amountWidget.refreshView()
+      }
+      index += 1
+    }
+  }
+  
+  func resetDataViews() {
+    
+    let completionPercentage: Float
+    if (timeRangeType == .monthly && date.isMonthEqualTo(Date())) {
+      completionPercentage = Date().completionPercentageOfMonth()
+    } else if (timeRangeType == .annual && date.isYearEqualTo(Date())) {
+      completionPercentage = Date().completionPercentageOfYear()
+    } else {
+      completionPercentage = 0
+    }
+    
+    for amountWidget in amountWidgetArray {
+      amountWidget.removeFromContainerView()
+    }
+    
+    for containerView in containerViewArray {
+      containerView.removeFromSuperview()
+    }
+    
+    amountWidgetArray = []
+    containerViewArray = []
+    
+    let containerWidth: CGFloat = 136
+    let containerHeight: CGFloat = 200
+    let remainingWidthSpacing = Utilities.screenWidth - containerWidth * 2
+    var currentYPosition: CGFloat = 0
+    
+    var index = 0
+    for amount in amountArray {
+      let currentXPosition: CGFloat
+      if index % 2 == 0 {
+        currentXPosition = remainingWidthSpacing / 3
+      } else {
+        currentXPosition = ((remainingWidthSpacing / 3) * 2) + containerWidth
+      }
+      
+      let containerView = UIView(frame: CGRect(x: currentXPosition, y: currentYPosition, width: containerWidth, height: containerHeight))
+      containerViewArray.append(containerView)
+      dataScrollView.addSubview(containerView)
+      
+      let amountWidgetViewController = AmountWidgetViewController(withAmount: amount, timeRangeType: timeRangeType, completionPercentage: completionPercentage)
+      amountWidgetViewController.amountWidgetDelegate = self
+      add(amountWidgetViewController, to: containerView)
+      amountWidgetViewController.refreshView()
+      amountWidgetArray.append(amountWidgetViewController)
+      
+      if index % 2 == 1 {
+        currentYPosition += containerHeight + 28
+      }
+      
+      index += 1
+    }
+    
+    let numberOfRows: Int
+    if amountArray.count % 2 == 0 {
+      numberOfRows = amountArray.count / 2
+    } else {
+      numberOfRows = amountArray.count / 2 + 1
+    }
+    
+    dataScrollView.contentSize = CGSize(width: Utilities.screenWidth, height: (containerHeight * CGFloat(numberOfRows)) + (28 * CGFloat(numberOfRows)) + 60)
+    
+  }
+  
+  // MARK: - Action Methods
+  func amountViewTapped(amount: BKAmount) {
+    
+    let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
+    expenseDataViewController.date = date
+    expenseDataViewController.userFilter = userFilter
+    expenseDataViewController.timeRangeType = timeRangeType
+    expenseDataViewController.shouldIncludeDataHeader = false
+    expenseDataViewController.expenseDataDelegate = self
+    
+    if let categoryID = amount.categoryID {
+      if let category = BKCategory.fetchCategory(withCloudID: categoryID) {
+        expenseDataViewController.category = category
+      }
+    }
+    
+    let bottomSlideViewController = BottomSlideViewController(presenting: expenseDataViewController, from: self)
+    present(bottomSlideViewController, animated: true, completion: nil)
   }
 }
 
@@ -90,15 +190,15 @@ extension AmountDataViewController: DataDisplaying {
       }
       
       self.amountArray = amountArray
-      self.collectionView.reloadData()
+      self.updateDataViews()
       self.amountDataDelegate?.didFinishLoadingAmountData()
     }
   }
   
   func fadeOut(completion: (() -> ())?) {
-    collectionView.alpha = 1.0
+    dataScrollView.alpha = 1.0
     UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseOut], animations: {
-      self.collectionView.alpha = 0.0
+      self.dataScrollView.alpha = 0.0
     }) { (success) in
       if let completion = completion {
         completion()
@@ -107,9 +207,9 @@ extension AmountDataViewController: DataDisplaying {
   }
   
   func fadeIn(completion: (() -> ())?) {
-    collectionView.alpha = 0.0
+    dataScrollView.alpha = 0.0
     UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseIn], animations: {
-      self.collectionView.alpha = 1.0
+      self.dataScrollView.alpha = 1.0
     }) { (success) in
       if let completion = completion {
         completion()
@@ -118,16 +218,9 @@ extension AmountDataViewController: DataDisplaying {
   }
 }
 
-// MARK: - Collection View Flow Layout Delegate Methods
-extension AmountDataViewController: UICollectionViewDelegateFlowLayout {
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    
-    let inset = (collectionView.frame.size.width - (136 * 2.0)) / 3.0
-    return UIEdgeInsetsMake(0, inset, 0, inset)
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+// MARK: - Amount Widget Delegate Methods
+extension AmountDataViewController: AmountWidgetDelegate {
+  func didSelect(category: BKCategory) {
     
     let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
     expenseDataViewController.date = date
@@ -135,45 +228,10 @@ extension AmountDataViewController: UICollectionViewDelegateFlowLayout {
     expenseDataViewController.timeRangeType = timeRangeType
     expenseDataViewController.shouldIncludeDataHeader = false
     expenseDataViewController.expenseDataDelegate = self
-    
-    if let categoryID = amountArray[indexPath.item].categoryID {
-      if let category = BKCategory.fetchCategory(withCloudID: categoryID) {
-        expenseDataViewController.category = category
-      }
-    }
+    expenseDataViewController.category = category
     
     let bottomSlideViewController = BottomSlideViewController(presenting: expenseDataViewController, from: self)
     present(bottomSlideViewController, animated: true, completion: nil)
-  }
-}
-
-// MARK: - Collection View Data Source Methods
-extension AmountDataViewController: UICollectionViewDataSource {
-  
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 1
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return amountArray.count
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmountDataCell", for: indexPath) as! AmountDataCell
-    
-    let completionPercentage: Float
-    if (timeRangeType == .monthly && date.isMonthEqualTo(Date())) {
-      completionPercentage = Date().completionPercentageOfMonth()
-    } else if (timeRangeType == .annual && date.isYearEqualTo(Date())) {
-      completionPercentage = Date().completionPercentageOfYear()
-    } else {
-      completionPercentage = 0
-    }
-    
-    cell.initialize(withAmount: amountArray[indexPath.item], timeRangeType: timeRangeType, completionPercentage: completionPercentage)
-    
-    return cell
   }
 }
 
@@ -197,60 +255,34 @@ extension AmountDataViewController: ExpenseDataDelegate {
   }
 }
 
-// MARK: - Interactive Presenter Methods
-extension AmountDataViewController: InteractivePresenter {
-  
-  func interactiveDismissalBegan() {
-    bottomSlideAnimator.interactive = true
-    dismiss(animated: true)
-  }
-  
-  func interactiveDismissalChanged(withProgress progress: CGFloat) {
-    bottomSlideAnimator.update(progress)
-  }
-  
-  func interactiveDismissalCanceled(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
-    bottomSlideAnimator.distanceToTravel = distanceToTravel
-    bottomSlideAnimator.velocity = velocity
-    bottomSlideAnimator.cancel()
-    bottomSlideAnimator.interactive = false
-  }
-  
-  func interactiveDismissalFinished(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
-    bottomSlideAnimator.distanceToTravel = distanceToTravel
-    bottomSlideAnimator.velocity = velocity
-    bottomSlideAnimator.finish()
-    bottomSlideAnimator.interactive = false
-  }
-}
 
 // MARK: - View Controller Transitioning Delegate Methods
 extension AmountDataViewController: UIViewControllerTransitioningDelegate {
   
   func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    bottomSlideAnimator.presenting = true
-    return bottomSlideAnimator
+    presentationAnimator.presenting = true
+    return presentationAnimator
   }
   
   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    bottomSlideAnimator.presenting = false
-    return bottomSlideAnimator
+    presentationAnimator.presenting = false
+    return presentationAnimator
   }
   
   func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     
-    if bottomSlideAnimator.interactive {
-      bottomSlideAnimator.presenting = true
-      return bottomSlideAnimator
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = true
+      return presentationAnimator
     }
     return nil
   }
   
   func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     
-    if bottomSlideAnimator.interactive {
-      bottomSlideAnimator.presenting = false
-      return bottomSlideAnimator
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = false
+      return presentationAnimator
     }
     return nil
   }

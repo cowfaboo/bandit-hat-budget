@@ -9,9 +9,9 @@
 import UIKit
 import BudgetKit
 
-class DataHeaderViewController: UIViewController {
+class DataHeaderViewController: UIViewController, InteractivePresenter {
   
-  var topSlideAnimator = TopSlideAnimator()
+  var presentationAnimator: PresentationAnimator = TopSlideAnimator()
   
   var date: Date = Date()
   var user: BKUser? {
@@ -73,60 +73,33 @@ extension DataHeaderViewController: TopSlideDelegate {
   }
 }
 
-// MARK: - Interactive Presenter Methods
-extension DataHeaderViewController: InteractivePresenter {
-  
-  func interactiveDismissalBegan() {
-    topSlideAnimator.interactive = true
-    dismiss(animated: true)
-  }
-  
-  func interactiveDismissalChanged(withProgress progress: CGFloat) {
-    topSlideAnimator.update(progress)
-  }
-  
-  func interactiveDismissalCanceled(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
-    topSlideAnimator.distanceToTravel = distanceToTravel
-    topSlideAnimator.velocity = velocity
-    topSlideAnimator.cancel()
-    topSlideAnimator.interactive = false
-  }
-  
-  func interactiveDismissalFinished(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
-    topSlideAnimator.distanceToTravel = distanceToTravel
-    topSlideAnimator.velocity = velocity
-    topSlideAnimator.finish()
-    topSlideAnimator.interactive = false
-  }
-}
-
 // MARK: - View Controller Transitioning Delegate Methods
 extension DataHeaderViewController: UIViewControllerTransitioningDelegate {
-  
+
   func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    topSlideAnimator.presenting = true
-    return topSlideAnimator
+    presentationAnimator.presenting = true
+    return presentationAnimator
   }
   
   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    topSlideAnimator.presenting = false
-    return topSlideAnimator
+    presentationAnimator.presenting = false
+    return presentationAnimator
   }
   
   func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     
-    if topSlideAnimator.interactive {
-      topSlideAnimator.presenting = true
-      return topSlideAnimator
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = true
+      return presentationAnimator
     }
     return nil
   }
   
   func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     
-    if topSlideAnimator.interactive {
-      topSlideAnimator.presenting = false
-      return topSlideAnimator
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = false
+      return presentationAnimator
     }
     return nil
   }

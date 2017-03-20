@@ -1,5 +1,5 @@
 //
-//  AmountView.swift
+//  AmountPieView.swift
 //  Budget
 //
 //  Created by Daniel Gauthier on 2016-12-11.
@@ -8,33 +8,33 @@
 
 import UIKit
 
-class AmountView: UIView {
+class AmountPieView: UIView {
   
   var totalAmount: Float = 0 {
     didSet {
-      (layer as! AmountLayer).totalAmount = totalAmount
+      (layer as! AmountPieLayer).totalAmount = totalAmount
     }
   }
   
   var primaryAmount: Float = 0 {
     didSet {
-      (layer as! AmountLayer).primaryAmount = primaryAmount
+      (layer as! AmountPieLayer).primaryAmount = primaryAmount
     }
   }
   
   var secondaryAmount: Float = 0 {
     didSet {
-      (layer as! AmountLayer).secondaryAmount = secondaryAmount
+      (layer as! AmountPieLayer).secondaryAmount = secondaryAmount
     }
   }
   
   var themeColor: UIColor = UIColor.text {
     didSet {
-      (layer as! AmountLayer).themeColor = themeColor
+      (layer as! AmountPieLayer).themeColor = themeColor
     }
   }
   
   override class var layerClass: AnyClass {
-    return AmountLayer.self
+    return AmountPieLayer.self
   }
 }

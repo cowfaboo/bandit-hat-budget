@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,13 +16,13 @@
                 <outlet property="currentViewLeadingConstraint" destination="sDA-g4-1rj" id="SGY-Vx-UNv"/>
                 <outlet property="currentViewTrailingConstraint" destination="nUN-T3-OLg" id="O6M-g3-lod"/>
                 <outlet property="expensesButton" destination="cwp-Kx-GCL" id="xP5-T0-vQP"/>
-                <outlet property="nextDummyCollectionView" destination="urz-dK-Cc7" id="Fj2-TN-l9y"/>
                 <outlet property="nextDummyHeaderView" destination="WvK-YN-UXj" id="jua-Gf-5eF"/>
+                <outlet property="nextDummyScrollView" destination="Ryb-Kf-ZTn" id="npA-6m-3X3"/>
                 <outlet property="nextView" destination="Hwx-5E-DBp" id="ehT-Mx-4y4"/>
                 <outlet property="nextViewLeadingConstraint" destination="mcN-fG-Qm2" id="tJp-dI-YV3"/>
                 <outlet property="nextViewTrailingConstraint" destination="TWe-Sl-yM5" id="Qst-X8-avR"/>
-                <outlet property="previousDummyCollectionView" destination="htt-eZ-RD0" id="dss-B0-97N"/>
                 <outlet property="previousDummyHeaderView" destination="ZQN-PD-FCm" id="LbT-iI-m7F"/>
+                <outlet property="previousDummyScrollView" destination="fIU-Sz-R9M" id="Hw4-Lx-0Lu"/>
                 <outlet property="previousView" destination="PdD-Yl-PnR" id="zee-YL-nkf"/>
                 <outlet property="previousViewLeadingConstraint" destination="CpV-BQ-ppJ" id="uZz-dm-3vi"/>
                 <outlet property="previousViewTrailingConstraint" destination="Fm6-l4-hJu" id="84c-NL-ZO7"/>
@@ -44,30 +44,19 @@
                                 <constraint firstAttribute="height" constant="115" id="ClR-IG-hbB"/>
                             </constraints>
                         </view>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="urz-dK-Cc7">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ryb-Kf-ZTn">
                             <rect key="frame" x="0.0" y="115" width="375" height="552"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="28" minimumInteritemSpacing="10" id="ytU-CR-iDt">
-                                <size key="itemSize" width="136" height="200"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="60"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="kHZ-q9-BN4"/>
-                                <outlet property="delegate" destination="-1" id="CcB-Rg-SfV"/>
-                            </connections>
-                        </collectionView>
+                        </scrollView>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="urz-dK-Cc7" secondAttribute="trailing" id="AtT-kE-tfp"/>
+                        <constraint firstItem="Ryb-Kf-ZTn" firstAttribute="top" secondItem="WvK-YN-UXj" secondAttribute="bottom" id="9po-cZ-liM"/>
                         <constraint firstItem="WvK-YN-UXj" firstAttribute="top" secondItem="Hwx-5E-DBp" secondAttribute="top" id="Ehw-Dg-Lfg"/>
+                        <constraint firstItem="Ryb-Kf-ZTn" firstAttribute="leading" secondItem="Hwx-5E-DBp" secondAttribute="leading" id="FpJ-dy-H9K"/>
                         <constraint firstItem="WvK-YN-UXj" firstAttribute="leading" secondItem="Hwx-5E-DBp" secondAttribute="leading" id="J41-ro-1vX"/>
+                        <constraint firstAttribute="trailing" secondItem="Ryb-Kf-ZTn" secondAttribute="trailing" id="NZH-Ea-V2i"/>
                         <constraint firstAttribute="trailing" secondItem="WvK-YN-UXj" secondAttribute="trailing" id="NbZ-TS-oCM"/>
-                        <constraint firstItem="urz-dK-Cc7" firstAttribute="top" secondItem="WvK-YN-UXj" secondAttribute="bottom" id="XtI-Es-apU"/>
-                        <constraint firstAttribute="bottom" secondItem="urz-dK-Cc7" secondAttribute="bottom" id="gdC-ce-UYE"/>
-                        <constraint firstItem="urz-dK-Cc7" firstAttribute="leading" secondItem="Hwx-5E-DBp" secondAttribute="leading" id="qbr-cY-B2z"/>
+                        <constraint firstAttribute="bottom" secondItem="Ryb-Kf-ZTn" secondAttribute="bottom" id="TQ1-Tp-mj4"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PdD-Yl-PnR" userLabel="previousView">
@@ -80,30 +69,19 @@
                                 <constraint firstAttribute="height" constant="115" id="gld-G4-dSp"/>
                             </constraints>
                         </view>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="htt-eZ-RD0">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fIU-Sz-R9M">
                             <rect key="frame" x="0.0" y="115" width="375" height="552"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="28" minimumInteritemSpacing="10" id="dci-1Z-Adu">
-                                <size key="itemSize" width="136" height="200"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="60"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="Ngg-rT-2LX"/>
-                                <outlet property="delegate" destination="-1" id="bjC-yn-7H8"/>
-                            </connections>
-                        </collectionView>
+                        </scrollView>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="htt-eZ-RD0" secondAttribute="trailing" id="6UF-TY-PBz"/>
-                        <constraint firstItem="htt-eZ-RD0" firstAttribute="leading" secondItem="PdD-Yl-PnR" secondAttribute="leading" id="BeD-bg-lkR"/>
-                        <constraint firstAttribute="bottom" secondItem="htt-eZ-RD0" secondAttribute="bottom" id="LU2-jM-6Dm"/>
+                        <constraint firstItem="fIU-Sz-R9M" firstAttribute="leading" secondItem="PdD-Yl-PnR" secondAttribute="leading" id="2ww-Wk-UTr"/>
+                        <constraint firstAttribute="trailing" secondItem="fIU-Sz-R9M" secondAttribute="trailing" id="H1S-lD-R5T"/>
+                        <constraint firstItem="fIU-Sz-R9M" firstAttribute="top" secondItem="ZQN-PD-FCm" secondAttribute="bottom" id="Zzd-qS-0xI"/>
                         <constraint firstItem="ZQN-PD-FCm" firstAttribute="leading" secondItem="PdD-Yl-PnR" secondAttribute="leading" id="dhg-0N-gsY"/>
+                        <constraint firstAttribute="bottom" secondItem="fIU-Sz-R9M" secondAttribute="bottom" id="r7F-UY-9by"/>
                         <constraint firstItem="ZQN-PD-FCm" firstAttribute="top" secondItem="PdD-Yl-PnR" secondAttribute="top" id="rbN-oe-kRN"/>
                         <constraint firstAttribute="trailing" secondItem="ZQN-PD-FCm" secondAttribute="trailing" id="s3D-Vk-BUU"/>
-                        <constraint firstItem="htt-eZ-RD0" firstAttribute="top" secondItem="ZQN-PD-FCm" secondAttribute="bottom" id="x5Y-Rw-Lnc"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UWT-lP-Ot0" userLabel="currentView">

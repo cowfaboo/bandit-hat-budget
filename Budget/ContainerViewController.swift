@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContainerViewController: UIViewController {
+class ContainerViewController: UIViewController, InteractivePresenter {
 
   static let sharedInstance = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
   
@@ -17,7 +17,7 @@ class ContainerViewController: UIViewController {
   @IBOutlet weak var settingsButton: BHButton!
   
   var dataNavigationController: DataNavigationController!
-  var topLayerAnimator = TopLayerAnimator()
+  var presentationAnimator: PresentationAnimator = TopLayerAnimator()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -56,7 +56,7 @@ class ContainerViewController: UIViewController {
     expenseEntryViewController.transitioningDelegate = self
     expenseEntryViewController.modalPresentationStyle = .custom
     
-    topLayerAnimator.initialFrame = CGRect(x: 0, y: Utilities.screenHeight, width: Utilities.screenWidth, height: Utilities.screenHeight)
+    presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
     
     present(expenseEntryViewController, animated: true, completion: nil)
   }
@@ -108,57 +108,31 @@ extension ContainerViewController: CategoryManagementDelegate {
 extension ContainerViewController: UIViewControllerTransitioningDelegate {
   
   func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    topLayerAnimator.presenting = true
-    return topLayerAnimator
+    presentationAnimator.presenting = true
+    return presentationAnimator
   }
   
   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    topLayerAnimator.presenting = false
-    return topLayerAnimator
+    presentationAnimator.presenting = false
+    return presentationAnimator
   }
   
   func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     
-    if topLayerAnimator.interactive {
-      topLayerAnimator.presenting = true
-      return topLayerAnimator
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = true
+      return presentationAnimator
     }
     return nil
   }
   
   func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     
-    if topLayerAnimator.interactive {
-      topLayerAnimator.presenting = false
-      return topLayerAnimator
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = false
+      return presentationAnimator
     }
     return nil
-  }
-}
-
-extension ContainerViewController: InteractivePresenter {
-  
-  func interactiveDismissalBegan() {
-    topLayerAnimator.interactive = true
-    dismiss(animated: true)
-  }
-  
-  func interactiveDismissalChanged(withProgress progress: CGFloat) {
-    topLayerAnimator.update(progress)
-  }
-  
-  func interactiveDismissalCanceled(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
-    topLayerAnimator.distanceToTravel = distanceToTravel
-    topLayerAnimator.velocity = velocity
-    topLayerAnimator.cancel()
-    topLayerAnimator.interactive = false
-  }
-  
-  func interactiveDismissalFinished(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat) {
-    topLayerAnimator.distanceToTravel = distanceToTravel
-    topLayerAnimator.velocity = velocity
-    topLayerAnimator.finish()
-    topLayerAnimator.interactive = false
   }
 }
 

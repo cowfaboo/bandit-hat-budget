@@ -1,5 +1,5 @@
 //
-//  AmountLayer.swift
+//  AmountPieLayer.swift
 //  Budget
 //
 //  Created by Daniel Gauthier on 2016-12-27.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AmountLayer: CAShapeLayer {
+class AmountPieLayer: CAShapeLayer {
   
   var themeColor: UIColor = UIColor.text {
     didSet {
@@ -23,8 +23,10 @@ class AmountLayer: CAShapeLayer {
   @NSManaged var secondaryAmount: Float
   
   override func layoutSublayers() {
-    path = UIBezierPath(ovalIn: CGRect(x: 6, y: 6, width: bounds.size.width - 12, height: bounds.size.height - 12)).cgPath
-    fillColor = themeColor.withAlphaComponent(0.1).cgColor
+    if primaryAmount == 0 && secondaryAmount == 0 {
+      path = UIBezierPath(ovalIn: CGRect(x: 6, y: 6, width: bounds.size.width - 12, height: bounds.size.height - 12)).cgPath
+      fillColor = themeColor.withAlphaComponent(0.1).cgColor
+    }
   }
   
   override func display() {
@@ -144,7 +146,7 @@ class AmountLayer: CAShapeLayer {
       let animation = CABasicAnimation(keyPath: event)
       animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
       animation.duration = 0.6
-      animation.fromValue = 0
+      animation.fromValue = primaryAmount
       return animation
       
     } else if event == #keyPath(secondaryAmount) {
@@ -152,7 +154,7 @@ class AmountLayer: CAShapeLayer {
       let animation = CABasicAnimation(keyPath: event)
       animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
       animation.duration = 0.6
-      animation.fromValue = 0
+      animation.fromValue = secondaryAmount
       return animation
     }
     

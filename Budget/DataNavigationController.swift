@@ -21,8 +21,12 @@ class DataNavigationController: UIViewController {
   @IBOutlet weak var nextDummyHeaderView: UIView!
   @IBOutlet weak var previousDummyHeaderView: UIView!
   
-  @IBOutlet weak var nextDummyCollectionView: UICollectionView!
-  @IBOutlet weak var previousDummyCollectionView: UICollectionView!
+  @IBOutlet weak var nextDummyScrollView: UIScrollView!
+  @IBOutlet weak var previousDummyScrollView: UIScrollView!
+  var previousDummyAmountWidgetArray = [AmountWidgetViewController]()
+  var previousDummyContainerViewArray = [UIView]()
+  var nextDummyAmountWidgetArray = [AmountWidgetViewController]()
+  var nextDummyContainerViewArray = [UIView]()
   
   @IBOutlet weak var currentViewLeadingConstraint: NSLayoutConstraint!
   @IBOutlet weak var currentViewTrailingConstraint: NSLayoutConstraint!
@@ -69,9 +73,6 @@ class DataNavigationController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    previousDummyCollectionView.register(UINib(nibName: "AmountDataCell", bundle: nil), forCellWithReuseIdentifier: "AmountDataCell")
-    nextDummyCollectionView.register(UINib(nibName: "AmountDataCell", bundle: nil), forCellWithReuseIdentifier: "AmountDataCell")
     
     leftRecognizer = DirectionalPanGestureRecognizer(target: self, action: #selector(handlePreviousDrag(_:)))
     leftRecognizer.gestureDirection = .StrictHorizontal
@@ -386,10 +387,10 @@ class DataNavigationController: UIViewController {
     add(previousDataHeaderViewController, to: previousDummyHeaderView)
     
     if dataPresentationType == .amounts {
-      previousDummyCollectionView.isHidden = false
-      previousDummyCollectionView.reloadData()
+      previousDummyScrollView.isHidden = false
+      updatePreviousDummyDataViews()
     } else {
-      previousDummyCollectionView.isHidden = true
+      previousDummyScrollView.isHidden = true
     }
   }
   
@@ -416,10 +417,10 @@ class DataNavigationController: UIViewController {
     add(nextDataHeaderViewController, to: nextDummyHeaderView)
     
     if dataPresentationType == .amounts {
-      nextDummyCollectionView.isHidden = false
-      nextDummyCollectionView.reloadData()
+      nextDummyScrollView.isHidden = false
+      updateNextDummyDataViews()
     } else {
-      nextDummyCollectionView.isHidden = true
+      nextDummyScrollView.isHidden = true
     }
   }
   
@@ -519,6 +520,132 @@ class DataNavigationController: UIViewController {
     nextViewTrailingConstraint.constant = -TransitionDistance
     view.layoutIfNeeded()
   }
+  
+  func updatePreviousDummyDataViews() {
+    
+    let amountDataViewController = (currentViewController as! AmountDataViewController)
+    let amountArray = amountDataViewController.amountArray
+    
+    if (amountArray.count == previousDummyContainerViewArray.count) {
+      return
+    }
+    
+    let completionPercentage: Float = 0
+    
+    for amountWidget in previousDummyAmountWidgetArray {
+      amountWidget.removeFromContainerView()
+    }
+    
+    for containerView in previousDummyContainerViewArray {
+      containerView.removeFromSuperview()
+    }
+    
+    previousDummyAmountWidgetArray = []
+    previousDummyContainerViewArray = []
+    
+    let containerWidth: CGFloat = 136
+    let containerHeight: CGFloat = 200
+    let remainingWidthSpacing = Utilities.screenWidth - containerWidth * 2
+    var currentYPosition: CGFloat = 0
+    
+    var index = 0
+    for amount in amountArray {
+      
+      let currentXPosition: CGFloat
+      if index % 2 == 0 {
+        currentXPosition = remainingWidthSpacing / 3
+      } else {
+        currentXPosition = ((remainingWidthSpacing / 3) * 2) + containerWidth
+      }
+      
+      let containerView = UIView(frame: CGRect(x: currentXPosition, y: currentYPosition, width: containerWidth, height: containerHeight))
+      previousDummyContainerViewArray.append(containerView)
+      previousDummyScrollView.addSubview(containerView)
+      
+      let amountWidgetViewController = AmountWidgetViewController(withAmount: amount, timeRangeType: timeRangeType, completionPercentage: completionPercentage, isPlaceholder: true)
+      add(amountWidgetViewController, to: containerView)
+      amountWidgetViewController.refreshView()
+      previousDummyAmountWidgetArray.append(amountWidgetViewController)
+      
+      if index % 2 == 1 {
+        currentYPosition += containerHeight + 28
+      }
+      
+      index += 1
+    }
+    
+    let numberOfRows: Int
+    if amountArray.count % 2 == 0 {
+      numberOfRows = amountArray.count / 2
+    } else {
+      numberOfRows = amountArray.count / 2 + 1
+    }
+    
+    previousDummyScrollView.contentSize = CGSize(width: Utilities.screenWidth, height: (containerHeight * CGFloat(numberOfRows)) + (28 * CGFloat(numberOfRows)) + 60)
+    
+  }
+  
+  func updateNextDummyDataViews() {
+    
+    let amountDataViewController = (currentViewController as! AmountDataViewController)
+    let amountArray = amountDataViewController.amountArray
+    
+    if (amountArray.count == nextDummyContainerViewArray.count) {
+      return
+    }
+    
+    let completionPercentage: Float = 0
+    
+    for amountWidget in nextDummyAmountWidgetArray {
+      amountWidget.removeFromContainerView()
+    }
+    
+    for containerView in nextDummyContainerViewArray {
+      containerView.removeFromSuperview()
+    }
+    
+    nextDummyAmountWidgetArray = []
+    nextDummyContainerViewArray = []
+    
+    let containerWidth: CGFloat = 136
+    let containerHeight: CGFloat = 200
+    let remainingWidthSpacing = Utilities.screenWidth - containerWidth * 2
+    var currentYPosition: CGFloat = 0
+    
+    var index = 0
+    for amount in amountArray {
+      let currentXPosition: CGFloat
+      if index % 2 == 0 {
+        currentXPosition = remainingWidthSpacing / 3
+      } else {
+        currentXPosition = ((remainingWidthSpacing / 3) * 2) + containerWidth
+      }
+      
+      let containerView = UIView(frame: CGRect(x: currentXPosition, y: currentYPosition, width: containerWidth, height: containerHeight))
+      nextDummyContainerViewArray.append(containerView)
+      nextDummyScrollView.addSubview(containerView)
+      
+      let amountWidgetViewController = AmountWidgetViewController(withAmount: amount, timeRangeType: timeRangeType, completionPercentage: completionPercentage, isPlaceholder: true)
+      add(amountWidgetViewController, to: containerView)
+      amountWidgetViewController.refreshView()
+      nextDummyAmountWidgetArray.append(amountWidgetViewController)
+      
+      if index % 2 == 1 {
+        currentYPosition += containerHeight + 28
+      }
+      
+      index += 1
+    }
+    
+    let numberOfRows: Int
+    if amountArray.count % 2 == 0 {
+      numberOfRows = amountArray.count / 2
+    } else {
+      numberOfRows = amountArray.count / 2 + 1
+    }
+    
+    nextDummyScrollView.contentSize = CGSize(width: Utilities.screenWidth, height: (containerHeight * CGFloat(numberOfRows)) + (28 * CGFloat(numberOfRows)) + 60) 
+  }
 }
 
 extension DataNavigationController: UIGestureRecognizerDelegate {
@@ -536,42 +663,6 @@ extension DataNavigationController: UIGestureRecognizerDelegate {
   }
 }
 
-// MARK: - Collection View Flow Layout Delegate Methods
-extension DataNavigationController: UICollectionViewDelegateFlowLayout {
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    
-    let inset = (collectionView.frame.size.width - (136 * 2.0)) / 3.0
-    return UIEdgeInsetsMake(0, inset, 0, inset)
-  }
-}
-
-// MARK: - Collection View Data Source Methods
-extension DataNavigationController: UICollectionViewDataSource {
-  
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 1
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return (currentViewController as! AmountDataViewController).amountArray.count
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmountDataCell", for: indexPath) as! AmountDataCell
-    
-    let amountDataViewController = (currentViewController as! AmountDataViewController)
-    
-    let amount = amountDataViewController.amountArray[indexPath.item]
-    amount.amount = 0
-    
-    cell.initialize(withAmount: amount, timeRangeType: timeRangeType, completionPercentage: nil)
-    cell.isPlaceholder = true
-    
-    return cell
-  }
-}
 
 // MARK: - Amount Data Delegate Methods
 extension DataNavigationController: AmountDataDelegate {

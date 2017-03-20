@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopSlideAnimator: UIPercentDrivenInteractiveTransition {
+class TopSlideAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimator {
 
   var presenting = true
   var interactive = false

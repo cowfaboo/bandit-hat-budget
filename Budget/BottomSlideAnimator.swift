@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BottomSlideAnimator: UIPercentDrivenInteractiveTransition {
+class BottomSlideAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimator {
 
   var presenting = true
   var interactive = false

@@ -8,17 +8,12 @@
 
 import UIKit
 
-class TopLayerAnimator: UIPercentDrivenInteractiveTransition {
+class TopLayerAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimator {
   
   // MARK: Properties
   var presenting = true
   var interactive = false
   var initialCenter = CGPoint()
-  var initialFrame = CGRect() {
-    didSet {
-      initialCenter = CGPoint(x: initialFrame.origin.x + initialFrame.size.width / 2, y: initialFrame.origin.y + initialFrame.size.height / 2)
-    }
-  }
   
   var distanceToTravel: CGFloat = 1
   var velocity: CGFloat = 0
@@ -137,7 +132,7 @@ extension TopLayerAnimator: UIViewControllerAnimatedTransitioning {
       let containerViewController = transitionContext.viewController(forKey: .from)
       let presentedViewController = transitionContext.viewController(forKey: .to)
       
-      presentedViewController?.view.frame = initialFrame
+      presentedViewController?.view.frame = CGRect(x: initialCenter.x - (Utilities.screenWidth / 2), y: initialCenter.y - (Utilities.screenHeight / 2), width: Utilities.screenWidth, height: Utilities.screenHeight)
       containerView.addSubview(presentedViewController!.view)
       presentedViewController?.view.alpha = 1.0
       
