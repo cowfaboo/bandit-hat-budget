@@ -23,6 +23,7 @@ public typealias BKGetAmountCompletionBlock = (Bool, BKAmount?) -> ()
 public typealias BKCreateUserCompletionBlock = (Bool, BKUser?) -> ()
 public typealias BKCreateCategoryCompletionBlock = (Bool, BKCategory?) -> ()
 public typealias BKCreateExpenseCompletionBlock = (Bool, BKExpense?) -> ()
+public typealias BKDeleteCompletionBlock = (Bool) -> ()
 
 public let BKSharedDataController = BKDataController.sharedInstance
 public let BKSharedBasicRequestClient = BKBasicRequestClient.sharedInstance

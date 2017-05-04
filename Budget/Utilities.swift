@@ -21,7 +21,7 @@ enum DataPresentationType {
 
 let DataViewNeedsUpdateKey = "DataViewNeedsUpdate"
 
-let Colors = [#colorLiteral(red: 0.1176470588, green: 0.2196078431, blue: 0.3921568627, alpha: 1), #colorLiteral(red: 0.2705882353, green: 0.3882352941, blue: 0.3333333333, alpha: 1), #colorLiteral(red: 0.4168243387, green: 0.3121102968, blue: 0.5244659871, alpha: 1), #colorLiteral(red: 0, green: 0.6274509804, blue: 0.5411764706, alpha: 1), #colorLiteral(red: 0.3568627451, green: 0.737254902, blue: 0.8392156863, alpha: 1), #colorLiteral(red: 0.8941176471, green: 0.3843137255, blue: 0.4, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.721568644, blue: 0.3647058904, alpha: 1), #colorLiteral(red: 0.6784313725, green: 0.2039215686, blue: 0.2431372549, alpha: 1), #colorLiteral(red: 0.9803921569, green: 0.6392156863, blue: 0, alpha: 1), #colorLiteral(red: 0.968627451, green: 0.6156862745, blue: 0.5176470588, alpha: 1), #colorLiteral(red: 0.3490196078, green: 0.5843137255, blue: 0.9294117647, alpha: 1)]
+//let Colors = [#colorLiteral(red: 0.1176470588, green: 0.2196078431, blue: 0.3921568627, alpha: 1), #colorLiteral(red: 0.2705882353, green: 0.3882352941, blue: 0.3333333333, alpha: 1), #colorLiteral(red: 0.4168243387, green: 0.3121102968, blue: 0.5244659871, alpha: 1), #colorLiteral(red: 0, green: 0.6274509804, blue: 0.5411764706, alpha: 1), #colorLiteral(red: 0.3568627451, green: 0.737254902, blue: 0.8392156863, alpha: 1), #colorLiteral(red: 0.8941176471, green: 0.3843137255, blue: 0.4, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.721568644, blue: 0.3647058904, alpha: 1), #colorLiteral(red: 0.6784313725, green: 0.2039215686, blue: 0.2431372549, alpha: 1), #colorLiteral(red: 0.9803921569, green: 0.6392156863, blue: 0, alpha: 1), #colorLiteral(red: 0.968627451, green: 0.6156862745, blue: 0.5176470588, alpha: 1), #colorLiteral(red: 0.3490196078, green: 0.5843137255, blue: 0.9294117647, alpha: 1)]
 
 class Utilities {
   
@@ -45,10 +45,6 @@ class Utilities {
   
   class func setDataViewNeedsUpdate() {
     UserDefaults.standard.set(true, forKey: DataViewNeedsUpdateKey)
-  }
-  
-  class func getRandomColor() -> UIColor {
-    return Colors[Int(arc4random_uniform(UInt32(Colors.count)))]
   }
 }
 
@@ -225,7 +221,7 @@ extension Date {
 
 extension Float {
   
-  var dollarAmount: String {
+  /*var dollarAmount: String {
     get {
       let numberFormatter = NumberFormatter()
       numberFormatter.minimumIntegerDigits = 1
@@ -238,9 +234,9 @@ extension Float {
         return "\(self)"
       }
     }
-  }
+  }*/
   
-  var simpleDollarAmount: String {
+  /*var simpleDollarAmount: String {
     get {
       let numberFormatter = NumberFormatter()
       numberFormatter.roundingMode = .up
@@ -254,6 +250,42 @@ extension Float {
         return "\(self)"
       }
     }
+  }*/
+  
+  func dollarAmount(withDollarSign: Bool = false) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.minimumIntegerDigits = 1
+    numberFormatter.minimumFractionDigits = 2
+    numberFormatter.maximumFractionDigits = 2
+    let formattedNumber = numberFormatter.string(from: NSNumber(value: self))
+    if let formattedNumber = formattedNumber {
+      if withDollarSign {
+        return "$\(formattedNumber)"
+      } else {
+        return "\(formattedNumber)"
+      }
+    } else {
+      return "\(self)"
+    }
+  }
+  
+  func simpleDollarAmount(withDollarSign: Bool = true) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.roundingMode = .up
+    numberFormatter.minimumIntegerDigits = 1
+    numberFormatter.minimumFractionDigits = 0
+    numberFormatter.maximumFractionDigits = 0
+    let formattedNumber = numberFormatter.string(from: NSNumber(value: self))
+    if let formattedNumber = formattedNumber {
+      if withDollarSign {
+        return "$\(formattedNumber)"
+      } else {
+        return "\(formattedNumber)"
+      }
+      
+    } else {
+      return "\(self)"
+    }
   }
 }
 
@@ -265,9 +297,54 @@ extension UIColor {
     }
   }
   
-  class var overBudget: UIColor {
+  class var negative: UIColor {
     get {
-      return #colorLiteral(red: 0.9490196078, green: 0.3019607843, blue: 0.1607843137, alpha: 1)
+      return #colorLiteral(red: 0.8431372549, green: 0.2274509804, blue: 0.1921568627, alpha: 1)
+    }
+  }
+  
+  class var positive: UIColor {
+    get {
+      return #colorLiteral(red: 0.3450980392, green: 0.7176470588, blue: 0.3764705882, alpha: 1)
+    }
+  }
+  
+  class var palette: Array<UIColor> {
+    get {
+      return [#colorLiteral(red: 0.2901960784, green: 0.6, blue: 0.8941176471, alpha: 1), #colorLiteral(red: 0.9921568627, green: 0.5960784314, blue: 0.1529411765, alpha: 1), #colorLiteral(red: 0.1254901961, green: 0.5882352941, blue: 0.7294117647, alpha: 1), #colorLiteral(red: 0.9137254902, green: 0.7803921569, blue: 0.1333333333, alpha: 1), #colorLiteral(red: 0.1411764706, green: 0.7176470588, blue: 0.7098039216, alpha: 1), #colorLiteral(red: 0.462745098, green: 0.3215686275, blue: 0.5215686275, alpha: 1), #colorLiteral(red: 0.8, green: 0.4, blue: 0.1254901961, alpha: 1), #colorLiteral(red: 0.8352941176, green: 0.4392156863, blue: 0.7411764706, alpha: 1), #colorLiteral(red: 0.4196078431, green: 0.5098039216, blue: 0.6588235294, alpha: 1), #colorLiteral(red: 0.03137254902, green: 0.4392156863, blue: 0.5411764706, alpha: 1), #colorLiteral(red: 1, green: 0.5490196078, blue: 0.6823529412, alpha: 1), #colorLiteral(red: 0.7019607843, green: 0.4862745098, blue: 0.3411764706, alpha: 1)]
+    }
+  }
+  
+  class func paletteIndex(of color: UIColor) -> Int? {
+    let hexValue = color.hexString.uppercased()
+    
+    switch hexValue {
+    case "4A99E4":
+      return 0
+    case "FD9827":
+      return 1
+    case "2096BA":
+      return 2
+    case "E9C722":
+      return 3
+    case "24B7B5":
+      return 4
+    case "765285":
+      return 5
+    case "CC6620":
+      return 6
+    case "D570BD":
+      return 7
+    case "6B82A8":
+      return 8
+    case "08708A":
+      return 9
+    case "FF8CAE":
+      return 10
+    case "B37C57":
+      return 11
+    default:
+      return nil
     }
   }
 }

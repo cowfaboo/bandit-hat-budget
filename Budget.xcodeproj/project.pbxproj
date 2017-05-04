@@ -37,6 +37,9 @@
 		6563FCD71E53F6C800949E80 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6563FCD61E53F6C800949E80 /* QuartzCore.framework */; };
 		6563FCD91E53F6CE00949E80 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6563FCD81E53F6CE00949E80 /* SystemConfiguration.framework */; };
 		6563FCDB1E53F6E200949E80 /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6563FCDA1E53F6E200949E80 /* BuddyBuildSDK.framework */; };
+		6574B4531EAC509900034D99 /* BHAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574B4511EAC509900034D99 /* BHAlertViewController.swift */; };
+		6574B4541EAC509900034D99 /* BHAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6574B4521EAC509900034D99 /* BHAlertViewController.xib */; };
+		6574B4561EAC5A5700034D99 /* BHAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574B4551EAC5A5700034D99 /* BHAlertAction.swift */; };
 		658390F61DE8F25B001BCE1C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390F51DE8F25B001BCE1C /* Settings.swift */; };
 		658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390F71DE8FC57001BCE1C /* DataNavigationController.swift */; };
 		658390FA1DE8FC57001BCE1C /* DataNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658390F81DE8FC57001BCE1C /* DataNavigationController.xib */; };
@@ -44,6 +47,8 @@
 		658390FE1DE906F3001BCE1C /* AmountDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658390FC1DE906F3001BCE1C /* AmountDataViewController.xib */; };
 		658391011DE91BB2001BCE1C /* CategoryManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658390FF1DE91BB2001BCE1C /* CategoryManagementViewController.swift */; };
 		658391021DE91BB2001BCE1C /* CategoryManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658391001DE91BB2001BCE1C /* CategoryManagementViewController.xib */; };
+		658AE5FE1E86F404009834EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658AE5FC1E86F404009834EB /* SettingsViewController.swift */; };
+		658AE5FF1E86F404009834EB /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 658AE5FD1E86F404009834EB /* SettingsViewController.xib */; };
 		659AD11D1DE6B3CD0035E538 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659AD11C1DE6B3CD0035E538 /* AppDelegate.swift */; };
 		659AD11F1DE6B3CD0035E538 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659AD11E1DE6B3CD0035E538 /* ContainerViewController.swift */; };
 		659AD1271DE6B3CD0035E538 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659AD1261DE6B3CD0035E538 /* Assets.xcassets */; };
@@ -59,6 +64,12 @@
 		65A98B331DFF7DA300465E3E /* ExpenseDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A98B311DFF7DA300465E3E /* ExpenseDataCell.swift */; };
 		65A98B341DFF7DA300465E3E /* ExpenseDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65A98B321DFF7DA300465E3E /* ExpenseDataCell.xib */; };
 		65A98B381E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A98B371E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift */; };
+		65ACF9681E8A11FA00A8F110 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ACF9661E8A11FA00A8F110 /* SettingsCell.swift */; };
+		65ACF9691E8A11FA00A8F110 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ACF9671E8A11FA00A8F110 /* SettingsCell.xib */; };
+		65ACF96C1E932EC600A8F110 /* CategoryManagementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ACF96A1E932EC600A8F110 /* CategoryManagementCell.swift */; };
+		65ACF96D1E932EC600A8F110 /* CategoryManagementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ACF96B1E932EC600A8F110 /* CategoryManagementCell.xib */; };
+		65ACF9701E95E8C800A8F110 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ACF96E1E95E8C800A8F110 /* CategoryDetailViewController.swift */; };
+		65ACF9711E95E8C800A8F110 /* CategoryDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ACF96F1E95E8C800A8F110 /* CategoryDetailViewController.xib */; };
 		65B688671E3E9D95003E1323 /* BottomSlideAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B688661E3E9D95003E1323 /* BottomSlideAnimator.swift */; };
 		65B6886A1E3EABFD003E1323 /* TopLayerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B688691E3EABFD003E1323 /* TopLayerAnimator.swift */; };
 		65B6886C1E4181CD003E1323 /* DataDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B6886B1E4181CD003E1323 /* DataDisplaying.swift */; };
@@ -149,6 +160,9 @@
 		6563FCD81E53F6CE00949E80 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6563FCDA1E53F6E200949E80 /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		6563FCDC1E53F72100949E80 /* Budget-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Budget-Bridging-Header.h"; sourceTree = "<group>"; };
+		6574B4511EAC509900034D99 /* BHAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BHAlertViewController.swift; sourceTree = "<group>"; };
+		6574B4521EAC509900034D99 /* BHAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BHAlertViewController.xib; sourceTree = "<group>"; };
+		6574B4551EAC5A5700034D99 /* BHAlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BHAlertAction.swift; sourceTree = "<group>"; };
 		658390F51DE8F25B001BCE1C /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		658390F71DE8FC57001BCE1C /* DataNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataNavigationController.swift; sourceTree = "<group>"; };
 		658390F81DE8FC57001BCE1C /* DataNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataNavigationController.xib; sourceTree = "<group>"; };
@@ -156,6 +170,8 @@
 		658390FC1DE906F3001BCE1C /* AmountDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmountDataViewController.xib; sourceTree = "<group>"; };
 		658390FF1DE91BB2001BCE1C /* CategoryManagementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryManagementViewController.swift; sourceTree = "<group>"; };
 		658391001DE91BB2001BCE1C /* CategoryManagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryManagementViewController.xib; sourceTree = "<group>"; };
+		658AE5FC1E86F404009834EB /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		658AE5FD1E86F404009834EB /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		659AD1191DE6B3CD0035E538 /* Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Budget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		659AD11C1DE6B3CD0035E538 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		659AD11E1DE6B3CD0035E538 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +188,12 @@
 		65A98B311DFF7DA300465E3E /* ExpenseDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseDataCell.swift; sourceTree = "<group>"; };
 		65A98B321DFF7DA300465E3E /* ExpenseDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpenseDataCell.xib; sourceTree = "<group>"; };
 		65A98B371E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionalPanGestureRecognizer.swift; sourceTree = "<group>"; };
+		65ACF9661E8A11FA00A8F110 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		65ACF9671E8A11FA00A8F110 /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
+		65ACF96A1E932EC600A8F110 /* CategoryManagementCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryManagementCell.swift; sourceTree = "<group>"; };
+		65ACF96B1E932EC600A8F110 /* CategoryManagementCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryManagementCell.xib; sourceTree = "<group>"; };
+		65ACF96E1E95E8C800A8F110 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
+		65ACF96F1E95E8C800A8F110 /* CategoryDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryDetailViewController.xib; sourceTree = "<group>"; };
 		65B688661E3E9D95003E1323 /* BottomSlideAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSlideAnimator.swift; sourceTree = "<group>"; };
 		65B688691E3EABFD003E1323 /* TopLayerAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopLayerAnimator.swift; sourceTree = "<group>"; };
 		65B6886B1E4181CD003E1323 /* DataDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDisplaying.swift; sourceTree = "<group>"; };
@@ -251,6 +273,9 @@
 				65E96BD61E5A186000EDE0A2 /* CalendarViewController.xib */,
 				65E96BE51E5BACB300EDE0A2 /* CalendarCell.swift */,
 				65E96BE41E5BACB300EDE0A2 /* CalendarCell.xib */,
+				6574B4511EAC509900034D99 /* BHAlertViewController.swift */,
+				6574B4521EAC509900034D99 /* BHAlertViewController.xib */,
+				6574B4551EAC5A5700034D99 /* BHAlertAction.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -301,7 +326,7 @@
 				65E168DA1DF53C3D001A82DD /* Data Presentation */,
 				65B5443C1DE8097300FD2B54 /* Expense Entry */,
 				65B5443B1DE8094C00FD2B54 /* Sign In */,
-				65E168DB1DF53C56001A82DD /* Category Management */,
+				65E168DB1DF53C56001A82DD /* Settings */,
 				65B688681E3E9DA0003E1323 /* Animators */,
 				659AD1261DE6B3CD0035E538 /* Assets.xcassets */,
 				659AD1281DE6B3CD0035E538 /* LaunchScreen.storyboard */,
@@ -389,13 +414,21 @@
 			name = "Data Presentation";
 			sourceTree = "<group>";
 		};
-		65E168DB1DF53C56001A82DD /* Category Management */ = {
+		65E168DB1DF53C56001A82DD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				658AE5FC1E86F404009834EB /* SettingsViewController.swift */,
+				658AE5FD1E86F404009834EB /* SettingsViewController.xib */,
+				65ACF9661E8A11FA00A8F110 /* SettingsCell.swift */,
+				65ACF9671E8A11FA00A8F110 /* SettingsCell.xib */,
 				658390FF1DE91BB2001BCE1C /* CategoryManagementViewController.swift */,
 				658391001DE91BB2001BCE1C /* CategoryManagementViewController.xib */,
+				65ACF96A1E932EC600A8F110 /* CategoryManagementCell.swift */,
+				65ACF96B1E932EC600A8F110 /* CategoryManagementCell.xib */,
+				65ACF96E1E95E8C800A8F110 /* CategoryDetailViewController.swift */,
+				65ACF96F1E95E8C800A8F110 /* CategoryDetailViewController.xib */,
 			);
-			name = "Category Management";
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		65E5E2281DE7E75F0066944F /* BudgetKit */ = {
@@ -513,6 +546,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				659AD13A1DE6B9090035E538 /* ExpenseEntryViewController.xib in Resources */,
+				65ACF9711E95E8C800A8F110 /* CategoryDetailViewController.xib in Resources */,
 				65A8E4931DF48E9000CEB71F /* ExpenseDataViewController.xib in Resources */,
 				65E96BD81E5A186000EDE0A2 /* CalendarViewController.xib in Resources */,
 				658390FE1DE906F3001BCE1C /* AmountDataViewController.xib in Resources */,
@@ -525,12 +559,16 @@
 				652589791E63512D009CC4AC /* UserFilterViewController.xib in Resources */,
 				658391021DE91BB2001BCE1C /* CategoryManagementViewController.xib in Resources */,
 				65D32F6D1E235C3E008475DD /* BottomSlideViewController.xib in Resources */,
+				658AE5FF1E86F404009834EB /* SettingsViewController.xib in Resources */,
 				65E5E21D1DE7E1F10066944F /* UserCreationViewController.xib in Resources */,
+				6574B4541EAC509900034D99 /* BHAlertViewController.xib in Resources */,
 				65187D3C1E7B73A200A79261 /* AmountWidgetViewController.xib in Resources */,
 				659AD12A1DE6B3CD0035E538 /* LaunchScreen.storyboard in Resources */,
 				65C183BA1E07586200CC5EE8 /* DataHeaderViewController.xib in Resources */,
+				65ACF9691E8A11FA00A8F110 /* SettingsCell.xib in Resources */,
 				65E96BE11E5A202600EDE0A2 /* TopSlideViewController.xib in Resources */,
 				659AD1271DE6B3CD0035E538 /* Assets.xcassets in Resources */,
+				65ACF96D1E932EC600A8F110 /* CategoryManagementCell.xib in Resources */,
 				659AD1321DE6B5800035E538 /* ContainerViewController.xib in Resources */,
 				653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */,
 				65E96BE61E5BACB300EDE0A2 /* CalendarCell.xib in Resources */,
@@ -553,10 +591,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				65E96BD71E5A186000EDE0A2 /* CalendarViewController.swift in Sources */,
+				65ACF9701E95E8C800A8F110 /* CategoryDetailViewController.swift in Sources */,
 				65E5E21C1DE7E1F10066944F /* UserCreationViewController.swift in Sources */,
+				65ACF96C1E932EC600A8F110 /* CategoryManagementCell.swift in Sources */,
 				659AD1351DE6B8FC0035E538 /* SignInViewController.swift in Sources */,
 				658390F61DE8F25B001BCE1C /* Settings.swift in Sources */,
 				6525897F1E63D064009CC4AC /* ViewContainer.swift in Sources */,
+				658AE5FE1E86F404009834EB /* SettingsViewController.swift in Sources */,
 				659AD11F1DE6B3CD0035E538 /* ContainerViewController.swift in Sources */,
 				650714611E2DD82E008468ED /* CategorySelectionCell.swift in Sources */,
 				6563FCC81E47C1E900949E80 /* OneWayPanGestureRecognizer.swift in Sources */,
@@ -566,8 +607,10 @@
 				6525897C1E636163009CC4AC /* UserFilterCell.swift in Sources */,
 				658390F91DE8FC57001BCE1C /* DataNavigationController.swift in Sources */,
 				654D5D9F1DF2AB5A0089939A /* Utilities.swift in Sources */,
+				6574B4531EAC509900034D99 /* BHAlertViewController.swift in Sources */,
 				653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */,
 				652589781E63512D009CC4AC /* UserFilterViewController.swift in Sources */,
+				65ACF9681E8A11FA00A8F110 /* SettingsCell.swift in Sources */,
 				65B6886C1E4181CD003E1323 /* DataDisplaying.swift in Sources */,
 				65D32F6C1E235C3E008475DD /* BottomSlideViewController.swift in Sources */,
 				658390FD1DE906F3001BCE1C /* AmountDataViewController.swift in Sources */,
@@ -582,6 +625,7 @@
 				65A8E4921DF48E9000CEB71F /* ExpenseDataViewController.swift in Sources */,
 				658391011DE91BB2001BCE1C /* CategoryManagementViewController.swift in Sources */,
 				65B6886E1E41A3DE003E1323 /* TopLevelViewController.swift in Sources */,
+				6574B4561EAC5A5700034D99 /* BHAlertAction.swift in Sources */,
 				6563FCC41E479FFF00949E80 /* InteractivePresenter.swift in Sources */,
 				65B6886A1E3EABFD003E1323 /* TopLayerAnimator.swift in Sources */,
 				65E96BE71E5BACB300EDE0A2 /* CalendarCell.swift in Sources */,

@@ -45,14 +45,17 @@ public class BKClient: NSObject, URLSessionDataDelegate, URLSessionDelegate {
       request.httpBody = body
     }
     
+    if method == "PATCH" {
+      request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    }
     
     let dataTask = self.session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
       
       if error != nil {
         if let requestDescription = requestDescription {
-          print("\(requestDescription) ERROR \(error)")
+          print("\(requestDescription) ERROR \(error!)")
         } else {
-          print("unknown API call ERROR \(error)")
+          print("unknown API call ERROR \(error!)")
         }
         completion(false, nil, nil)
         return
@@ -72,7 +75,7 @@ public class BKClient: NSObject, URLSessionDataDelegate, URLSessionDelegate {
         } else {
           
           if let data = data {
-            print("\(String(data: data, encoding: String.Encoding.utf8))")
+            print("\(String(data: data, encoding: String.Encoding.utf8)!)")
           }
           completion(false, nil, nil)
         }

@@ -16,6 +16,7 @@ protocol InteractivePresenter: class {
   func interactiveDismissalChanged(withProgress progress: CGFloat)
   func interactiveDismissalFinished(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat)
   func interactiveDismissalCanceled(withDistanceToTravel distanceToTravel: CGFloat, velocity: CGFloat)
+  func interactivePresentationDismissed()
 }
 
 extension InteractivePresenter where Self: UIViewController {
@@ -46,5 +47,10 @@ extension InteractivePresenter where Self: UIViewController {
       interactiveTransition.finish()
     }
     presentationAnimator.interactive = false
+    interactivePresentationDismissed()
+  }
+  
+  func interactivePresentationDismissed() {
+    
   }
 }

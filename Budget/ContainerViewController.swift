@@ -61,10 +61,24 @@ class ContainerViewController: UIViewController, InteractivePresenter {
     present(expenseEntryViewController, animated: true, completion: nil)
   }
   
-  func presentCategoryManagementView() {
-    let categoryManagementViewController = CategoryManagementViewController(nibName: "CategoryManagementViewController", bundle: nil)
+  func presentSettingsView() {
+    /*let categoryManagementViewController = CategoryManagementViewController(nibName: "CategoryManagementViewController", bundle: nil)
     categoryManagementViewController.categoryManagementDelegate = self
-    present(categoryManagementViewController, animated: true, completion: nil)
+    present(categoryManagementViewController, animated: true, completion: nil)*/
+    
+    let settingsViewController = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
+    settingsViewController.interactivePresenter = self
+    settingsViewController.settingsDelegate = self
+    settingsViewController.transitioningDelegate = self
+    settingsViewController.modalPresentationStyle = .custom
+    
+    presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
+    
+    present(settingsViewController, animated: true, completion: nil)
+    
+    //let navigationController = UINavigationController(rootViewController: settingsViewController)
+    //present(navigationController, animated: true, completion: nil)
+    
   }
   
   // MARK: - Action Methods
@@ -73,8 +87,14 @@ class ContainerViewController: UIViewController, InteractivePresenter {
     self.presentExpenseEntryView()
   }
   
-  @IBAction func manageCategoriesButtonTapped() {
-    self.presentCategoryManagementView()
+  @IBAction func settingsButtonTapped() {
+    self.presentSettingsView()
+  }
+}
+
+extension ContainerViewController: SettingsDelegate {
+  func shouldDismissSettings() {
+    dismiss(animated: true)
   }
 }
 
@@ -96,12 +116,6 @@ extension ContainerViewController: ExpenseEntryDelegate {
     }
     
     dismiss(animated: true)
-  }
-}
-
-extension ContainerViewController: CategoryManagementDelegate {
-  func categoryManagementDismissed() {
-    dismiss(animated: true, completion: nil)
   }
 }
 

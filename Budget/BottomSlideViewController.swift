@@ -100,7 +100,7 @@ class BottomSlideViewController: UIViewController {
       let normalizedYPosition = (yPosition - containerViewCenterY) / containerViewCenterY * -1.0
       xTranslationPercent *= normalizedYPosition
       
-      containerView.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_4 / 10.0) * xTranslationPercent)
+      containerView.transform = CGAffineTransform(rotationAngle: CGFloat((Double.pi/4) / 10.0) * xTranslationPercent)
       
     } else if recognizer.state == .ended {
       var progress = recognizer.translation(in: view).y / (Utilities.screenHeight - 115.0)

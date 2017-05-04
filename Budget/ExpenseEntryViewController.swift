@@ -247,7 +247,7 @@ extension ExpenseEntryViewController: UITextFieldDelegate {
     }
   }
   
-  func updateFormValidity(withNewString newString: String? = nil, inTextField textField: UITextField? = nil) {
+  func updateFormValidity() {
     
     let amount = Float(amountTextField.text ?? "")
     let name = nameTextField.text ?? ""

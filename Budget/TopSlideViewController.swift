@@ -21,10 +21,12 @@ class TopSlideViewController: UIViewController {
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var containerViewTopConstraint: NSLayoutConstraint!
   @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
+  var currentContentHeight: CGFloat = 308
+  var originalDistanceFromTop: CGFloat = 96
   
   var viewController: UIViewController?
   
-  init(presenting presentedViewController: UIViewController, from delegateViewController: InteractivePresenter & UIViewControllerTransitioningDelegate & TopSlideDelegate) {
+  init(presenting presentedViewController: UIViewController, from delegateViewController: InteractivePresenter & UIViewControllerTransitioningDelegate & TopSlideDelegate, withDistanceFromTop distanceFromTop: CGFloat = 96) {
     super.init(nibName: "TopSlideViewController", bundle: nil)
     
     viewController = presentedViewController
@@ -32,6 +34,7 @@ class TopSlideViewController: UIViewController {
     modalPresentationStyle = .custom
     transitioningDelegate = delegateViewController
     topSlideDelegate = delegateViewController
+    originalDistanceFromTop = distanceFromTop
     
   }
   
@@ -68,6 +71,8 @@ class TopSlideViewController: UIViewController {
       tableViewController.tableView.panGestureRecognizer.require(toFail: scrollGestureRecognizer)
       tableViewController.tableView.layer.allowsEdgeAntialiasing = true
     }
+    
+    containerViewHeightConstraint.constant = currentContentHeight
   }
   
   override func didReceiveMemoryWarning() {
@@ -101,18 +106,17 @@ class TopSlideViewController: UIViewController {
       let normalizedYPosition = (yPosition - containerViewCenterY) / containerViewCenterY * -1.0
       xTranslationPercent *= normalizedYPosition
       
-      containerView.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_4 / 10.0) * xTranslationPercent)
+      containerView.transform = CGAffineTransform(rotationAngle: CGFloat((Double.pi/4) / 10.0) * xTranslationPercent)
       
     } else if recognizer.state == .ended {
       var progress = -recognizer.translation(in: view).y / (96.0 + containerView.frame.size.height)
       progress = min(1.0, max(0.0, progress))
-      var velocity = recognizer.velocity(in: view).y
+      let velocity = recognizer.velocity(in: view).y
       
       if (progress > 0.5 || velocity < -300) && velocity < 300 {
         var distanceToTravel = (1.0 - progress) * (96.0 + containerView.frame.size.height)
-        if distanceToTravel < 0 {
+        if distanceToTravel > 0 {
           distanceToTravel *= -1.0
-          velocity *= -1
         }
         
         interactivePresenter?.interactiveDismissalFinished(withDistanceToTravel: distanceToTravel, velocity: velocity)
@@ -123,9 +127,8 @@ class TopSlideViewController: UIViewController {
         
       } else {
         var distanceToTravel = progress * (96.0 + containerView.frame.size.height)
-        if distanceToTravel < 0 {
+        if distanceToTravel > 0 {
           distanceToTravel *= -1.0
-          velocity *= -1
         }
         
         interactivePresenter?.interactiveDismissalCanceled(withDistanceToTravel: distanceToTravel, velocity: -velocity)
@@ -157,8 +160,10 @@ extension TopSlideViewController: UIGestureRecognizerDelegate {
 
 extension TopSlideViewController: ViewContainer {
   func contentHeightDidChange(_ contentHeight: CGFloat) {
-    containerViewHeightConstraint.constant = min(contentHeight, 308)
-    UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: { 
+    currentContentHeight = contentHeight
+    
+    containerViewHeightConstraint.constant = contentHeight
+    UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
       self.view.layoutIfNeeded()
     }, completion: nil)
   }

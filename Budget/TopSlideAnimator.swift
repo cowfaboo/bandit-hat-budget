@@ -9,7 +9,7 @@
 import UIKit
 
 class TopSlideAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimator {
-
+  
   var presenting = true
   var interactive = false
   var initialCenter = CGPoint()
@@ -39,14 +39,20 @@ class TopSlideAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimat
     
     let presentedViewController = transitionContext!.viewController(forKey: .from) as! TopSlideViewController
     
-    let finalCenter = CGPoint(x: Utilities.screenWidth / 2, y: 96.0 + (presentedViewController.containerView.frame.height / 2.0))
+    let finalCenter = CGPoint(x: Utilities.screenWidth / 2, y: presentedViewController.originalDistanceFromTop + (presentedViewController.containerView.frame.height / 2.0))
     let centerDifferenceX = finalCenter.x - initialCenter.x
     let centerDifferenceY = finalCenter.y - initialCenter.y
     
     presentedViewController.containerView.center = CGPoint(x: finalCenter.x - (centerDifferenceX * percentComplete), y: finalCenter.y - (centerDifferenceY * percentComplete))
     
-    presentedViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65 - (0.65 * percentComplete))
-    
+    if let presentingViewController = transitionContext!.viewController(forKey: .to) as? TopSlideViewController {
+      let presentingInitialCenter = CGPoint(x: Utilities.screenWidth / 2, y: presentingViewController.originalDistanceFromTop + (presentingViewController.containerView.frame.height / 2.0) + 100.0)
+      presentingViewController.containerView.center = CGPoint(x: presentingInitialCenter.x, y: presentingInitialCenter.y - (100 * percentComplete))
+      presentingViewController.containerView.transform = CGAffineTransform(scaleX: 0.9 + (0.1 * percentComplete), y: 0.9 + (0.1 * percentComplete))
+      presentedViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.3 - (0.3 * percentComplete))
+    } else {
+      presentedViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65 - (0.65 * percentComplete))
+    }
   }
   
   override func cancel() {
@@ -64,15 +70,29 @@ class TopSlideAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimat
       springVelocity = velocity / distanceToTravel
     }
     
-    let finalCenter = CGPoint(x: Utilities.screenWidth / 2, y: 96.0 + (presentedViewController.containerView.frame.height / 2.0))
+    let finalCenter = CGPoint(x: Utilities.screenWidth / 2, y: presentedViewController.originalDistanceFromTop + (presentedViewController.containerView.frame.height / 2.0))
     UIView.animate(withDuration: 0.45, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: springVelocity, options: [], animations: { () -> Void in
       
       presentedViewController.containerView.center = finalCenter
-      presentedViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
     }, completion: { (finished: Bool) -> Void in
       self.transitionContext?.cancelInteractiveTransition()
       self.transitionContext?.completeTransition(false)
     })
+    
+    UIView.animate(withDuration: 0.45, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .allowUserInteraction, animations: { () -> Void in
+      
+      if let presentingViewController = self.transitionContext!.viewController(forKey: .to) as? TopSlideViewController {
+        
+        presentingViewController.containerView.center = CGPoint(x: Utilities.screenWidth / 2, y: presentingViewController.originalDistanceFromTop + (presentingViewController.containerView.frame.height / 2.0) + 100.0)
+        presentingViewController.containerView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        
+        presentedViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        
+      } else {
+        presentedViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
+      }
+      
+    }, completion: nil)
   }
   
   override func finish() {
@@ -93,11 +113,22 @@ class TopSlideAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimat
     UIView.animate(withDuration: 0.45, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: springVelocity, options: .allowUserInteraction, animations: { () -> Void in
       
       presentedViewController.containerView.center = self.initialCenter
-      presentedViewController.view.backgroundColor = UIColor.clear
     }, completion: { (finished: Bool) -> Void in
       self.transitionContext?.cancelInteractiveTransition()
       self.transitionContext?.completeTransition(true)
     })
+    
+    UIView.animate(withDuration: 0.45, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .allowUserInteraction, animations: { () -> Void in
+      
+      if let presentingViewController = self.transitionContext!.viewController(forKey: .to) as? TopSlideViewController {
+        
+        presentingViewController.containerView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        presentingViewController.containerView.center = CGPoint(x: Utilities.screenWidth / 2, y: presentingViewController.originalDistanceFromTop + (presentingViewController.containerView.frame.height / 2.0))
+      }
+      
+      presentedViewController.view.backgroundColor = UIColor.clear
+      
+    }, completion: nil)
   }
 }
 
@@ -123,7 +154,7 @@ extension TopSlideAnimator: UIViewControllerAnimatedTransitioning {
       topSlideViewController.containerViewTopConstraint.constant = -topSlideViewController.containerView.frame.size.height
       topSlideViewController.view.layoutIfNeeded()
       
-      topSlideViewController.containerViewTopConstraint.constant = 96.0
+      topSlideViewController.containerViewTopConstraint.constant = topSlideViewController.originalDistanceFromTop
       
       UIView.animate(withDuration: transitionDuration(using: transitionContext) - 0.1, delay: 0.0, usingSpringWithDamping: 0.85, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: { () -> Void in
         topSlideViewController.view.layoutIfNeeded()
@@ -131,7 +162,16 @@ extension TopSlideAnimator: UIViewControllerAnimatedTransitioning {
       
       UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: { () -> Void in
         
-        topSlideViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
+        if let presentingViewController = self.transitionContext!.viewController(forKey: .from) as? TopSlideViewController {
+          
+          presentingViewController.containerView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+          presentingViewController.containerView.center = CGPoint(x: Utilities.screenWidth / 2, y: presentingViewController.originalDistanceFromTop + (presentingViewController.containerView.frame.height / 2.0) + 100.0)
+          
+          topSlideViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+          
+        } else {
+          topSlideViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
+        }
         
       }, completion: { (finished: Bool) -> Void in
         transitionContext.completeTransition(true)
@@ -147,6 +187,13 @@ extension TopSlideAnimator: UIViewControllerAnimatedTransitioning {
       }, completion: nil)
       
       UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: { () -> Void in
+        
+        if let presentingViewController = self.transitionContext!.viewController(forKey: .to) as? TopSlideViewController {
+          
+          presentingViewController.containerView.center = CGPoint(x: Utilities.screenWidth / 2, y: presentingViewController.originalDistanceFromTop + (presentingViewController.containerView.frame.height / 2.0))
+          presentingViewController.containerView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+          
+        }
         
         topSlideViewController.view.backgroundColor = UIColor.clear
         

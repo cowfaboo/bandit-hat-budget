@@ -12,6 +12,36 @@ class BHButton: UIButton {
   
   var cornerRadius: CGFloat = 8.0
   
+  init() {
+    super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    
+    if frame.height > 40 {
+      cornerRadius = 8.0
+    } else {
+      cornerRadius = 4.0
+    }
+    
+    layer.cornerRadius = cornerRadius
+    
+    layer.shadowColor = UIColor.black.cgColor
+    layer.shadowOffset = CGSize(width: 0.5, height: 1.0)
+    layer.shadowOpacity = 0.1
+    layer.shadowRadius = 2.0
+    layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+    layer.shouldRasterize = true
+    layer.rasterizationScale = UIScreen.main.scale
+    
+    setTitleColor(themeColor, for: .normal)
+    setTitleColor(themeColor.withAlphaComponent(0.5), for: .disabled)
+    setTitleShadowColor(UIColor.clear, for: .normal)
+    tintColor = themeColor
+    backgroundColor = UIColor.white
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
   override func awakeFromNib() {
 
     if frame.height > 40 {

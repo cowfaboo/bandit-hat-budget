@@ -27,7 +27,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="136" height="136"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="4Gw-tj-o3n">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="4Gw-tj-o3n">
                     <rect key="frame" x="0.0" y="152" width="136" height="22"/>
                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                     <nil key="textColor"/>
@@ -35,6 +35,9 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVH-Sn-d7P">
                     <rect key="frame" x="0.0" y="178" width="136" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="vhi-23-dXb"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -56,12 +59,14 @@
                 <constraint firstAttribute="trailing" secondItem="4Gw-tj-o3n" secondAttribute="trailing" id="LyQ-Bb-EBT"/>
                 <constraint firstItem="4Gw-tj-o3n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="O8G-Hs-hJR"/>
                 <constraint firstItem="8Ll-D1-Fxh" firstAttribute="top" secondItem="VhU-KJ-2VL" secondAttribute="top" id="Rnf-qH-kc7"/>
+                <constraint firstAttribute="bottom" secondItem="HVH-Sn-d7P" secondAttribute="bottom" constant="4" id="Yri-Mk-8jA"/>
                 <constraint firstItem="8Ll-D1-Fxh" firstAttribute="bottom" secondItem="VhU-KJ-2VL" secondAttribute="bottom" id="dqv-L0-DQR"/>
                 <constraint firstItem="HVH-Sn-d7P" firstAttribute="top" secondItem="4Gw-tj-o3n" secondAttribute="bottom" constant="4" id="fKe-eZ-f1o"/>
-                <constraint firstItem="4Gw-tj-o3n" firstAttribute="top" secondItem="VhU-KJ-2VL" secondAttribute="bottom" constant="16" id="fRZ-d4-eht"/>
+                <constraint firstItem="4Gw-tj-o3n" firstAttribute="top" relation="lessThanOrEqual" secondItem="VhU-KJ-2VL" secondAttribute="bottom" constant="16" id="fRZ-d4-eht"/>
                 <constraint firstItem="VhU-KJ-2VL" firstAttribute="width" secondItem="VhU-KJ-2VL" secondAttribute="height" multiplier="1:1" id="kPQ-gD-xZS"/>
                 <constraint firstItem="8Ll-D1-Fxh" firstAttribute="trailing" secondItem="VhU-KJ-2VL" secondAttribute="trailing" id="sdP-Xd-hhm"/>
                 <constraint firstAttribute="trailing" secondItem="VhU-KJ-2VL" secondAttribute="trailing" id="sdz-a3-WZN"/>
+                <constraint firstItem="4Gw-tj-o3n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8Ll-D1-Fxh" secondAttribute="bottom" constant="4" id="vEE-63-5pU"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -51,7 +51,7 @@ class AmountPieLayer: CAShapeLayer {
     
     var radius: CGFloat
     var viewCenter: CGPoint
-    let zeroAngle: CGFloat = -CGFloat(M_PI / 2.0)
+    let zeroAngle: CGFloat = -CGFloat(Double.pi / 2.0)
     var startAngle: CGFloat
     var endAngle: CGFloat
     
@@ -60,22 +60,22 @@ class AmountPieLayer: CAShapeLayer {
     if (cgSecondaryAmount > 0) {
       
       if (cgSecondaryAmount > cgPrimaryAmount) {
-        context?.setFillColor(UIColor.green.withAlphaComponent(0.2).cgColor)
+        context?.setFillColor(UIColor.positive.cgColor)
         radius = min(frame.size.width, frame.size.height) * 0.5
         viewCenter = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
-        startAngle = zeroAngle + CGFloat(M_PI * 2) * ((cgPrimaryAmount + cgExcessAmount) / cgTotalAmount)
-        endAngle = zeroAngle + CGFloat(M_PI * 2) * (cgSecondaryAmount / cgTotalAmount)
+        startAngle = zeroAngle + CGFloat(Double.pi * 2) * ((cgPrimaryAmount + cgExcessAmount) / cgTotalAmount)
+        endAngle = zeroAngle + CGFloat(Double.pi * 2) * (cgSecondaryAmount / cgTotalAmount)
         
         context?.move(to: CGPoint(x: viewCenter.x, y: viewCenter.y))
         context?.addArc(center: CGPoint(x: viewCenter.x, y: viewCenter.y), radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
         context?.fillPath()
         
       } else {
-        context?.setFillColor(UIColor.overBudget.withAlphaComponent(0.2).cgColor)
+        context?.setFillColor(UIColor.negative.cgColor)
         radius = min(frame.size.width, frame.size.height) * 0.5
         viewCenter = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
-        startAngle = zeroAngle + CGFloat(M_PI * 2) * (cgSecondaryAmount / cgTotalAmount)
-        endAngle = zeroAngle + CGFloat(M_PI * 2) * ((cgPrimaryAmount + cgExcessAmount) / cgTotalAmount)
+        startAngle = zeroAngle + CGFloat(Double.pi * 2) * (cgSecondaryAmount / cgTotalAmount)
+        endAngle = zeroAngle + CGFloat(Double.pi * 2) * ((cgPrimaryAmount + cgExcessAmount) / cgTotalAmount)
         
         context?.move(to: CGPoint(x: viewCenter.x, y: viewCenter.y))
         context?.addArc(center: CGPoint(x: viewCenter.x, y: viewCenter.y), radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
@@ -89,7 +89,7 @@ class AmountPieLayer: CAShapeLayer {
     radius = min(frame.size.width - 4, frame.size.height - 4) * 0.5
     viewCenter = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
     startAngle = zeroAngle
-    endAngle = zeroAngle + CGFloat(M_PI * 2)
+    endAngle = zeroAngle + CGFloat(Double.pi * 2)
     
     context?.move(to: CGPoint(x: viewCenter.x, y: viewCenter.y))
     context?.addArc(center: CGPoint(x: viewCenter.x, y: viewCenter.y), radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
@@ -100,7 +100,7 @@ class AmountPieLayer: CAShapeLayer {
     radius = min(frame.size.width - 12, frame.size.height - 12) * 0.5
     viewCenter = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
     startAngle = zeroAngle
-    endAngle = zeroAngle + CGFloat(M_PI * 2)
+    endAngle = zeroAngle + CGFloat(Double.pi * 2)
     
     context?.move(to: CGPoint(x: viewCenter.x, y: 4))
     context?.addArc(center: CGPoint(x: viewCenter.x, y: viewCenter.y), radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
@@ -113,7 +113,7 @@ class AmountPieLayer: CAShapeLayer {
     radius = min(frame.size.width - 12, frame.size.height - 12) * 0.5
     viewCenter = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
     startAngle = zeroAngle
-    endAngle = zeroAngle + CGFloat(M_PI * 2) * (cgPrimaryAmount / cgTotalAmount)
+    endAngle = zeroAngle + CGFloat(Double.pi * 2) * (cgPrimaryAmount / cgTotalAmount)
     
     context?.move(to: CGPoint(x: viewCenter.x, y: viewCenter.y))
     context?.addArc(center: CGPoint(x: viewCenter.x, y: viewCenter.y), radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
@@ -125,10 +125,10 @@ class AmountPieLayer: CAShapeLayer {
       
       let excessRadius = min(frame.size.width - 12, frame.size.height - 12) * 0.5
       
-      context?.setFillColor(UIColor.overBudget.cgColor)
+      context?.setFillColor(UIColor.negative.cgColor)
       context?.setStrokeColor(UIColor.white.cgColor)
       context?.setLineWidth(2.0)
-      let endAngle = startAngle + CGFloat(M_PI * 2) * (cgExcessAmount / cgTotalAmount)
+      let endAngle = startAngle + CGFloat(Double.pi * 2) * (cgExcessAmount / cgTotalAmount)
       context?.move(to: CGPoint(x: viewCenter.x, y: viewCenter.y))
       context?.addArc(center: CGPoint(x: viewCenter.x, y: viewCenter.y), radius: excessRadius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
       context?.closePath()

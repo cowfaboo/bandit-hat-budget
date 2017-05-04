@@ -13,7 +13,9 @@ protocol AmountWidgetDelegate: class {
   func didSelect(category: BKCategory)
 }
 
-class AmountWidgetViewController: UIViewController {
+class AmountWidgetViewController: UIViewController, InteractivePresenter {
+  
+  var presentationAnimator: PresentationAnimator = TopSlideAnimator()
   
   weak var amountWidgetDelegate: AmountWidgetDelegate?
   
@@ -31,9 +33,13 @@ class AmountWidgetViewController: UIViewController {
   var amount: BKAmount!
   private var completionPercentage: Float = 0
   
-  private var category: BKCategory! {
+  private var category: BKCategory? {
     didSet {
-      categoryLabel.text = category.name
+      if let category = category {
+        categoryLabel.text = category.name
+      } else {
+        categoryLabel.text = "Uncategorized"
+      }
     }
   }
   
@@ -64,52 +70,79 @@ class AmountWidgetViewController: UIViewController {
   }
   
   func refreshView() {
-    if let category = BKCategory.fetchCategory(withCloudID: amount.categoryID!) {
+    
+    var color: UIColor
+    var monthlyBudget: Float?
+    
+    if let categoryID = amount.categoryID, let category = BKCategory.fetchCategory(withCloudID: categoryID) {
+      color = category.color
+      monthlyBudget = category.monthlyBudget
       self.category = category
-      
-      if isPlaceholder {
-        amountPieView.totalAmount = 1
-        amountPieView.primaryAmount = 0
-        amountPieView.secondaryAmount = 0
-        categoryLabel.textColor = category.color
-        amountPieView.themeColor = category.color
-        return
-      }
-      
+    } else {
+      color = UIColor.text
+      monthlyBudget = nil
+      self.category = nil
+    }
+    
+    
+    if isPlaceholder {
+      amountPieView.totalAmount = 1
+      amountPieView.primaryAmount = 0
+      amountPieView.secondaryAmount = 0
+      categoryLabel.textColor = color
+      amountPieView.themeColor = color
+      return
+    }
+    
+    let spentAmountString = amount.amount.simpleDollarAmount()
+    let totalAmountString: String
+    
+    if let monthlyBudget = monthlyBudget {
       
       var totalAmount: Float
-      
       if timeRangeType == .monthly {
-        totalAmount = category.monthlyBudget
+        totalAmount = monthlyBudget
       } else {
-        totalAmount = category.monthlyBudget * 12
+        totalAmount = monthlyBudget * 12
       }
       
       amountPieView.totalAmount = totalAmount
       amountPieView.primaryAmount = amount.amount
       amountPieView.secondaryAmount = totalAmount * completionPercentage
-      categoryLabel.textColor = category.color
-      amountPieView.themeColor = category.color
-      amountLabel.textColor = category.color
-      
-      let spentAmountString = amount.amount.simpleDollarAmount
-      let totalAmountString = totalAmount.simpleDollarAmount
+      totalAmountString = totalAmount.simpleDollarAmount()
       
       let attributedString = NSMutableAttributedString(string: "\(spentAmountString) of \(totalAmountString)")
       attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium), range: NSMakeRange(0, spentAmountString.characters.count))
       attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium), range: NSMakeRange(spentAmountString.characters.count + 4, totalAmountString.characters.count))
       
       if amount.amount > totalAmount {
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.overBudget, range: NSMakeRange(0, spentAmountString.characters.count))
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.negative, range: NSMakeRange(0, spentAmountString.characters.count))
       }
       
       amountLabel.attributedText = attributedString
       
-      if amountLabel.alpha == 0 && !isPlaceholder {
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
-          self.amountLabel.alpha = 1
-        }, completion: nil)
-      }
+    } else {
+      amountPieView.totalAmount = amount.amount / completionPercentage
+      amountPieView.primaryAmount = amount.amount
+      amountPieView.secondaryAmount = amount.amount
+      totalAmountString = ""
+      
+      let attributedString = NSMutableAttributedString(string: "\(spentAmountString)")
+      attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium), range: NSMakeRange(0, spentAmountString.characters.count))
+      
+      amountLabel.attributedText = attributedString
+    }
+    
+    categoryLabel.textColor = color
+    amountPieView.themeColor = color
+    amountLabel.textColor = color
+    
+    
+    
+    if amountLabel.alpha == 0 && !isPlaceholder {
+      UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
+        self.amountLabel.alpha = 1
+      }, completion: nil)
     }
   }
   
@@ -123,7 +156,57 @@ class AmountWidgetViewController: UIViewController {
   
   @IBAction func amountWidgetTapped() {
     if !isPlaceholder {
-      amountWidgetDelegate?.didSelect(category: category)
+      if let category = category {
+        amountWidgetDelegate?.didSelect(category: category)
+      } else {
+        let confirmAction = BHAlertAction(withTitle: "Got It", action: {
+          self.dismiss(animated: true, completion: nil)
+        })
+        
+        let alertViewController = BHAlertViewController(withTitle: "Sorry...", message: "There's no way to view uncategorized expenses grouped together at the moment.", actions: [confirmAction])
+        let topSlideViewController = TopSlideViewController(presenting: alertViewController, from: self)
+        present(topSlideViewController, animated: true, completion: nil)
+      }
     }
+  }
+}
+
+
+// MARK: - Top Slide Delegate Methods
+extension AmountWidgetViewController: TopSlideDelegate {
+  func shouldDismissTopSlideViewController() {
+    dismiss(animated: true, completion: nil)
+  }
+}
+
+// MARK: - View Controller Transitioning Delegate Methods
+extension AmountWidgetViewController: UIViewControllerTransitioningDelegate {
+  
+  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    presentationAnimator.presenting = true
+    return presentationAnimator
+  }
+  
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    presentationAnimator.presenting = false
+    return presentationAnimator
+  }
+  
+  func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = true
+      return presentationAnimator
+    }
+    return nil
+  }
+  
+  func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = false
+      return presentationAnimator
+    }
+    return nil
   }
 }

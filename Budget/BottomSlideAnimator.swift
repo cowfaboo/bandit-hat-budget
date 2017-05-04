@@ -73,6 +73,10 @@ class BottomSlideAnimator: UIPercentDrivenInteractiveTransition, PresentationAni
       self.transitionContext?.cancelInteractiveTransition()
       self.transitionContext?.completeTransition(false)
     })
+    
+    UIView.animate(withDuration: 0.45, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .allowUserInteraction, animations: { () -> Void in
+      presentedViewController.view.backgroundColor = UIColor.black.withAlphaComponent(0.65)
+    }, completion: nil)
   }
   
   override func finish() {
@@ -93,13 +97,15 @@ class BottomSlideAnimator: UIPercentDrivenInteractiveTransition, PresentationAni
     UIView.animate(withDuration: 0.45, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: springVelocity, options: .allowUserInteraction, animations: { () -> Void in
       
       presentedViewController.containerView.center = self.initialCenter
-      presentedViewController.view.backgroundColor = UIColor.clear
     }, completion: { (finished: Bool) -> Void in
       self.transitionContext?.cancelInteractiveTransition()
       self.transitionContext?.completeTransition(true)
     })
+    
+    UIView.animate(withDuration: 0.45, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .allowUserInteraction, animations: { () -> Void in
+      presentedViewController.view.backgroundColor = UIColor.clear
+    }, completion: nil)
   }
-  
 }
 
 extension BottomSlideAnimator: UIViewControllerAnimatedTransitioning {

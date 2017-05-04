@@ -22,16 +22,18 @@ class ExpenseDataCell: UITableViewCell {
       
       nameLabel.text = expense.name
       nameLabel.textColor = UIColor.text
-      amountLabel.text = expense.amount.dollarAmount
+      amountLabel.text = expense.amount.dollarAmount()
       amountLabel.textColor = UIColor.text
       dateLabel.text = "\(expense.date.dayOfMonth())"
       
-      if let categoryID = expense.categoryID {
-        if let category = BKCategory.fetchCategory(withCloudID: categoryID) {
-          categoryLabel.text = category.name
-          categoryLabel.textColor = category.color
-        }
+      guard let categoryID = expense.categoryID, let category = BKCategory.fetchCategory(withCloudID: categoryID) else {
+        categoryLabel.text = "Uncategorized"
+        categoryLabel.textColor = UIColor.text.withAlphaComponent(0.5)
+        return
       }
+      
+      categoryLabel.text = category.name
+      categoryLabel.textColor = category.color
     }
   }
   

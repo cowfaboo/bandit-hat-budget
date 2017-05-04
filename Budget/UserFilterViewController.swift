@@ -40,7 +40,8 @@ class UserFilterViewController: UIViewController, TableViewController {
       }
       
       if let viewContainer = self.parent as? ViewContainer {
-        viewContainer.contentHeightDidChange(CGFloat(userArray.count) * self.userCellHeight + self.everyoneCellHeight)
+        let height = min(CGFloat(userArray.count) * self.userCellHeight + self.everyoneCellHeight, 308)
+        viewContainer.contentHeightDidChange(height)
       }
       
       self.userArray = userArray

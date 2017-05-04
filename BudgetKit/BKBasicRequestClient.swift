@@ -307,9 +307,9 @@ public class BKBasicRequestClient: BKClient {
     }
   }
   
-  public func createCategory(withName name: String, monthlyBudget: Float?, description: String?, completion: @escaping BKCreateCategoryCompletionBlock) {
+  public func createCategory(withName name: String, color: UIColor, monthlyBudget: Float?, description: String?, completion: @escaping BKCreateCategoryCompletionBlock) {
     
-    var bodyString = "name=\(name)"
+    var bodyString = "name=\(name)&color=\(color.hexString)"
     
     if let monthlyBudget = monthlyBudget {
       bodyString = bodyString + "&monthly_budget=\(monthlyBudget)"
@@ -373,6 +373,78 @@ public class BKBasicRequestClient: BKClient {
         
         if let bkExpense = BKExpense(expenseDictionary: expenseDictionary) {
           completion(true, bkExpense)
+        } else {
+          completion(false, nil)
+        }
+        
+      } else {
+        completion(false, nil)
+      }
+    }
+  }
+  
+  public func delete(category: BKCategory, completion: @escaping BKDeleteCompletionBlock) {
+    
+    let endpoint = CategoriesEndpoint + "/\(category.cloudID)"
+    let method = "DELETE"
+    let requestDescription = "deleteCategory"
+    
+    makeAPICallToEndpoint(endpoint, method: method, body: nil, requestDescription: requestDescription) { (success, response, responseData) in 
+      if success {
+        completion(true)
+      } else {
+        completion(false)
+      }
+    }
+  }
+  
+  public func update(category: BKCategory, name: String? = nil, color: UIColor? = nil, monthlyBudget: Float? = nil, description: String? = nil, completion: @escaping BKCreateCategoryCompletionBlock) {
+    
+    var bodyString = ""
+    
+    if let name = name {
+      bodyString = "name=\(name)"
+    }
+    
+    if let color = color {
+      if bodyString.characters.isEmpty {
+        bodyString = "color=\(color.hexString)"
+      } else {
+        bodyString = bodyString + "&color=\(color.hexString)"
+      }
+    }
+    
+    if let monthlyBudget = monthlyBudget {
+      if bodyString.characters.isEmpty {
+        bodyString = "monthlyBudget=\(monthlyBudget)"
+      } else {
+        bodyString = bodyString + "&monthlyBudget=\(monthlyBudget)"
+      }
+    }
+    
+    if let description = description {
+      if bodyString.characters.isEmpty {
+        bodyString = "description=\(description)"
+      } else {
+        bodyString = bodyString + "&description=\(description)"
+      }
+    }
+    
+    let endpoint = CategoriesEndpoint + "/\(category.cloudID)"
+    let method = "PATCH"
+    let requestDescription = "updateCategory"
+    let body = bodyString.data(using: String.Encoding.utf8)
+    
+    
+    
+    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData) in
+      
+      if success {
+        
+        let categoryDictionary = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! [String: AnyObject]
+        
+        if let bkCategory = BKCategory.createOrUpdate(with: categoryDictionary) {
+          completion(true, bkCategory)
         } else {
           completion(false, nil)
         }

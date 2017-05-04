@@ -59,7 +59,7 @@ class TopLevelViewController: UIViewController {
       let normalizedYPosition = (yPosition - Utilities.screenHeight / 2.0) / (Utilities.screenHeight / 2.0) * -1.0
       xTranslationPercent *= normalizedYPosition
       
-      view.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_4 / 10.0) * xTranslationPercent)
+      view.transform = CGAffineTransform(rotationAngle: CGFloat((Double.pi/4) / 10.0) * xTranslationPercent)
       
     } else if recognizer.state == .ended {
       var progress = recognizer.translation(in: view).y / Utilities.screenHeight

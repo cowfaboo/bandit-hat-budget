@@ -36,7 +36,7 @@ class CalendarCell: UICollectionViewCell {
         selectionView.backgroundColor = UIColor.text.withAlphaComponent(0.5)
       }
     } else if shouldHighlightDate {
-      dateLabel.textColor = UIColor.overBudget
+      dateLabel.textColor = UIColor.negative
       dateLabel.font = UIFont.systemFont(ofSize: 19.0, weight: UIFontWeightMedium)
     }
     

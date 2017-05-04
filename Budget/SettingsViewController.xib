@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController" customModule="Budget" customModuleProvider="target">
+            <connections>
+                <outlet property="closeButton" destination="hei-iP-grx" id="MJc-F0-jex"/>
+                <outlet property="detailActionButton" destination="1gE-PB-1P7" id="4Bu-ij-0fD"/>
+                <outlet property="detailContainerView" destination="u2T-l8-jd2" id="4Mu-GL-J1p"/>
+                <outlet property="headerLabel" destination="Fjh-Qr-dUR" id="EdQ-mG-Rtm"/>
+                <outlet property="tableView" destination="o9D-u9-mB9" id="vpI-2X-RJ4"/>
+                <outlet property="tableViewLeadingConstraint" destination="e7j-Ot-aUE" id="JHm-jW-EQn"/>
+                <outlet property="tableViewTrailingConstraint" destination="Q74-jS-C04" id="sAB-GV-9tb"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="o9D-u9-mB9">
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="separatorColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="dSy-o8-Wlk"/>
+                        <outlet property="delegate" destination="-1" id="q44-Rk-7eW"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ny-BH-Sk4" userLabel="Header View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hei-iP-grx">
+                            <rect key="frame" x="0.0" y="10" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="NcD-C1-4WE"/>
+                                <constraint firstAttribute="width" constant="44" id="Uar-N5-nPb"/>
+                            </constraints>
+                            <state key="normal" image="closeButton"/>
+                            <connections>
+                                <action selector="closeButtonTapped" destination="-1" eventType="touchUpInside" id="VqH-vO-sdy"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjh-Qr-dUR">
+                            <rect key="frame" x="60" y="13" width="255" height="39"/>
+                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="32"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gE-PB-1P7">
+                            <rect key="frame" x="331" y="10" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="Kvf-GO-XYJ"/>
+                                <constraint firstAttribute="width" constant="44" id="hY2-dt-f8V"/>
+                            </constraints>
+                            <state key="normal" image="smallPlusButton"/>
+                            <connections>
+                                <action selector="detailActionButtonTapped" destination="-1" eventType="touchUpInside" id="mn0-vp-cEf"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Fjh-Qr-dUR" firstAttribute="leading" secondItem="hei-iP-grx" secondAttribute="trailing" constant="16" id="1n5-6C-9mG"/>
+                        <constraint firstItem="hei-iP-grx" firstAttribute="centerY" secondItem="2Ny-BH-Sk4" secondAttribute="centerY" id="6BR-Ni-stF"/>
+                        <constraint firstItem="1gE-PB-1P7" firstAttribute="centerY" secondItem="2Ny-BH-Sk4" secondAttribute="centerY" id="Dei-PA-wga"/>
+                        <constraint firstAttribute="trailing" secondItem="1gE-PB-1P7" secondAttribute="trailing" id="FL8-Et-6xy"/>
+                        <constraint firstItem="hei-iP-grx" firstAttribute="leading" secondItem="2Ny-BH-Sk4" secondAttribute="leading" id="G6P-Tw-ejY"/>
+                        <constraint firstItem="Fjh-Qr-dUR" firstAttribute="centerY" secondItem="2Ny-BH-Sk4" secondAttribute="centerY" id="NQs-Ge-7gm"/>
+                        <constraint firstAttribute="height" constant="64" id="nax-lt-YX4"/>
+                        <constraint firstItem="1gE-PB-1P7" firstAttribute="leading" secondItem="Fjh-Qr-dUR" secondAttribute="trailing" constant="16" id="wIK-9X-5kb"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u2T-l8-jd2" userLabel="Detail Container View">
+                    <rect key="frame" x="375" y="64" width="375" height="603"/>
+                    <color key="backgroundColor" red="0.83861849767080743" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="2Ny-BH-Sk4" secondAttribute="trailing" id="1Xn-xS-qdH"/>
+                <constraint firstAttribute="bottom" secondItem="u2T-l8-jd2" secondAttribute="bottom" id="4It-g5-Xp9"/>
+                <constraint firstItem="2Ny-BH-Sk4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="E5a-Zg-1Q3"/>
+                <constraint firstItem="2Ny-BH-Sk4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="LPU-mG-Oti"/>
+                <constraint firstAttribute="trailing" secondItem="o9D-u9-mB9" secondAttribute="trailing" id="Q74-jS-C04"/>
+                <constraint firstItem="u2T-l8-jd2" firstAttribute="top" secondItem="2Ny-BH-Sk4" secondAttribute="bottom" id="QWL-T3-0Qh"/>
+                <constraint firstItem="o9D-u9-mB9" firstAttribute="top" secondItem="2Ny-BH-Sk4" secondAttribute="bottom" id="cGl-mm-1I1"/>
+                <constraint firstItem="o9D-u9-mB9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="e7j-Ot-aUE"/>
+                <constraint firstAttribute="bottom" secondItem="o9D-u9-mB9" secondAttribute="bottom" id="llK-vv-rm1"/>
+                <constraint firstItem="u2T-l8-jd2" firstAttribute="leading" secondItem="o9D-u9-mB9" secondAttribute="trailing" id="nd6-uW-awM"/>
+                <constraint firstItem="u2T-l8-jd2" firstAttribute="width" secondItem="o9D-u9-mB9" secondAttribute="width" id="pzH-cZ-PuC"/>
+                <constraint firstItem="o9D-u9-mB9" firstAttribute="top" secondItem="2Ny-BH-Sk4" secondAttribute="bottom" id="xsZ-Uq-320"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="closeButton" width="44" height="44"/>
+        <image name="smallPlusButton" width="44" height="44"/>
+    </resources>
+</document>

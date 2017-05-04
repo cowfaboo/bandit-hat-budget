@@ -62,7 +62,7 @@ class ExpenseDataViewController: UIViewController, TableViewController {
         
         headerLabel.text = category.name
         headerLabel.textColor = category.color
-        closeButton.setTitleColor(category.color, for: .normal)
+        closeButton.tintColor = category.color
         
         headerViewHeightConstraint.constant = 44
         view.layoutIfNeeded()

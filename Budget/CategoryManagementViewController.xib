@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryManagementViewController" customModule="Budget" customModuleProvider="target">
             <connections>
-                <outlet property="createButton" destination="fFI-Ha-a5J" id="9S0-VO-4LW"/>
-                <outlet property="descriptionTextView" destination="DjO-ke-aof" id="3v3-CO-BGh"/>
-                <outlet property="monthlyBudgetTextField" destination="sqt-CI-yGU" id="RU8-cW-Wd2"/>
-                <outlet property="nameTextField" destination="VXF-IR-g0L" id="T6w-vK-kMB"/>
                 <outlet property="tableView" destination="ZZP-oA-h89" id="CZZ-OU-gdN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,44 +20,11 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lfl-Rk-voA">
-                    <rect key="frame" x="8" y="28" width="54" height="30"/>
-                    <state key="normal" title="Dismiss"/>
-                    <connections>
-                        <action selector="dismissButtonTapped" destination="-1" eventType="touchUpInside" id="p3a-I5-ldT"/>
-                    </connections>
-                </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VXF-IR-g0L">
-                    <rect key="frame" x="16" y="72" width="343" height="30"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Monthly Budget" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sqt-CI-yGU">
-                    <rect key="frame" x="16" y="118" width="343" height="30"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                </textField>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DjO-ke-aof">
-                    <rect key="frame" x="16" y="164" width="343" height="64"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZZP-oA-h89">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="mJz-hx-eWN"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFI-Ha-a5J">
-                    <rect key="frame" x="131" y="244" width="113" height="30"/>
-                    <state key="normal" title="Create Category"/>
-                    <connections>
-                        <action selector="createButtonTapped" destination="-1" eventType="touchUpInside" id="XkJ-jY-FVi"/>
-                    </connections>
-                </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZZP-oA-h89">
-                    <rect key="frame" x="0.0" y="306" width="375" height="361"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="separatorColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="cmi-8Q-qK6"/>
                         <outlet property="delegate" destination="-1" id="oAh-Qy-Tjo"/>
@@ -70,24 +33,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Lfl-Rk-voA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="1jK-JW-ynw"/>
-                <constraint firstItem="VXF-IR-g0L" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="1jO-AW-nvC"/>
-                <constraint firstItem="fFI-Ha-a5J" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="3aI-EK-GbA"/>
+                <constraint firstItem="ZZP-oA-h89" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="C1V-GS-DyB"/>
                 <constraint firstItem="ZZP-oA-h89" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EQi-Vn-mxv"/>
-                <constraint firstItem="VXF-IR-g0L" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="72" id="FkI-dz-55l"/>
-                <constraint firstAttribute="trailing" secondItem="DjO-ke-aof" secondAttribute="trailing" constant="16" id="Ifm-v2-Kh1"/>
                 <constraint firstAttribute="bottom" secondItem="ZZP-oA-h89" secondAttribute="bottom" id="P3M-yb-nyK"/>
-                <constraint firstItem="fFI-Ha-a5J" firstAttribute="top" secondItem="DjO-ke-aof" secondAttribute="bottom" constant="16" id="ZBs-cU-0FZ"/>
-                <constraint firstAttribute="trailing" secondItem="VXF-IR-g0L" secondAttribute="trailing" constant="16" id="fFI-n3-OqF"/>
-                <constraint firstItem="DjO-ke-aof" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="hcg-b9-caa"/>
-                <constraint firstItem="ZZP-oA-h89" firstAttribute="top" secondItem="fFI-Ha-a5J" secondAttribute="bottom" constant="32" id="j6q-4Y-wit"/>
-                <constraint firstItem="sqt-CI-yGU" firstAttribute="top" secondItem="VXF-IR-g0L" secondAttribute="bottom" constant="16" id="jyP-Gp-cKB"/>
-                <constraint firstItem="DjO-ke-aof" firstAttribute="top" secondItem="sqt-CI-yGU" secondAttribute="bottom" constant="16" id="kZf-nB-H78"/>
-                <constraint firstAttribute="trailing" secondItem="sqt-CI-yGU" secondAttribute="trailing" constant="16" id="mUK-7Q-y1U"/>
-                <constraint firstItem="sqt-CI-yGU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="nkd-hv-aiz"/>
                 <constraint firstAttribute="trailing" secondItem="ZZP-oA-h89" secondAttribute="trailing" id="oEA-er-4Ut"/>
-                <constraint firstItem="Lfl-Rk-voA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="rdz-hz-Rll"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="33.5" y="90.5"/>
         </view>
     </objects>
