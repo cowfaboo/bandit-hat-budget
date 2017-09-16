@@ -16,7 +16,7 @@ extension BKCategory {
         return NSFetchRequest<BKCategory>(entityName: "BKCategory");
     }
 
-    @NSManaged public var cloudID: Int64
+    @NSManaged public var cloudID: String
     @NSManaged var dateCreated: NSDate?
     @NSManaged var dateUpdated: NSDate?
     @NSManaged public var details: String?

@@ -10,25 +10,26 @@ import Foundation
 import BudgetKit
 
 let UserIDKey = "UserID"
+let GroupIDKey = "GroupID"
 
 class Settings {
   
-  class func signedIn() -> Bool {
-    if UserDefaults.standard.integer(forKey: UserIDKey) == 0 {
+  class func hasClaimedUser() -> Bool {
+    if UserDefaults.standard.string(forKey: UserIDKey) == nil {
       return false
     }
     return true
   }
   
-  class func currentUserID() -> Int64 {
-    return Int64(UserDefaults.standard.integer(forKey: UserIDKey))
+  class func claimedUserID() -> String? {
+    return UserDefaults.standard.string(forKey: UserIDKey)
   }
   
-  class func signInWithUser(_ user: BKUser) {
+  class func claimUser(_ user: BKUser) {
     UserDefaults.standard.set(user.cloudID, forKey: UserIDKey)
   }
   
-  class func signOut() {
-    UserDefaults.standard.set(0, forKey: UserIDKey)
+  class func relinquishUser() {
+    UserDefaults.standard.set(nil, forKey: UserIDKey)
   }
 }

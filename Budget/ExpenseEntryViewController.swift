@@ -127,7 +127,12 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
   
   @IBAction func addExpenseButtonTapped() {
     
-    let userID = Settings.currentUserID()
+    if (!Settings.hasClaimedUser()) {
+      print("not signed in. Probably need to do something here.")
+      return
+    }
+    
+    let userID = Settings.claimedUserID()!
     let name = nameTextField.text!
     let amount = Float(amountTextField.text!)!
     

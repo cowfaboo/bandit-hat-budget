@@ -10,24 +10,24 @@ import Foundation
 
 public class BKExpense {
   
-  var cloudID: Int64
+  var cloudID: String
   public var name: String
   public var amount: Float
-  public var userID: Int64
-  public var categoryID: Int64?
+  public var userID: String
+  public var categoryID: String?
   public var date: Date
   var dateCreated: Date
   var dateUpdated: Date
   
   init?(expenseDictionary: Dictionary<String, AnyObject>) {
     
-    guard let cloudID = expenseDictionary["id"] as? Int64,
+    guard let cloudID = expenseDictionary["_id"] as? String,
       let name = expenseDictionary["name"] as? String,
       let amountString = expenseDictionary["amount"] as? String, let amount = Float(amountString),
-      let userID = expenseDictionary["user_id"] as? Int64,
+      let userID = expenseDictionary["user"] as? String,
       let dateString = expenseDictionary["date"] as? String,
-      let dateCreatedString = expenseDictionary["created_at"] as? String,
-      let dateUpdatedString = expenseDictionary["updated_at"] as? String else {
+      let dateCreatedString = expenseDictionary["createdAt"] as? String,
+      let dateUpdatedString = expenseDictionary["updatedAt"] as? String else {
         return nil
     }
     
@@ -45,7 +45,7 @@ public class BKExpense {
     self.dateCreated = dateCreated
     self.dateUpdated = dateUpdated
     
-    if let categoryID = expenseDictionary["category_id"] as? Int64 {
+    if let categoryID = expenseDictionary["category"] as? String {
       self.categoryID = categoryID
     }
   }

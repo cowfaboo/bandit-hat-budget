@@ -11,7 +11,7 @@ import BudgetKit
 
 class UserCreationViewController: UIViewController {
   
-  weak var signInDelegate: SignInDelegate?
+  weak var userClaimDelegate: UserClaimDelegate?
     
   @IBOutlet weak var topView: UIView!
   @IBOutlet weak var titleLabel: UILabel!
@@ -66,8 +66,8 @@ class UserCreationViewController: UIViewController {
         return
       }
       
-      Settings.signInWithUser(user)
-      self.signInDelegate?.signInCompleted()
+      Settings.claimUser(user)
+      self.userClaimDelegate?.userClaimed()
     }
   }
 }

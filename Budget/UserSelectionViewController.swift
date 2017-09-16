@@ -11,7 +11,7 @@ import BudgetKit
 
 class UserSelectionViewController: UIViewController {
   
-  weak var signInDelegate: SignInDelegate?
+  weak var userClaimDelegate: UserClaimDelegate?
   
   @IBOutlet weak var topView: UIView!
   @IBOutlet weak var titleLabel: UILabel!
@@ -63,8 +63,8 @@ class UserSelectionViewController: UIViewController {
 // MARK: - Table View Delegate
 extension UserSelectionViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    Settings.signInWithUser(self.userArray[indexPath.row])
-    signInDelegate?.signInCompleted()
+    Settings.claimUser(self.userArray[indexPath.row])
+    userClaimDelegate?.userClaimed()
   }
 }
 

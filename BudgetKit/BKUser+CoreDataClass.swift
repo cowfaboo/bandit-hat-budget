@@ -15,7 +15,7 @@ public class BKUser: NSManagedObject {
 
   public class func createOrUpdate(with userDictionary: Dictionary<String, AnyObject>) -> BKUser? {
     
-    guard let cloudID = userDictionary["id"] as? Int64 else {
+    guard let cloudID = userDictionary["_id"] as? String else {
       return nil
     }
     
@@ -34,12 +34,12 @@ public class BKUser: NSManagedObject {
     }
   }
   
-  public class func fetchUser(withCloudID cloudID: Int64) -> BKUser? {
+  public class func fetchUser(withCloudID cloudID: String) -> BKUser? {
     
     let viewContext = BKSharedDataController.persistentContainer.viewContext
     let fetchRequest: NSFetchRequest<BKUser> = self.fetchRequest()
     
-    fetchRequest.predicate = NSPredicate(format: "cloudID == %ld", cloudID)
+    fetchRequest.predicate = NSPredicate(format: "cloudID == %@", cloudID)
     
     if let results = try? viewContext.fetch(fetchRequest) {
       if results.count > 0 {
@@ -53,10 +53,10 @@ public class BKUser: NSManagedObject {
   
   func configure(with userDictionary: Dictionary<String, AnyObject>) -> Bool {
     
-    guard let cloudID = userDictionary["id"] as? Int,
+    guard let cloudID = userDictionary["_id"] as? String,
       let name = userDictionary["name"] as? String,
-      let dateCreatedString = userDictionary["created_at"] as? String,
-      let dateUpdatedString = userDictionary["updated_at"] as? String else {
+      let dateCreatedString = userDictionary["createdAt"] as? String,
+      let dateUpdatedString = userDictionary["updatedAt"] as? String else {
         return false
     }
     
@@ -65,7 +65,7 @@ public class BKUser: NSManagedObject {
         return false
     }
     
-    self.cloudID = Int64(cloudID)
+    self.cloudID = cloudID
     self.name = name
     self.dateCreated = dateCreated as NSDate
     self.dateUpdated = dateUpdated as NSDate

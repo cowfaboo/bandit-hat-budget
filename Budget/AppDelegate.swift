@@ -25,9 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window!.rootViewController = containerViewController
     window!.makeKeyAndVisible()
     
+    BKGroup.signOut()
+    
     DispatchQueue.main.async {
-      if !Settings.signedIn() {
-        self.containerViewController.presentSignInView()
+      if !BKGroup.signedIn() {
+        self.containerViewController.presentHouseholdLaunchView()
+      } else if !Settings.hasClaimedUser() {
+        self.containerViewController.presentUserClaimView()
       } else {
         self.containerViewController.presentExpenseEntryView()
       }

@@ -11,8 +11,8 @@ import Foundation
 public class BKAmount {
   
   public var amount: Float
-  public var categoryID: Int64?
-  public var userID: Int64?
+  public var categoryID: String?
+  public var userID: String?
   public var startDate: Date?
   public var endDate: Date?
   
@@ -24,21 +24,21 @@ public class BKAmount {
     
     self.amount = amount
     
-    if let categoryID = amountDictionary["category_id"] as? Int64 {
+    if let categoryID = amountDictionary["category"] as? String {
       self.categoryID = categoryID
     }
     
-    if let userID = amountDictionary["user_id"] as? Int64 {
+    if let userID = amountDictionary["user"] as? String {
       self.userID = userID
     }
     
-    if let startDateString = amountDictionary["start_date"] as? String {
+    if let startDateString = amountDictionary["startDate"] as? String {
       if let startDate = BKUtilities.date(from: startDateString) {
         self.startDate = startDate
       }
     }
     
-    if let endDateString = amountDictionary["end_date"] as? String {
+    if let endDateString = amountDictionary["endDate"] as? String {
       if let endDate = BKUtilities.date(from: endDateString) {
         self.endDate = endDate
       }

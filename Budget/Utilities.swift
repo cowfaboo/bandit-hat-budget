@@ -61,6 +61,14 @@ extension String {
     
     return false
   }
+  
+  func sanitizeHouseholdName() -> String {
+    
+    let sanitizedString = self.trimmingCharacters(in: .whitespacesAndNewlines)
+    
+    let components = sanitizedString.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
+    return components.filter { !$0.isEmpty }.joined(separator: " ")
+  }
 }
 
 extension Date {
@@ -367,5 +375,20 @@ extension UIViewController {
     willMove(toParentViewController: nil)
     removeFromParentViewController()
     view.removeFromSuperview()
+  }
+  
+  func presentSimpleAlert(withTitle title: String, andMessage message: String) {
+    
+    guard let presentingViewController = self as? (TopSlideDelegate & InteractivePresenter & UIViewControllerTransitioningDelegate) else {
+      return
+    }
+    
+    let confirmAction = BHAlertAction(withTitle: "Got It", action: {
+      self.dismiss(animated: true, completion: nil)
+    })
+    
+    let alertViewController = BHAlertViewController(withTitle: title, message: message, actions: [confirmAction])
+    let topSlideViewController = TopSlideViewController(presenting: alertViewController, from: presentingViewController)
+    present(topSlideViewController, animated: true, completion: nil)
   }
 }

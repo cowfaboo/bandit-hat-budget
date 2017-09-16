@@ -39,11 +39,20 @@ class ContainerViewController: UIViewController, InteractivePresenter {
 
   // MARK: - Public Methods
   
-  func presentSignInView() {
+  func presentHouseholdLaunchView() {
     
-    let signInViewController = SignInViewController(nibName: "SignInViewController", bundle: nil)
-    signInViewController.signInDelegate = self
-    let navigationController = UINavigationController(rootViewController: signInViewController)
+    let householdLaunchViewController = HouseholdLaunchViewController(nibName: "HouseholdLaunchViewController", bundle: nil)
+    //signInViewController.signInDelegate = self
+    let navigationController = UINavigationController(rootViewController: householdLaunchViewController)
+    navigationController.navigationBar.isHidden = true
+    present(navigationController, animated: true, completion: nil)
+  }
+  
+  func presentUserClaimView() {
+    
+    let userClaimViewController = UserClaimViewController(nibName: "UserClaimViewController", bundle: nil)
+    userClaimViewController.userClaimDelegate = self
+    let navigationController = UINavigationController(rootViewController: userClaimViewController)
     navigationController.navigationBar.isHidden = true
     present(navigationController, animated: true, completion: nil)
   }
@@ -98,8 +107,8 @@ extension ContainerViewController: SettingsDelegate {
   }
 }
 
-extension ContainerViewController: SignInDelegate {
-  func signInCompleted() {
+extension ContainerViewController: UserClaimDelegate {
+  func userClaimed() {
     dismiss(animated: true)
   }
 }

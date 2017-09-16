@@ -14,11 +14,11 @@ public class BKBasicRequestClient: BKClient {
   
   public func getCategories(completion: @escaping BKGetCategoriesCompletionBlock) {
     
-    let endpoint = CategoriesEndpoint
+    let endpoint = CategoryEndpoint
     let method = "GET"
     let requestDescription = "getCategories"
     
-    makeAPICallToEndpoint(endpoint, method: method, requestDescription: requestDescription) { (success, response, responseData) -> () in
+    makeAPICallToEndpoint(endpoint, method: method, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) -> () in
       
       if success {
         
@@ -41,11 +41,11 @@ public class BKBasicRequestClient: BKClient {
   
   public func getUsers(completion: @escaping BKGetUsersCompletionBlock) {
     
-    let endpoint = UsersEndpoint
+    let endpoint = UserEndpoint
     let method = "GET"
     let requestDescription = "getUsers"
     
-    makeAPICallToEndpoint(endpoint, method: method, requestDescription: requestDescription) { (success, response, responseData) -> () in
+    makeAPICallToEndpoint(endpoint, method: method, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) -> () in
       
       if success {
         
@@ -66,8 +66,8 @@ public class BKBasicRequestClient: BKClient {
     }
   }
   
-  public func getExpenses(forUserID userID: Int64? = nil,
-                                    categoryID: Int64? = nil,
+  public func getExpenses(forUserID userID: String? = nil,
+                                    categoryID: String? = nil,
                                     startDate: Date? = nil,
                                     endDate: Date? = nil,
                                     page: Int? = nil,
@@ -139,11 +139,11 @@ public class BKBasicRequestClient: BKClient {
       }
     }
     
-    let endpoint = ExpensesEndpoint
+    let endpoint = ExpenseEndpoint
     let method = "GET"
     let requestDescription = "getExpenses"
     
-    makeAPICallToEndpoint(endpoint, method: method, parameterString: parameterString, requestDescription: requestDescription) { (success, response, responseData) in
+    makeAPICallToEndpoint(endpoint, method: method, parameterString: parameterString, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
       
       if success {
         
@@ -162,8 +162,8 @@ public class BKBasicRequestClient: BKClient {
     }
   }
   
-  func getAmounts(forUserID userID: Int64? = nil,
-                            categoryID: Int64? = nil,
+  func getAmounts(forUserID userID: String? = nil,
+                            categoryID: String? = nil,
                             startDate: Date? = nil,
                             endDate: Date? = nil,
                             requestDescription: String,
@@ -177,19 +177,11 @@ public class BKBasicRequestClient: BKClient {
     var endDateParameterString: String?
     
     if let userID = userID {
-      if userID == 0 {
-        userParameterString = "user_id=all"
-      } else {
-        userParameterString = "user_id=\(userID)"
-      }
+      userParameterString = "user_id=\(userID)"
     }
     
     if let categoryID = categoryID {
-      if categoryID == 0 {
-        categoryParameterString = "category_id=all"
-      } else {
-        categoryParameterString = "category_id=\(categoryID)"
-      }
+      categoryParameterString = "category_id=\(categoryID)"
     }
     
     if let startDate = startDate {
@@ -233,7 +225,7 @@ public class BKBasicRequestClient: BKClient {
     let endpoint = AmountEndpoint
     let method = "GET"
     
-    makeAPICallToEndpoint(endpoint, method: method, parameterString: parameterString, requestDescription: requestDescription) { (success, response, responseData) in
+    makeAPICallToEndpoint(endpoint, method: method, parameterString: parameterString, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
      
       if success {
         
@@ -252,31 +244,92 @@ public class BKBasicRequestClient: BKClient {
     }
   }
   
-  public func getAmountsByCategory(forUserID userID: Int64?, startDate: Date?, endDate: Date?, completion: @escaping BKGetAmountsCompletionBlock) {
+  public func getAmountsByCategory(forUserID userID: String?, startDate: Date?, endDate: Date?, completion: @escaping BKGetAmountsCompletionBlock) {
     
-    self.getAmounts(forUserID: userID, categoryID: 0, startDate: startDate, endDate: endDate, requestDescription: "getAmountsByCategory") { (success, amountArray) in
+    self.getAmounts(forUserID: userID, categoryID: "all", startDate: startDate, endDate: endDate, requestDescription: "getAmountsByCategory") { (success, amountArray) in
         completion(success, amountArray)
     }
   }
   
-  public func getAmountsByUser(forCategoryID categoryID: Int64?, startDate: Date?, endDate: Date?, completion: @escaping BKGetAmountsCompletionBlock) {
+  public func getAmountsByUser(forCategoryID categoryID: String?, startDate: Date?, endDate: Date?, completion: @escaping BKGetAmountsCompletionBlock) {
     
-    self.getAmounts(forUserID: 0, categoryID: categoryID, startDate: startDate, endDate: endDate, requestDescription: "getAmountsByUserID") { (success, amountArray) in
+    self.getAmounts(forUserID: "all", categoryID: categoryID, startDate: startDate, endDate: endDate, requestDescription: "getAmountsByUserID") { (success, amountArray) in
       completion(success, amountArray)
     }
   }
   
   public func getAmountsByCategoryAndUser(forStartDate startDate: Date?, endDate: Date?, completion: @escaping BKGetAmountsCompletionBlock) {
     
-    self.getAmounts(forUserID: 0, categoryID: 0, startDate: startDate, endDate: endDate, requestDescription: "getAmountsByCategoryAndUser") { (success, amountArray) in
+    self.getAmounts(forUserID: "all", categoryID: "all", startDate: startDate, endDate: endDate, requestDescription: "getAmountsByCategoryAndUser") { (success, amountArray) in
       completion(success, amountArray)
     }
   }
   
-  public func getAmount(forUserID userID: Int64?, categoryID: Int64?, startDate: Date?, endDate: Date?, completion: @escaping BKGetAmountsCompletionBlock) {
+  public func getAmount(forUserID userID: String?, categoryID: String?, startDate: Date?, endDate: Date?, completion: @escaping BKGetAmountsCompletionBlock) {
     
     self.getAmounts(forUserID: userID, categoryID: categoryID, startDate: startDate, endDate: endDate, requestDescription: "getAmount") { (success, amountArray) in
       completion(success, amountArray)
+    }
+  }
+  
+  public func signIn(withName name: String, password: String, completion: @escaping BKGroupCompletionBlock) {
+    
+    let endpoint = SignInEndpoint
+    let method = "GET"
+    let requestDescription = "signIn"
+    let customAuthorizationHeader = BKUtilities.authorizationHeader(fromUsername: name, andPassword: password)
+    
+    makeAPICallToEndpoint(endpoint, method: method, requestDescription: requestDescription, customAuthorizationHeader: customAuthorizationHeader) { (success, response, responseData, apiErrorType, customErrorMessage) in
+      
+      if success {
+        
+        var groupDictionary = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! [String: AnyObject]
+        groupDictionary["password"] = password as AnyObject
+        
+        if let bkGroup = BKGroup.createOrUpdate(with: groupDictionary) {
+          completion(true, nil, bkGroup)
+        } else {
+          completion(false, "An unexpected error occurred", nil)
+        }
+        
+      } else {
+        completion(false, "A server error occurred", nil)
+      }
+    }
+  }
+  
+  public func createGroup(withName name: String, password: String, completion: @escaping BKGroupCompletionBlock) {
+    
+    let bodyString = "name=\(name)&password=\(password)"
+    
+    let endpoint = GroupEndpoint
+    let method = "POST"
+    let requestDescription = "createGroup"
+    let body = bodyString.data(using: String.Encoding.utf8)
+    
+    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
+      
+      if success {
+        
+        var groupDictionary = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! [String: AnyObject]
+        groupDictionary["password"] = password as AnyObject
+        
+        if let bkGroup = BKGroup.createOrUpdate(with: groupDictionary) {
+          completion(true, nil, bkGroup)
+        } else {
+          completion(false, "An unexpected error occurred. Error code: \(BKAPIErrorType.clientProcessing)", nil)
+        }
+        
+      } else {
+        
+        if let customErrorMessage = customErrorMessage {
+          completion(false, customErrorMessage, nil)
+        } else {
+          
+          let errorType = apiErrorType ?? .unknown
+          completion(false, "A server error occurred. Error code: \(errorType)", nil)
+        }
+      }
     }
   }
   
@@ -284,12 +337,12 @@ public class BKBasicRequestClient: BKClient {
     
     let bodyString = "name=\(name)"
     
-    let endpoint = UsersEndpoint
+    let endpoint = UserEndpoint
     let method = "POST"
     let requestDescription = "createUser"
     let body = bodyString.data(using: String.Encoding.utf8)
     
-    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData) in
+    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
       
       if success {
         
@@ -319,12 +372,12 @@ public class BKBasicRequestClient: BKClient {
       bodyString = bodyString + "&description=\(description)"
     }
     
-    let endpoint = CategoriesEndpoint
+    let endpoint = CategoryEndpoint
     let method = "POST"
     let requestDescription = "createCategory"
     let body = bodyString.data(using: String.Encoding.utf8)
     
-    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData) in
+    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
       
       if success {
         
@@ -342,7 +395,7 @@ public class BKBasicRequestClient: BKClient {
     }
   }
   
-  public func createExpense(withName name: String, amount: Float, userID: Int64, categoryID: Int64?, date: Date?, completion: @escaping BKCreateExpenseCompletionBlock) {
+  public func createExpense(withName name: String, amount: Float, userID: String, categoryID: String?, date: Date?, completion: @escaping BKCreateExpenseCompletionBlock) {
     
     var bodyString = "name=\(name)&amount=\(amount)&user_id=\(userID)"
     
@@ -360,12 +413,12 @@ public class BKBasicRequestClient: BKClient {
     
     bodyString = bodyString + "&date=\(dateString)"
     
-    let endpoint = ExpensesEndpoint
+    let endpoint = ExpenseEndpoint
     let method = "POST"
     let requestDescription = "createExpense"
     let body = bodyString.data(using: String.Encoding.utf8)
     
-    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData) in
+    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
       
       if success {
         
@@ -385,11 +438,11 @@ public class BKBasicRequestClient: BKClient {
   
   public func delete(category: BKCategory, completion: @escaping BKDeleteCompletionBlock) {
     
-    let endpoint = CategoriesEndpoint + "/\(category.cloudID)"
+    let endpoint = CategoryEndpoint + "/\(category.cloudID)"
     let method = "DELETE"
     let requestDescription = "deleteCategory"
     
-    makeAPICallToEndpoint(endpoint, method: method, body: nil, requestDescription: requestDescription) { (success, response, responseData) in 
+    makeAPICallToEndpoint(endpoint, method: method, body: nil, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
       if success {
         completion(true)
       } else {
@@ -430,14 +483,14 @@ public class BKBasicRequestClient: BKClient {
       }
     }
     
-    let endpoint = CategoriesEndpoint + "/\(category.cloudID)"
+    let endpoint = CategoryEndpoint + "/\(category.cloudID)"
     let method = "PATCH"
     let requestDescription = "updateCategory"
     let body = bodyString.data(using: String.Encoding.utf8)
     
     
     
-    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData) in
+    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
       
       if success {
         

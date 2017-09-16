@@ -1,5 +1,5 @@
 //
-//  SignInViewController.swift
+//  UserClaimViewController.swift
 //  Budget
 //
 //  Created by Daniel Gauthier on 2016-11-24.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol SignInDelegate: class {
-  func signInCompleted()
+protocol UserClaimDelegate: class {
+  func userClaimed()
 }
 
-class SignInViewController: UIViewController {
+class UserClaimViewController: UIViewController {
 
-  weak var signInDelegate: SignInDelegate?
+  weak var userClaimDelegate: UserClaimDelegate?
   
   @IBOutlet weak var topView: UIView!
   @IBOutlet weak var titleLabel: UILabel!
@@ -51,7 +51,7 @@ class SignInViewController: UIViewController {
   @IBAction func createUserButtonTapped() {
     
     let userCreationViewController = UserCreationViewController(nibName: "UserCreationViewController", bundle: nil)
-    userCreationViewController.signInDelegate = signInDelegate
+    userCreationViewController.userClaimDelegate = userClaimDelegate
     
     if let navigationController = navigationController {
       navigationController.pushViewController(userCreationViewController, animated: true)
@@ -61,7 +61,7 @@ class SignInViewController: UIViewController {
   @IBAction func selectUserButtonTapped() {
     
     let userSelectionViewController = UserSelectionViewController(nibName: "UserSelectionViewController", bundle: nil)
-    userSelectionViewController.signInDelegate = signInDelegate
+    userSelectionViewController.userClaimDelegate = userClaimDelegate
     
     if let navigationController = navigationController {
       navigationController.pushViewController(userSelectionViewController, animated: true)

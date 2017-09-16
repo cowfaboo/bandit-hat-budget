@@ -17,7 +17,7 @@ extension BKUser {
         return NSFetchRequest<BKUser>(entityName: "BKUser");
     }
 
-    @NSManaged public var cloudID: Int64
+    @NSManaged public var cloudID: String
     @NSManaged public var name: String?
     @NSManaged var dateCreated: NSDate
     @NSManaged var dateUpdated: NSDate

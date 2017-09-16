@@ -47,6 +47,16 @@ public class BKUtilities {
     dateFormatter.timeZone = TimeZone(identifier: "UTC")
     return dateFormatter.string(from: date)
   }
+  
+  class func authorizationHeader(fromUsername userName: String, andPassword password: String) -> String? {
+    
+    let utf8AuthorizationString = "\(userName):\(password)".data(using: String.Encoding.utf8)
+    if let encodedAuthorizationString = utf8AuthorizationString?.base64EncodedString() {
+      return "Basic \(encodedAuthorizationString)"
+    }
+    
+    return nil
+  }
 }
 
 extension UIColor {

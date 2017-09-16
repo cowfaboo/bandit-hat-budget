@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HouseholdLaunchViewController">
+            <connections>
+                <outlet property="backgroundColorView" destination="bsc-xP-XeQ" id="tFS-Nq-pgQ"/>
+                <outlet property="createButton" destination="QJQ-7Q-IEP" id="x6w-AT-qIN"/>
+                <outlet property="signInButton" destination="U0c-mG-960" id="kEi-6t-ZjG"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bsc-xP-XeQ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.21335586910000001" green="0.51134985690000001" blue="0.7641435862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0c-mG-960" customClass="BHButton" customModule="Budget" customModuleProvider="target">
+                    <rect key="frame" x="43.5" y="367" width="288" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="288" id="AIa-dF-ECN"/>
+                        <constraint firstAttribute="height" constant="54" id="rSa-DX-tJ2"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                    <state key="normal" title="Sign Into an Existing Household">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="signInButtonTapped" destination="-1" eventType="touchUpInside" id="PnJ-3k-Nej"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-oH-bXu">
+                    <rect key="frame" x="56" y="64" width="263.5" height="60"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bandit Hat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvO-Ac-0Fg">
+                            <rect key="frame" x="16" y="6.5" width="127" height="33.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDb-Z5-JWr">
+                            <rect key="frame" x="151" y="6.5" width="92.5" height="33.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="sDb-Z5-JWr" firstAttribute="leading" secondItem="cvO-Ac-0Fg" secondAttribute="trailing" constant="8" id="5qd-TU-COc"/>
+                        <constraint firstAttribute="height" constant="60" id="EZL-4c-mBW"/>
+                        <constraint firstItem="cvO-Ac-0Fg" firstAttribute="leading" secondItem="BoF-oH-bXu" secondAttribute="leading" constant="16" id="Uax-AR-a1r"/>
+                        <constraint firstAttribute="trailing" secondItem="sDb-Z5-JWr" secondAttribute="trailing" constant="20" id="chm-wL-4FC"/>
+                        <constraint firstAttribute="bottom" secondItem="sDb-Z5-JWr" secondAttribute="bottom" constant="20" id="f4f-cr-9DI"/>
+                        <constraint firstAttribute="bottom" secondItem="cvO-Ac-0Fg" secondAttribute="bottom" constant="20" id="ljQ-Lq-liJ"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start keeping a simple budget for yourself and any of your budget buddies by creating a household." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CV7-rD-dXC">
+                    <rect key="frame" x="32" y="140" width="311" height="57.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2NE-23-f5c">
+                    <rect key="frame" x="180" y="331.5" width="15" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJQ-7Q-IEP" customClass="BHButton" customModule="Budget" customModuleProvider="target">
+                    <rect key="frame" x="43.5" y="261.5" width="288" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="54" id="PBU-zM-51g"/>
+                        <constraint firstAttribute="width" constant="288" id="pHm-7j-LxO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                    <state key="normal" title="Create a New Household">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="createButtonTapped" destination="-1" eventType="touchUpInside" id="ttc-Hr-oyP"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="bsc-xP-XeQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="667-bf-RKX"/>
+                <constraint firstAttribute="trailing" secondItem="bsc-xP-XeQ" secondAttribute="trailing" id="6Yu-dj-jcB"/>
+                <constraint firstItem="CV7-rD-dXC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="32" id="77V-GV-2Uc"/>
+                <constraint firstItem="U0c-mG-960" firstAttribute="top" secondItem="2NE-23-f5c" secondAttribute="bottom" constant="16" id="C12-8e-Ss2"/>
+                <constraint firstItem="QJQ-7Q-IEP" firstAttribute="top" secondItem="CV7-rD-dXC" secondAttribute="bottom" constant="64" id="GpK-A9-9Po"/>
+                <constraint firstItem="CV7-rD-dXC" firstAttribute="top" secondItem="BoF-oH-bXu" secondAttribute="bottom" constant="16" id="M09-Qc-89t"/>
+                <constraint firstAttribute="trailing" secondItem="CV7-rD-dXC" secondAttribute="trailing" constant="32" id="VI7-G0-KN0"/>
+                <constraint firstAttribute="bottom" secondItem="bsc-xP-XeQ" secondAttribute="bottom" id="XqH-sp-PAe"/>
+                <constraint firstItem="CV7-rD-dXC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Xxj-ps-K1l"/>
+                <constraint firstItem="2NE-23-f5c" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="azE-Sp-1cK"/>
+                <constraint firstItem="QJQ-7Q-IEP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="d1l-ve-pgf"/>
+                <constraint firstItem="U0c-mG-960" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="de4-aK-hnM"/>
+                <constraint firstItem="BoF-oH-bXu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="ocx-hF-Hme"/>
+                <constraint firstItem="2NE-23-f5c" firstAttribute="top" secondItem="QJQ-7Q-IEP" secondAttribute="bottom" constant="16" id="pFY-Yg-eGt"/>
+                <constraint firstItem="BoF-oH-bXu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="uSr-8b-4k7"/>
+                <constraint firstItem="bsc-xP-XeQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yzP-rE-HBX"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="34.5" y="53.5"/>
+        </view>
+    </objects>
+</document>
