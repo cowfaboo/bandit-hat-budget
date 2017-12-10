@@ -22,6 +22,12 @@ class ContainerViewController: UIViewController, InteractivePresenter {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    view.clipsToBounds = true
+    
+    if Utilities.isIphoneX {
+      view.layer.cornerRadius = 40.0
+    }
+    
     addExpenseButton.isCircular = true
     settingsButton.isCircular = true
     
@@ -42,10 +48,16 @@ class ContainerViewController: UIViewController, InteractivePresenter {
   func presentHouseholdLaunchView() {
     
     let householdLaunchViewController = HouseholdLaunchViewController(nibName: "HouseholdLaunchViewController", bundle: nil)
-    //signInViewController.signInDelegate = self
-    let navigationController = UINavigationController(rootViewController: householdLaunchViewController)
-    navigationController.navigationBar.isHidden = true
-    present(navigationController, animated: true, completion: nil)
+    householdLaunchViewController.householdLaunchDelegate = self
+    let topLevelNavigationController = TopLevelNavigationController(withRootViewController: householdLaunchViewController)
+    topLevelNavigationController.interactivePresenter = self
+    topLevelNavigationController.transitioningDelegate = self
+    topLevelNavigationController.modalPresentationStyle = .custom
+    topLevelNavigationController.modalPresentationCapturesStatusBarAppearance = true
+    topLevelNavigationController.isInteractivelyDismissable = false
+    
+    presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
+    present(topLevelNavigationController, animated: true, completion: nil)
   }
   
   func presentUserClaimView() {
@@ -71,11 +83,20 @@ class ContainerViewController: UIViewController, InteractivePresenter {
   }
   
   func presentSettingsView() {
-    /*let categoryManagementViewController = CategoryManagementViewController(nibName: "CategoryManagementViewController", bundle: nil)
-    categoryManagementViewController.categoryManagementDelegate = self
-    present(categoryManagementViewController, animated: true, completion: nil)*/
     
     let settingsViewController = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
+    settingsViewController.settingsDelegate = self
+    let topLevelNavigationController = TopLevelNavigationController(withRootViewController: settingsViewController)
+    topLevelNavigationController.interactivePresenter = self
+    topLevelNavigationController.transitioningDelegate = self
+    topLevelNavigationController.modalPresentationStyle = .custom
+    topLevelNavigationController.modalPresentationCapturesStatusBarAppearance = true
+    topLevelNavigationController.isInteractivelyDismissable = true
+    
+    presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
+    present(topLevelNavigationController, animated: true, completion: nil)
+    
+    /*let settingsViewController = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
     settingsViewController.interactivePresenter = self
     settingsViewController.settingsDelegate = self
     settingsViewController.transitioningDelegate = self
@@ -83,11 +104,7 @@ class ContainerViewController: UIViewController, InteractivePresenter {
     
     presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
     
-    present(settingsViewController, animated: true, completion: nil)
-    
-    //let navigationController = UINavigationController(rootViewController: settingsViewController)
-    //present(navigationController, animated: true, completion: nil)
-    
+    present(settingsViewController, animated: true, completion: nil)*/
   }
   
   // MARK: - Action Methods
@@ -124,6 +141,12 @@ extension ContainerViewController: ExpenseEntryDelegate {
       dataViewController.updateData()
     }
     
+    dismiss(animated: true)
+  }
+}
+
+extension ContainerViewController: HouseholdLaunchDelegate {
+  func householdLaunched() {
     dismiss(animated: true)
   }
 }

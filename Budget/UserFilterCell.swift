@@ -21,7 +21,7 @@ class UserFilterCell: UITableViewCell {
         nameLabel.font = UIFont.systemFont(ofSize: 18.0)
       } else {
         nameLabel.text = "Everyone"
-        nameLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFontWeightMedium)
+        nameLabel.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.medium)
       }
     }
   }

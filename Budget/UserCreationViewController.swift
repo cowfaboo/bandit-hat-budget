@@ -30,8 +30,6 @@ class UserCreationViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.layer.cornerRadius = 8.0
-    
     titleLabel.textColor = themeColor
     subtitleLabel.textColor = themeColor.withAlphaComponent(0.5)
     topView.backgroundColor = themeColor.withAlphaComponent(0.04)
@@ -39,7 +37,7 @@ class UserCreationViewController: UIViewController {
     banditHatLabel.textColor = themeColor
     budgetLabel.textColor = themeColor
     
-    nameTextField.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSForegroundColorAttributeName: themeColor.withAlphaComponent(0.5)])
+    nameTextField.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSAttributedStringKey.foregroundColor: themeColor.withAlphaComponent(0.5)])
     nameTextField.tintColor = themeColor
     nameTextField.textColor = themeColor
     nameUnderlineView.backgroundColor = themeColor.withAlphaComponent(0.2)
@@ -54,7 +52,7 @@ class UserCreationViewController: UIViewController {
   
   @IBAction func createButtonTapped() {
     
-    guard let text = nameTextField.text, text.characters.count > 0 else {
+    guard let text = nameTextField.text, text.count > 0 else {
       print("no text entered")
       return
     }
@@ -79,7 +77,7 @@ extension UserCreationViewController: UITextFieldDelegate {
     
     let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
     
-    if newString.characters.count > 0 {
+    if newString.count > 0 {
       createButton.isEnabled = true
     } else {
       createButton.isEnabled = false

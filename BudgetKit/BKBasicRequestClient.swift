@@ -289,11 +289,23 @@ public class BKBasicRequestClient: BKClient {
         if let bkGroup = BKGroup.createOrUpdate(with: groupDictionary) {
           completion(true, nil, bkGroup)
         } else {
-          completion(false, "An unexpected error occurred", nil)
+          completion(false, "An unexpected error occurred. Error code: \(BKAPIErrorType.clientProcessing)", nil)
         }
         
       } else {
-        completion(false, "A server error occurred", nil)
+        
+        if let customErrorMessage = customErrorMessage {
+          completion(false, customErrorMessage, nil)
+        } else {
+          
+          let errorType = apiErrorType ?? .unknown
+          
+          if (errorType == .unauthorized) {
+            completion(false, "The household name or password you entered is incorrect.", nil)
+          } else {
+            completion(false, "A server error occurred. Error code: \(BKAPIErrorType.clientProcessing)", nil)
+          }
+        }
       }
     }
   }
@@ -460,7 +472,7 @@ public class BKBasicRequestClient: BKClient {
     }
     
     if let color = color {
-      if bodyString.characters.isEmpty {
+      if bodyString.isEmpty {
         bodyString = "color=\(color.hexString)"
       } else {
         bodyString = bodyString + "&color=\(color.hexString)"
@@ -468,7 +480,7 @@ public class BKBasicRequestClient: BKClient {
     }
     
     if let monthlyBudget = monthlyBudget {
-      if bodyString.characters.isEmpty {
+      if bodyString.isEmpty {
         bodyString = "monthlyBudget=\(monthlyBudget)"
       } else {
         bodyString = bodyString + "&monthlyBudget=\(monthlyBudget)"
@@ -476,7 +488,7 @@ public class BKBasicRequestClient: BKClient {
     }
     
     if let description = description {
-      if bodyString.characters.isEmpty {
+      if bodyString.isEmpty {
         bodyString = "description=\(description)"
       } else {
         bodyString = bodyString + "&description=\(description)"

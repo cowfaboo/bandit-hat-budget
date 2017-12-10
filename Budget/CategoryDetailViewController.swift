@@ -127,7 +127,7 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     titleLabel.text = "New Category"
     nameTextField.isEnabled = true
     budgetTextField.isEnabled = true
-    budgetPrefixTextField.font = UIFont.systemFont(ofSize: 18.0, weight: UIFontWeightRegular)
+    budgetPrefixTextField.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.regular)
     budgetPrefixTextField.text = "$"
     descriptionTextView.isEditable = true
     descriptionTextView.isSelectable = true
@@ -165,7 +165,7 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     nameTextField.isEnabled = false
     budgetTextField.text = "/ month"
     budgetTextField.isEnabled = false
-    budgetPrefixTextField.font = UIFont.systemFont(ofSize: 20.0, weight: UIFontWeightMedium)
+    budgetPrefixTextField.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.medium)
     budgetPrefixTextField.text = category?.monthlyBudget.simpleDollarAmount()
     descriptionTextView.text = category?.details
     descriptionTextView.isEditable = false
@@ -177,7 +177,7 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     nameTextField.isHidden = true
     nameUnderlineViewHeightConstraint.constant = 0
     let heightModifier: CGFloat
-    if let details = category?.details, details.characters.count > 0 {
+    if let details = category?.details, details.count > 0 {
       descriptionTextViewHeightConstraint.constant = 72
       descriptionTextViewTopConstraint.constant = 16
       heightModifier = 0
@@ -214,8 +214,8 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     nameTextField.text = category?.name
     budgetTextField.isEnabled = true
     budgetTextField.text = category?.monthlyBudget.simpleDollarAmount(withDollarSign: false)
-    budgetTextField.font = UIFont.systemFont(ofSize: 18.0, weight: UIFontWeightRegular)
-    budgetPrefixTextField.font = UIFont.systemFont(ofSize: 18.0, weight: UIFontWeightRegular)
+    budgetTextField.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.regular)
+    budgetPrefixTextField.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.regular)
     budgetPrefixTextField.text = "$"
     descriptionTextView.isEditable = true
     descriptionTextView.isSelectable = true
@@ -364,13 +364,13 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     let color = selectedColorButton!.backgroundColor!
     
     var description = descriptionTextView.text
-    if description != nil && description!.characters.count == 0 {
+    if description != nil && description!.count == 0 {
       description = nil
     }
     
     BKSharedBasicRequestClient.createCategory(withName: name, color: color, monthlyBudget: budget, description: description) { (success, category) in
       
-      guard success, let category = category else {
+      guard success, let _ = category else {
         print("failed to update category")
         return
       }
@@ -391,14 +391,14 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     let color = selectedColorButton!.backgroundColor!
     
     var description = descriptionTextView.text
-    if description != nil && description!.characters.count == 0 {
+    if description != nil && description!.count == 0 {
       description = nil
     }
     
     
     
     BKSharedBasicRequestClient.update(category: category, name: name, color: color, monthlyBudget: budget, description: description) { (success, category) in
-      guard success, let category = category else {
+      guard success, let _ = category else {
         print("failed to create category")
         return
       }
@@ -428,11 +428,11 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     
   }
   
-  func nameTextFieldDidChange() {
+  @objc func nameTextFieldDidChange() {
     updateFormValidity()
   }
   
-  func budgetTextFieldDidChange() {
+  @objc func budgetTextFieldDidChange() {
     updateFormValidity()
     
     if let budgetString = budgetTextField.text {
@@ -447,14 +447,14 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     let budget = Float(budgetTextField.text ?? "")
     let name = nameTextField.text ?? ""
     
-    if name.characters.count > 0 && budget != nil {
+    if name.count > 0 && budget != nil {
       actionButton.isEnabled = true
     } else {
       actionButton.isEnabled = false
     }
   }
   
-  func keyboardDidHide(_ notification: NSNotification) {
+  @objc func keyboardDidHide(_ notification: NSNotification) {
     print("keyboard did hide")
     if let topSlideViewController = parent as? TopSlideViewController {
       topSlideViewController.containerViewTopConstraint.constant = topSlideViewController.originalDistanceFromTop
@@ -465,7 +465,7 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     }
   }
   
-  func keyboardDidShow(_ notification: NSNotification) {
+  @objc func keyboardDidShow(_ notification: NSNotification) {
     
     guard let currentTextInput = currentTextInput as? UIView, let topSlideViewController = parent as? TopSlideViewController else {
       return

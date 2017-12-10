@@ -47,7 +47,7 @@ class BHAlertViewController: UIViewController {
     for action in actions {
       let button = BHButton()
       button.setTitle(action.title, for: .normal)
-      button.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: UIFontWeightMedium)
+      button.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.medium)
       button.themeColor = action.color
       button.addTarget(self, action: #selector(actionButtonTapped(sender:)), for: .touchUpInside)
       buttonStackView.addArrangedSubview(button)
@@ -76,7 +76,7 @@ class BHAlertViewController: UIViewController {
   }
   
   
-  func actionButtonTapped(sender: BHButton) {
+  @objc func actionButtonTapped(sender: BHButton) {
     
     if let index = actionButtons.index(of: sender) {
       let action = actions[index]

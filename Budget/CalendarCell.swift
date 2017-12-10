@@ -19,7 +19,7 @@ class CalendarCell: UICollectionViewCell {
     selectionView.backgroundColor = UIColor.clear
     selectionView.alpha = 1.0
     dateLabel.textColor = UIColor.text
-    dateLabel.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightMedium)
+    dateLabel.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.medium)
     dateLabel.alpha = 1.0
     
     if let day = day {
@@ -37,7 +37,7 @@ class CalendarCell: UICollectionViewCell {
       }
     } else if shouldHighlightDate {
       dateLabel.textColor = UIColor.negative
-      dateLabel.font = UIFont.systemFont(ofSize: 19.0, weight: UIFontWeightMedium)
+      dateLabel.font = UIFont.systemFont(ofSize: 19.0, weight: UIFont.Weight.medium)
     }
     
     if shouldDimDate {

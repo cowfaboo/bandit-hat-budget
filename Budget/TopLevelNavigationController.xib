@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopLevelNavigationController" customModule="Budget" customModuleProvider="target">
+            <connections>
+                <outlet property="backButton" destination="L14-oF-Kzn" id="2ot-xC-cq8"/>
+                <outlet property="currentView" destination="rD7-TD-OCi" id="piJ-UC-jAn"/>
+                <outlet property="currentViewLeadingConstraint" destination="RUm-2h-h3T" id="RZZ-qT-cUh"/>
+                <outlet property="currentViewTrailingConstraint" destination="uUd-f0-TbH" id="Tjg-Tf-cl5"/>
+                <outlet property="nextView" destination="W9u-v5-HUZ" id="4oS-ru-qnB"/>
+                <outlet property="nextViewLeadingConstraint" destination="Are-oX-yVQ" id="AOI-yC-YVl"/>
+                <outlet property="nextViewTrailingConstraint" destination="EMh-uW-0ZZ" id="SkW-OF-wW6"/>
+                <outlet property="previousView" destination="UlW-As-IrB" id="Err-Go-Ii5"/>
+                <outlet property="previousViewLeadingConstraint" destination="n2i-MQ-09r" id="Y3T-3m-0qj"/>
+                <outlet property="previousViewTrailingConstraint" destination="vV4-fW-vas" id="YYW-ym-mP0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UlW-As-IrB">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9u-v5-HUZ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                </view>
+                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rD7-TD-OCi">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L14-oF-Kzn">
+                    <rect key="frame" x="0.0" y="44" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="BX4-Bt-S21"/>
+                        <constraint firstAttribute="height" constant="44" id="tjC-63-GZa"/>
+                    </constraints>
+                    <state key="normal" image="leftArrowButton"/>
+                    <connections>
+                        <action selector="backButtonTapped" destination="-1" eventType="touchUpInside" id="9Ex-YU-XE7"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="W9u-v5-HUZ" secondAttribute="bottom" id="2Hm-Oj-8fw"/>
+                <constraint firstItem="W9u-v5-HUZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6dJ-qK-FNn"/>
+                <constraint firstItem="rD7-TD-OCi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="89s-gG-6u8"/>
+                <constraint firstItem="W9u-v5-HUZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Are-oX-yVQ"/>
+                <constraint firstAttribute="trailing" secondItem="W9u-v5-HUZ" secondAttribute="trailing" id="EMh-uW-0ZZ"/>
+                <constraint firstItem="rD7-TD-OCi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="RUm-2h-h3T"/>
+                <constraint firstItem="L14-oF-Kzn" firstAttribute="top" secondItem="OJq-KE-Uxq" secondAttribute="top" id="YIZ-mO-jLY"/>
+                <constraint firstItem="UlW-As-IrB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dpb-pj-ZzL"/>
+                <constraint firstAttribute="bottom" secondItem="UlW-As-IrB" secondAttribute="bottom" id="iB1-ql-I4m"/>
+                <constraint firstItem="UlW-As-IrB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n2i-MQ-09r"/>
+                <constraint firstAttribute="bottom" secondItem="rD7-TD-OCi" secondAttribute="bottom" id="nae-MM-F4z"/>
+                <constraint firstItem="L14-oF-Kzn" firstAttribute="leading" secondItem="OJq-KE-Uxq" secondAttribute="leading" id="tAY-cv-Ek5"/>
+                <constraint firstAttribute="trailing" secondItem="rD7-TD-OCi" secondAttribute="trailing" id="uUd-f0-TbH"/>
+                <constraint firstAttribute="trailing" secondItem="UlW-As-IrB" secondAttribute="trailing" id="vV4-fW-vas"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="OJq-KE-Uxq"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="leftArrowButton" width="44" height="44"/>
+    </resources>
+</document>

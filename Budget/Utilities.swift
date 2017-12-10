@@ -37,6 +37,20 @@ class Utilities {
     }
   }
   
+  class var isIphoneX: Bool {
+    let model: String
+    if TARGET_OS_SIMULATOR != 0 {
+      model = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"] ?? ""
+    } else {
+      var size = 0
+      sysctlbyname("hw.machine", nil, &size, nil, 0)
+      var machine = [CChar](repeating: 0, count: size)
+      sysctlbyname("hw.machine", &machine, &size, nil, 0)
+      model = String(cString: machine)
+    }
+    return model == "iPhone10,3" || model == "iPhone10,6"
+  }
+  
   class func dataViewNeedsUpdate() -> Bool {
     let dataViewNeedsUpdate = UserDefaults.standard.bool(forKey: DataViewNeedsUpdateKey)
     UserDefaults.standard.set(false, forKey: DataViewNeedsUpdateKey)
@@ -53,7 +67,7 @@ extension String {
   func isCompleteDollarAmount() -> Bool {
     
     if Float(self) != nil {
-      let decimalArray = self.characters.split(separator: ".")
+      let decimalArray = self.split(separator: ".")
       if decimalArray.count == 2 && decimalArray[1].count == 2 {
         return true
       }
@@ -230,35 +244,35 @@ extension Date {
 extension Float {
   
   /*var dollarAmount: String {
-    get {
-      let numberFormatter = NumberFormatter()
-      numberFormatter.minimumIntegerDigits = 1
-      numberFormatter.minimumFractionDigits = 2
-      numberFormatter.maximumFractionDigits = 2
-      let formattedNumber = numberFormatter.string(from: NSNumber(value: self))
-      if let formattedNumber = formattedNumber {
-        return "$\(formattedNumber)"
-      } else {
-        return "\(self)"
-      }
-    }
-  }*/
+   get {
+   let numberFormatter = NumberFormatter()
+   numberFormatter.minimumIntegerDigits = 1
+   numberFormatter.minimumFractionDigits = 2
+   numberFormatter.maximumFractionDigits = 2
+   let formattedNumber = numberFormatter.string(from: NSNumber(value: self))
+   if let formattedNumber = formattedNumber {
+   return "$\(formattedNumber)"
+   } else {
+   return "\(self)"
+   }
+   }
+   }*/
   
   /*var simpleDollarAmount: String {
-    get {
-      let numberFormatter = NumberFormatter()
-      numberFormatter.roundingMode = .up
-      numberFormatter.minimumIntegerDigits = 1
-      numberFormatter.minimumFractionDigits = 0
-      numberFormatter.maximumFractionDigits = 0
-      let formattedNumber = numberFormatter.string(from: NSNumber(value: self))
-      if let formattedNumber = formattedNumber {
-        return "$\(formattedNumber)"
-      } else {
-        return "\(self)"
-      }
-    }
-  }*/
+   get {
+   let numberFormatter = NumberFormatter()
+   numberFormatter.roundingMode = .up
+   numberFormatter.minimumIntegerDigits = 1
+   numberFormatter.minimumFractionDigits = 0
+   numberFormatter.maximumFractionDigits = 0
+   let formattedNumber = numberFormatter.string(from: NSNumber(value: self))
+   if let formattedNumber = formattedNumber {
+   return "$\(formattedNumber)"
+   } else {
+   return "\(self)"
+   }
+   }
+   }*/
   
   func dollarAmount(withDollarSign: Bool = false) -> String {
     let numberFormatter = NumberFormatter()

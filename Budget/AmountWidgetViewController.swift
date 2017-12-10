@@ -112,11 +112,11 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
       totalAmountString = totalAmount.simpleDollarAmount()
       
       let attributedString = NSMutableAttributedString(string: "\(spentAmountString) of \(totalAmountString)")
-      attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium), range: NSMakeRange(0, spentAmountString.characters.count))
-      attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium), range: NSMakeRange(spentAmountString.characters.count + 4, totalAmountString.characters.count))
+      attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium), range: NSMakeRange(0, spentAmountString.count))
+      attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium), range: NSMakeRange(spentAmountString.count + 4, totalAmountString.count))
       
       if amount.amount > totalAmount {
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.negative, range: NSMakeRange(0, spentAmountString.characters.count))
+        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.negative, range: NSMakeRange(0, spentAmountString.count))
       }
       
       amountLabel.attributedText = attributedString
@@ -128,7 +128,7 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
       totalAmountString = ""
       
       let attributedString = NSMutableAttributedString(string: "\(spentAmountString)")
-      attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium), range: NSMakeRange(0, spentAmountString.characters.count))
+      attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium), range: NSMakeRange(0, spentAmountString.count))
       
       amountLabel.attributedText = attributedString
     }

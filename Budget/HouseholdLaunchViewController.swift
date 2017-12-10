@@ -13,7 +13,9 @@ protocol HouseholdLaunchDelegate: class {
   func householdLaunched()
 }
 
-class HouseholdLaunchViewController: UIViewController {
+class HouseholdLaunchViewController: UIViewController, TopLevelNavigable {
+  
+  var topLevelNavigationController: TopLevelNavigationController?
   
   weak var householdLaunchDelegate: HouseholdLaunchDelegate?
   
@@ -24,6 +26,9 @@ class HouseholdLaunchViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    //isInteractivelyDismissable = false
+    
+    view.clipsToBounds = true
     backgroundColorView.backgroundColor = UIColor.palette[2].withAlphaComponent(0.8)
     
     createButton.themeColor = UIColor.palette[2]
@@ -35,57 +40,27 @@ class HouseholdLaunchViewController: UIViewController {
     super.didReceiveMemoryWarning()
   }
   
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
+  
   @IBAction func createButtonTapped() {
     
     let householdCreationViewController = HouseholdCreationViewController(nibName: "HouseholdCreationViewController", bundle: nil)
+    householdCreationViewController.householdLaunchDelegate = householdLaunchDelegate
     
-    if let navigationController = navigationController {
-      navigationController.pushViewController(householdCreationViewController, animated: true)
+    if let topLevelNavigationController = topLevelNavigationController {
+      topLevelNavigationController.push(householdCreationViewController)
     }
   }
   
   @IBAction func signInButtonTapped() {
     
     let householdSignInViewController = HouseholdSignInViewController(nibName: "HouseholdSignInViewController", bundle: nil)
+    householdSignInViewController.householdLaunchDelegate = householdLaunchDelegate
     
-    if let navigationController = navigationController {
-      navigationController.pushViewController(householdSignInViewController, animated: true)
+    if let topLevelNavigationController = topLevelNavigationController {
+      topLevelNavigationController.push(householdSignInViewController)
     }
   }
-  
-  /*@IBAction func signInButtonTapped() {
-    
-    let groupName = groupNameTextField.text!
-    let password = passwordTextField.text!
-    
-    BKSharedBasicRequestClient.signIn(withName: groupName, password: password) { (success, group) in
-      
-      guard success, let _ = group else {
-        print("failed to sign in")
-        return
-      }
-      
-      Utilities.setDataViewNeedsUpdate()
-      print("signed in successfully")
-      // call some sort of "signed in" delegate method here that will trigger dismissal of this view controller
-    }
-  }
-  
-  @IBAction func signUpButtonTapped() {
-    
-    let groupName = groupNameTextField.text!
-    let password = passwordTextField.text!
-    
-    BKSharedBasicRequestClient.createGroup(withName: groupName, password: password) { (success, group) in
-      
-      guard success, let _ = group else {
-        print("failed to sign up")
-        return
-      }
-      
-      Utilities.setDataViewNeedsUpdate()
-      print("signed up successfully")
-      // call some sort of "signed in" delegate method here that will trigger dismissal of this view controller
-    }
-  }*/
 }

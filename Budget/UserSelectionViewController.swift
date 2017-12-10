@@ -29,8 +29,6 @@ class UserSelectionViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.layer.cornerRadius = 8.0
-    
     titleLabel.textColor = themeColor
     subtitleLabel.textColor = themeColor.withAlphaComponent(0.5)
     topView.backgroundColor = themeColor.withAlphaComponent(0.04)

@@ -11,9 +11,16 @@ import UIKit
 class TopLevelViewController: UIViewController {
   
   weak var interactivePresenter: InteractivePresenter?
+  var isInteractivelyDismissable: Bool = true
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    view.clipsToBounds = true
+    
+    if Utilities.isIphoneX {
+      view.layer.cornerRadius = 40.0
+    }
     
     let panGestureRecognizer = OneWayPanGestureRecognizer(target: self, action: #selector(handleDrag(recognizer:)))
     view.addGestureRecognizer(panGestureRecognizer)
@@ -34,7 +41,11 @@ class TopLevelViewController: UIViewController {
     super.didReceiveMemoryWarning()
   }
   
-  func handleDrag(recognizer: UIPanGestureRecognizer) {
+  @objc func handleDrag(recognizer: UIPanGestureRecognizer) {
+    
+    if !isInteractivelyDismissable {
+      return
+    }
     
     if recognizer.state == .began {
       

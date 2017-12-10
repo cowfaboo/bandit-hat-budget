@@ -130,7 +130,7 @@ class ExpenseDataViewController: UIViewController, TableViewController {
     lastPageFooterLabel = UILabel()
     lastPageFooterLabel.translatesAutoresizingMaskIntoConstraints = false
     lastPageFooterLabel.textColor = category?.color.withAlphaComponent(0.2)
-    lastPageFooterLabel.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+    lastPageFooterLabel.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
     lastPageFooterLabel.text = "---"
     lastPageFooterLabel.isHidden = true
     tableView.tableFooterView?.addSubview(lastPageFooterLabel)

@@ -9,12 +9,13 @@
 import UIKit
 import BudgetKit
 
-class HouseholdCreationViewController: UIViewController, InteractivePresenter {
+class HouseholdCreationViewController: UIViewController, InteractivePresenter, TopLevelNavigable {
+  
+  var topLevelNavigationController: TopLevelNavigationController?
   
   weak var householdLaunchDelegate: HouseholdLaunchDelegate?
   var presentationAnimator: PresentationAnimator = TopSlideAnimator()
   
-  @IBOutlet weak var backgroundColorView: UIView!
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var confirmPasswordTextField: UITextField!
@@ -39,15 +40,15 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter {
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
-    backgroundColorView.backgroundColor = UIColor.palette[2].withAlphaComponent(0.8)
+    view.backgroundColor = UIColor.palette[2].withAlphaComponent(0.8)
     nameUnderlineView.backgroundColor = UIColor.palette[2]
     passwordUnderlineView.backgroundColor = UIColor.palette[2]
     confirmPasswordUnderlineView.backgroundColor = UIColor.palette[2]
     createButton.themeColor = UIColor.palette[2]
     
-    nameTextField.attributedPlaceholder = NSAttributedString(string: "Household Name", attributes: [NSForegroundColorAttributeName: UIColor.black.withAlphaComponent(0.25)])
-    passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.black.withAlphaComponent(0.25)])
-    confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Confirm Password", attributes: [NSForegroundColorAttributeName: UIColor.black.withAlphaComponent(0.25)])
+    nameTextField.attributedPlaceholder = NSAttributedString(string: "Household Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.black.withAlphaComponent(0.25)])
+    passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.black.withAlphaComponent(0.25)])
+    confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Confirm Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.black.withAlphaComponent(0.25)])
     
     nameTextField.addTarget(self, action: #selector(nameTextFieldDidChange), for: .editingChanged)
     passwordTextField.addTarget(self, action: #selector(passwordTextFieldDidChange), for: .editingChanged)
@@ -58,6 +59,10 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter {
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+  }
+  
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
   }
   
   deinit {
@@ -76,7 +81,7 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter {
         
         guard success, let _ = group else {
           
-          let errorMessage = errorMessage ?? "Something went wrong"
+          let errorMessage = errorMessage ?? "Something went wrong."
           self.presentSimpleAlert(withTitle: "Uh oh...", andMessage: errorMessage)
           return
         }
@@ -87,16 +92,12 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter {
     }
   }
   
-  @IBAction func backButtonTapped() {
-    self.navigationController?.popViewController(animated: true)
-  }
-  
-  func keyboardWillHide(_ notification: NSNotification) {
+  @objc func keyboardWillHide(_ notification: NSNotification) {
     createButtonContainerViewBottomConstraint.constant = 0
     view.layoutIfNeeded()
   }
   
-  func keyboardWillShow(_ notification: NSNotification) {
+  @objc func keyboardWillShow(_ notification: NSNotification) {
     let keyboardSize = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.size
     
     if createButtonContainerViewBottomConstraint.constant == keyboardSize.height {
@@ -124,15 +125,15 @@ extension HouseholdCreationViewController: UITextFieldDelegate {
     return true
   }
   
-  func nameTextFieldDidChange() {
+  @objc func nameTextFieldDidChange() {
     updateInitialFormValidity()
   }
   
-  func passwordTextFieldDidChange() {
+  @objc func passwordTextFieldDidChange() {
     updateInitialFormValidity()
   }
   
-  func confirmPasswordTextFieldDidChange() {
+  @objc func confirmPasswordTextFieldDidChange() {
     updateInitialFormValidity()
   }
   
@@ -143,7 +144,7 @@ extension HouseholdCreationViewController: UITextFieldDelegate {
     let password = passwordTextField.text ?? ""
     let confirmPassword = confirmPasswordTextField.text ?? ""
     
-    if name.characters.count > 0 && password.characters.count > 0 && confirmPassword.characters.count > 0 {
+    if name.count > 0 && password.count > 0 && confirmPassword.count > 0 {
       createButton.isEnabled = true
     } else {
       createButton.isEnabled = false
@@ -160,7 +161,7 @@ extension HouseholdCreationViewController: UITextFieldDelegate {
       return "Your household name can only contain letters, numbers, spaces and underscores."
     }
     
-    if password.characters.count < 8 {
+    if password.count < 8 {
       return "Your password must be at least 8 characters long."
     }
     

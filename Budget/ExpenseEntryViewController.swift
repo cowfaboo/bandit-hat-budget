@@ -80,8 +80,6 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
-    view.layer.cornerRadius = 8.0
-    
     nameTextField.textColor = UIColor.text
     amountTextField.textColor = UIColor.text
     dollarSignTextField.textColor = UIColor.text
@@ -166,12 +164,12 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
   }
   
   
-  func keyboardWillHide(_ notification: NSNotification) {
+  @objc func keyboardWillHide(_ notification: NSNotification) {
     addExpenseButtonContainerViewBottomConstraint.constant = 0
     view.layoutIfNeeded()
   }
   
-  func keyboardWillShow(_ notification: NSNotification) {
+  @objc func keyboardWillShow(_ notification: NSNotification) {
     let keyboardSize = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.size
     
     if addExpenseButtonContainerViewBottomConstraint.constant == keyboardSize.height {
@@ -238,11 +236,11 @@ extension ExpenseEntryViewController: UITextFieldDelegate {
     return true
   }
   
-  func nameTextFieldDidChange() {
+  @objc func nameTextFieldDidChange() {
     updateFormValidity()
   }
   
-  func amountTextFieldDidChange() {
+  @objc func amountTextFieldDidChange() {
     updateFormValidity()
     
     if let amountString = amountTextField.text {
@@ -257,7 +255,7 @@ extension ExpenseEntryViewController: UITextFieldDelegate {
     let amount = Float(amountTextField.text ?? "")
     let name = nameTextField.text ?? ""
     
-    if name.characters.count > 0 && amount != nil && selectedCategory != nil {
+    if name.count > 0 && amount != nil && selectedCategory != nil {
       addExpenseButton.isEnabled = true
     } else {
       addExpenseButton.isEnabled = false
@@ -286,7 +284,7 @@ extension ExpenseEntryViewController: CalendarDelegate {
     
     if !(amountTextField.text?.isCompleteDollarAmount() ?? false) {
       amountTextField.becomeFirstResponder()
-    } else if (nameTextField.text ?? "").characters.count == 0 {
+    } else if (nameTextField.text ?? "").count == 0 {
       nameTextField.becomeFirstResponder()
     }
   }

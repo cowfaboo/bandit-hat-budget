@@ -12,7 +12,9 @@ protocol SettingsDelegate: class {
   func shouldDismissSettings()
 }
 
-class SettingsViewController: TopLevelViewController, InteractivePresenter {
+class SettingsViewController: TopLevelViewController, InteractivePresenter, TopLevelNavigable {
+  
+  var topLevelNavigationController: TopLevelNavigationController?
   
   let TransitionDistance = Utilities.screenWidth
   
@@ -52,8 +54,6 @@ class SettingsViewController: TopLevelViewController, InteractivePresenter {
     
     tableView.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
     tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 76))
-    
-    view.layer.cornerRadius = 8.0
     
     leftRecognizer = DirectionalPanGestureRecognizer(target: self, action: #selector(handlePreviousDrag(_:)))
     leftRecognizer.gestureDirection = .StrictHorizontal
@@ -130,7 +130,7 @@ class SettingsViewController: TopLevelViewController, InteractivePresenter {
   }
   
   
-  func handlePreviousDrag(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+  @objc func handlePreviousDrag(_ recognizer: UIScreenEdgePanGestureRecognizer) {
     
     if recognizer.state == .began {
       

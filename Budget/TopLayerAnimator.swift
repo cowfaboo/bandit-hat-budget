@@ -50,7 +50,7 @@ class TopLayerAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimat
     presentedViewController?.view.center = CGPoint(x: finalCenter.x - (centerDifferenceX * percentComplete), y: finalCenter.y - (centerDifferenceY * percentComplete))
     
     darkView.alpha = 1.0 - percentComplete
-    containerViewController?.view.transform = CGAffineTransform(scaleX: 0.95 + 0.05 * percentComplete, y: 0.95 + 0.05 * percentComplete)
+    //containerViewController?.view.transform = CGAffineTransform(scaleX: 0.95 + 0.05 * percentComplete, y: 0.95 + 0.05 * percentComplete)
     
   }
   
@@ -75,7 +75,7 @@ class TopLayerAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimat
 
       presentedViewController?.view.center = finalCenter
       self.darkView.alpha = 1.0
-      containerViewController?.view.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+      //containerViewController?.view.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
       }, completion: { (finished: Bool) -> Void in
         containerViewController?.view.isHidden = true
         self.transitionContext?.cancelInteractiveTransition()
@@ -103,7 +103,7 @@ class TopLayerAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimat
       
       presentedViewController?.view.center = self.initialCenter
       self.darkView.alpha = 0.0
-      containerViewController?.view.transform = CGAffineTransform.identity
+      //containerViewController?.view.transform = CGAffineTransform.identity
       }, completion: { (finished: Bool) -> Void in
         self.darkView.removeFromSuperview()
         self.transitionContext?.cancelInteractiveTransition()
@@ -145,7 +145,7 @@ extension TopLayerAnimator: UIViewControllerAnimatedTransitioning {
       UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: { () -> Void in
         
         presentedViewController?.view.center = finalCenter
-        containerViewController?.view.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        //containerViewController?.view.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
         
         }, completion: { (finished: Bool) -> Void in
           containerView.layoutIfNeeded()
@@ -167,7 +167,7 @@ extension TopLayerAnimator: UIViewControllerAnimatedTransitioning {
       UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: { () -> Void in
         
         presentedViewController?.view.center = self.initialCenter
-        containerViewController?.view.transform = CGAffineTransform.identity
+        //containerViewController?.view.transform = CGAffineTransform.identity
         
         self.darkView.alpha = 0.0
         

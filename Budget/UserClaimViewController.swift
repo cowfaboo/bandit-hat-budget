@@ -31,8 +31,6 @@ class UserClaimViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.view.layer.cornerRadius = 8.0
-    
     let themeColor = UIColor.text
     selectUserButton.themeColor = themeColor
     createUserButton.themeColor = themeColor

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,7 +28,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIt-HV-fur" customClass="BHButton" customModule="Budget" customModuleProvider="target">
-                    <rect key="frame" x="8" y="599" width="60" height="60"/>
+                    <rect key="frame" x="16" y="591" width="60" height="60"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="9vq-uU-T2u"/>
@@ -42,7 +43,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7R-3g-jiF" customClass="BHButton" customModule="Budget" customModuleProvider="target">
-                    <rect key="frame" x="8" y="8" width="44" height="44"/>
+                    <rect key="frame" x="16" y="36" width="44" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="44" id="NyI-Fn-v25"/>
@@ -59,16 +60,17 @@
             </subviews>
             <color key="backgroundColor" red="0.99215686270000003" green="0.4549019608" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="S7R-3g-jiF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="2zb-cJ-hw9"/>
                 <constraint firstItem="ZDS-qP-yfi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8LX-Bf-aIE"/>
                 <constraint firstAttribute="bottom" secondItem="ZDS-qP-yfi" secondAttribute="bottom" id="BZl-DK-2oW"/>
-                <constraint firstItem="HIt-HV-fur" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="GcK-O5-kTb"/>
-                <constraint firstItem="S7R-3g-jiF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="Jj0-px-2dg"/>
                 <constraint firstItem="ZDS-qP-yfi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Khc-TO-C4N"/>
-                <constraint firstAttribute="bottom" secondItem="HIt-HV-fur" secondAttribute="bottom" constant="8" id="Nkl-c6-WRc"/>
+                <constraint firstItem="S7R-3g-jiF" firstAttribute="leading" secondItem="0ev-v6-f9A" secondAttribute="leading" constant="16" id="OVY-cd-uGE"/>
+                <constraint firstItem="HIt-HV-fur" firstAttribute="leading" secondItem="0ev-v6-f9A" secondAttribute="leading" constant="16" id="TvB-VE-IjU"/>
+                <constraint firstItem="S7R-3g-jiF" firstAttribute="top" secondItem="0ev-v6-f9A" secondAttribute="top" constant="16" id="cJM-fT-bCb"/>
                 <constraint firstAttribute="trailing" secondItem="ZDS-qP-yfi" secondAttribute="trailing" id="i24-aw-l1D"/>
+                <constraint firstItem="0ev-v6-f9A" firstAttribute="bottom" secondItem="HIt-HV-fur" secondAttribute="bottom" constant="16" id="rAf-gX-EF4"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
+            <viewLayoutGuide key="safeArea" id="0ev-v6-f9A"/>
         </view>
     </objects>
     <resources>

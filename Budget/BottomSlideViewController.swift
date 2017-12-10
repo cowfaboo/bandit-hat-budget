@@ -76,7 +76,7 @@ class BottomSlideViewController: UIViewController {
     bottomSlideDelegate?.shouldDismissBottomSlideViewController()
   }
   
-  func handleDrag(recognizer: UIPanGestureRecognizer) {
+  @objc func handleDrag(recognizer: UIPanGestureRecognizer) {
     
     if recognizer.state == .began {
       view.endEditing(true)

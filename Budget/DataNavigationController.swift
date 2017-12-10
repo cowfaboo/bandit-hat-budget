@@ -99,7 +99,7 @@ class DataNavigationController: UIViewController {
     super.didReceiveMemoryWarning()
   }
   
-  func handlePreviousDrag(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+  @objc func handlePreviousDrag(_ recognizer: UIScreenEdgePanGestureRecognizer) {
     
     if recognizer.state == .began {
       
@@ -161,7 +161,7 @@ class DataNavigationController: UIViewController {
     }
   }
   
-  func handleNextDrag(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+  @objc func handleNextDrag(_ recognizer: UIScreenEdgePanGestureRecognizer) {
     
     if recognizer.state == .began {
       
