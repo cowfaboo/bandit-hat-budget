@@ -17,6 +17,7 @@
 		6525897C1E636163009CC4AC /* UserFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6525897A1E636163009CC4AC /* UserFilterCell.swift */; };
 		6525897D1E636163009CC4AC /* UserFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6525897B1E636163009CC4AC /* UserFilterCell.xib */; };
 		6525897F1E63D064009CC4AC /* ViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6525897E1E63D064009CC4AC /* ViewContainer.swift */; };
+		6531D1191FFAE9A800F40B13 /* TopLevelViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531D1181FFAE9A800F40B13 /* TopLevelViewControllerDelegate.swift */; };
 		653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */; };
 		653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */; };
 		65335D001DFD2400000B6081 /* BHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65335CFF1DFD2400000B6081 /* BHButton.swift */; };
@@ -151,6 +152,7 @@
 		6525897A1E636163009CC4AC /* UserFilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFilterCell.swift; sourceTree = "<group>"; };
 		6525897B1E636163009CC4AC /* UserFilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFilterCell.xib; sourceTree = "<group>"; };
 		6525897E1E63D064009CC4AC /* ViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewContainer.swift; sourceTree = "<group>"; };
+		6531D1181FFAE9A800F40B13 /* TopLevelViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLevelViewControllerDelegate.swift; sourceTree = "<group>"; };
 		653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionCell.swift; sourceTree = "<group>"; };
 		653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserSelectionCell.xib; sourceTree = "<group>"; };
 		65335CFF1DFD2400000B6081 /* BHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BHButton.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				6585A30F1FC0B6A200576CCE /* TopLevelNavigationController.swift */,
 				6585A3101FC0B6A200576CCE /* TopLevelNavigationController.xib */,
 				6585A3151FC0CC8300576CCE /* TopLevelNavigable.swift */,
+				6531D1181FFAE9A800F40B13 /* TopLevelViewControllerDelegate.swift */,
 				65335D011DFD2778000B6081 /* Utilities */,
 				65E168DA1DF53C3D001A82DD /* Data Presentation */,
 				65B5443C1DE8097300FD2B54 /* Expense Entry */,
@@ -660,6 +663,7 @@
 				658390FD1DE906F3001BCE1C /* AmountDataViewController.swift in Sources */,
 				65E96BE31E5B92F600EDE0A2 /* TopSlideAnimator.swift in Sources */,
 				65335D071DFE359F000B6081 /* AmountPieView.swift in Sources */,
+				6531D1191FFAE9A800F40B13 /* TopLevelViewControllerDelegate.swift in Sources */,
 				6563FCC61E47BF8100949E80 /* TableViewController.swift in Sources */,
 				65187D361E749A7D00A79261 /* PresentationAnimator.swift in Sources */,
 				65335D001DFD2400000B6081 /* BHButton.swift in Sources */,

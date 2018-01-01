@@ -10,5 +10,11 @@ import Foundation
 
 protocol TopLevelNavigable: class {
   var topLevelNavigationController: TopLevelNavigationController? { get set }
+  func willBecomeCurrentTopLevelNavigableViewController()
 }
 
+extension TopLevelNavigable {
+  func willBecomeCurrentTopLevelNavigableViewController() {
+    // default implementation is to do nothing
+  }
+}

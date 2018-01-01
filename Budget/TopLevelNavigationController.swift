@@ -13,6 +13,7 @@ class TopLevelNavigationController: TopLevelViewController {
   let TransitionDistance = Utilities.screenWidth
   
   @IBOutlet weak var backButton: UIButton!
+  @IBOutlet weak var closeButton: UIButton!
   
   @IBOutlet weak var currentView: UIView!
   @IBOutlet weak var nextView: UIView!
@@ -29,6 +30,13 @@ class TopLevelNavigationController: TopLevelViewController {
   var viewControllerStack: [UIViewController] = []
   
   var leftRecognizer: DirectionalPanGestureRecognizer!
+  
+  var detailColor = UIColor.white {
+    didSet {
+      backButton.tintColor = detailColor
+      closeButton.tintColor = detailColor
+    }
+  }
   
   init(withRootViewController rootViewController: UIViewController & TopLevelNavigable) {
     super.init(nibName: "TopLevelNavigationController", bundle: nil)
@@ -53,10 +61,21 @@ class TopLevelNavigationController: TopLevelViewController {
     leftRecognizer.delegate = self
     view.addGestureRecognizer(leftRecognizer)
     
-    backButton.tintColor = .white
+    backButton.tintColor = detailColor
     backButton.alpha = 0.0
     
+    closeButton.tintColor = detailColor
+    closeButton.alpha = 1.0
+    
     add(currentViewController, to: currentView)
+    
+    if let currentViewController = currentViewController as? TopLevelNavigable {
+      currentViewController.willBecomeCurrentTopLevelNavigableViewController()
+    }
+    
+    if !self.isDismissable {
+      closeButton.isHidden = true
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -67,11 +86,17 @@ class TopLevelNavigationController: TopLevelViewController {
     pop()
   }
   
+  @IBAction func closeButtonTapped() {
+    if self.isDismissable {
+      topLevelViewControllerDelegate?.topLevelViewControllerDismissed()
+    }
+  }
+  
   func push(_ viewController: UIViewController & TopLevelNavigable) {
     
     viewController.topLevelNavigationController = self
-    //nextViewController = viewController
     add(viewController, to: nextView)
+    viewController.willBecomeCurrentTopLevelNavigableViewController()
     animateToNextView(withDistanceToTravel: TransitionDistance, andVelocity: 0) {
       self.add(self.currentViewController, to: self.previousView)
       self.currentViewController = viewController
@@ -85,6 +110,7 @@ class TopLevelNavigationController: TopLevelViewController {
     
     viewControllerStack.removeLast()
     if let viewController = viewControllerStack.last {
+      (viewController as! TopLevelNavigable).willBecomeCurrentTopLevelNavigableViewController()
       animateToPreviousView(withDistanceToTravel: TransitionDistance, andVelocity: 0, completion: {
         self.currentViewController.removeFromContainerView()
         self.currentViewController = viewController
@@ -125,6 +151,7 @@ class TopLevelNavigationController: TopLevelViewController {
       
       if viewControllerStack.count == 2 {
         backButton.alpha = 1.0 - progress
+        closeButton.alpha = progress
       }
       
       view.layoutIfNeeded()
@@ -143,6 +170,7 @@ class TopLevelNavigationController: TopLevelViewController {
         
         viewControllerStack.removeLast()
         if let viewController = viewControllerStack.last {
+          (viewController as! TopLevelNavigable).willBecomeCurrentTopLevelNavigableViewController()
           animateToPreviousView(withDistanceToTravel: distanceToTravel, andVelocity: velocity, completion: {
             self.currentViewController.removeFromContainerView()
             self.currentViewController = viewController
@@ -184,6 +212,7 @@ class TopLevelNavigationController: TopLevelViewController {
       
       self.nextView.alpha = 1.0
       self.backButton.alpha = 1.0
+      self.closeButton.alpha = 0.0
       self.view.layoutIfNeeded()
       
     }, completion: { (finished: Bool) -> Void in
@@ -217,6 +246,7 @@ class TopLevelNavigationController: TopLevelViewController {
       
       self.view.layoutIfNeeded()
       self.backButton.alpha = 1.0
+      self.closeButton.alpha = 0.0
       
     }, completion: { (finished: Bool) -> Void in
       
@@ -247,6 +277,7 @@ class TopLevelNavigationController: TopLevelViewController {
       self.previousView.alpha = 1.0
       if self.viewControllerStack.count == 1 {
         self.backButton.alpha = 0.0
+        self.closeButton.alpha  = 1.0
       }
       
     }, completion: { (finished: Bool) -> Void in

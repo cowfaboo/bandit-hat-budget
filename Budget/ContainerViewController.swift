@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContainerViewController: UIViewController, InteractivePresenter {
+class ContainerViewController: UIViewController, InteractivePresenter, TopLevelViewControllerDelegate {
 
   static let sharedInstance = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
   
@@ -50,11 +50,11 @@ class ContainerViewController: UIViewController, InteractivePresenter {
     let householdLaunchViewController = HouseholdLaunchViewController(nibName: "HouseholdLaunchViewController", bundle: nil)
     householdLaunchViewController.householdLaunchDelegate = self
     let topLevelNavigationController = TopLevelNavigationController(withRootViewController: householdLaunchViewController)
+    topLevelNavigationController.topLevelViewControllerDelegate = self
     topLevelNavigationController.interactivePresenter = self
     topLevelNavigationController.transitioningDelegate = self
     topLevelNavigationController.modalPresentationStyle = .custom
     topLevelNavigationController.modalPresentationCapturesStatusBarAppearance = true
-    topLevelNavigationController.isInteractivelyDismissable = false
     
     presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
     present(topLevelNavigationController, animated: true, completion: nil)
@@ -73,6 +73,7 @@ class ContainerViewController: UIViewController, InteractivePresenter {
     
     let expenseEntryViewController = ExpenseEntryViewController(nibName: "ExpenseEntryViewController", bundle: nil)
     expenseEntryViewController.interactivePresenter = self
+    expenseEntryViewController.topLevelViewControllerDelegate = self
     expenseEntryViewController.expenseEntryDelegate = self
     expenseEntryViewController.transitioningDelegate = self
     expenseEntryViewController.modalPresentationStyle = .custom
@@ -87,24 +88,14 @@ class ContainerViewController: UIViewController, InteractivePresenter {
     let settingsViewController = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
     settingsViewController.settingsDelegate = self
     let topLevelNavigationController = TopLevelNavigationController(withRootViewController: settingsViewController)
+    topLevelNavigationController.topLevelViewControllerDelegate = self
     topLevelNavigationController.interactivePresenter = self
     topLevelNavigationController.transitioningDelegate = self
     topLevelNavigationController.modalPresentationStyle = .custom
     topLevelNavigationController.modalPresentationCapturesStatusBarAppearance = true
-    topLevelNavigationController.isInteractivelyDismissable = true
     
     presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
     present(topLevelNavigationController, animated: true, completion: nil)
-    
-    /*let settingsViewController = SettingsViewController(nibName: "SettingsViewController", bundle: nil)
-    settingsViewController.interactivePresenter = self
-    settingsViewController.settingsDelegate = self
-    settingsViewController.transitioningDelegate = self
-    settingsViewController.modalPresentationStyle = .custom
-    
-    presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
-    
-    present(settingsViewController, animated: true, completion: nil)*/
   }
   
   // MARK: - Action Methods
@@ -131,9 +122,6 @@ extension ContainerViewController: UserClaimDelegate {
 }
 
 extension ContainerViewController: ExpenseEntryDelegate {
-  func expenseEntryDismissed() {
-    dismiss(animated: true)
-  }
   
   func expenseEntered() {
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopLevelNavigationController" customModule="Budget" customModuleProvider="target">
             <connections>
                 <outlet property="backButton" destination="L14-oF-Kzn" id="2ot-xC-cq8"/>
+                <outlet property="closeButton" destination="Z7C-9c-0k8" id="1ko-Yg-zaE"/>
                 <outlet property="currentView" destination="rD7-TD-OCi" id="piJ-UC-jAn"/>
                 <outlet property="currentViewLeadingConstraint" destination="RUm-2h-h3T" id="RZZ-qT-cUh"/>
                 <outlet property="currentViewTrailingConstraint" destination="uUd-f0-TbH" id="Tjg-Tf-cl5"/>
@@ -50,6 +51,17 @@
                         <action selector="backButtonTapped" destination="-1" eventType="touchUpInside" id="9Ex-YU-XE7"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7C-9c-0k8">
+                    <rect key="frame" x="0.0" y="44" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="EEl-ep-Qvj"/>
+                        <constraint firstAttribute="width" constant="44" id="aXB-0I-OMc"/>
+                    </constraints>
+                    <state key="normal" image="closeButton"/>
+                    <connections>
+                        <action selector="closeButtonTapped" destination="-1" eventType="touchUpInside" id="F6L-Qt-okt"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -57,11 +69,13 @@
                 <constraint firstItem="W9u-v5-HUZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6dJ-qK-FNn"/>
                 <constraint firstItem="rD7-TD-OCi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="89s-gG-6u8"/>
                 <constraint firstItem="W9u-v5-HUZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Are-oX-yVQ"/>
+                <constraint firstItem="Z7C-9c-0k8" firstAttribute="leading" secondItem="OJq-KE-Uxq" secondAttribute="leading" id="CRm-VG-PcP"/>
                 <constraint firstAttribute="trailing" secondItem="W9u-v5-HUZ" secondAttribute="trailing" id="EMh-uW-0ZZ"/>
                 <constraint firstItem="rD7-TD-OCi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="RUm-2h-h3T"/>
                 <constraint firstItem="L14-oF-Kzn" firstAttribute="top" secondItem="OJq-KE-Uxq" secondAttribute="top" id="YIZ-mO-jLY"/>
                 <constraint firstItem="UlW-As-IrB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dpb-pj-ZzL"/>
                 <constraint firstAttribute="bottom" secondItem="UlW-As-IrB" secondAttribute="bottom" id="iB1-ql-I4m"/>
+                <constraint firstItem="Z7C-9c-0k8" firstAttribute="top" secondItem="OJq-KE-Uxq" secondAttribute="top" id="iRn-Sb-z4f"/>
                 <constraint firstItem="UlW-As-IrB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n2i-MQ-09r"/>
                 <constraint firstAttribute="bottom" secondItem="rD7-TD-OCi" secondAttribute="bottom" id="nae-MM-F4z"/>
                 <constraint firstItem="L14-oF-Kzn" firstAttribute="leading" secondItem="OJq-KE-Uxq" secondAttribute="leading" id="tAY-cv-Ek5"/>
@@ -72,6 +86,7 @@
         </view>
     </objects>
     <resources>
+        <image name="closeButton" width="44" height="44"/>
         <image name="leftArrowButton" width="44" height="44"/>
     </resources>
 </document>

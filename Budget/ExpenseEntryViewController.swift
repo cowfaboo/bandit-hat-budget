@@ -10,7 +10,6 @@ import UIKit
 import BudgetKit
 
 protocol ExpenseEntryDelegate: class {
-  func expenseEntryDismissed()
   func expenseEntered()
 }
 
@@ -107,6 +106,10 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
         self.selectedCategory = self.categoryArray[0]
       }
     }
+    
+    if !isDismissable {
+      closeButton.isHidden = true
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -120,7 +123,9 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
   // MARK: - Action Methods
   
   @IBAction func dismissButtonTapped() {
-    expenseEntryDelegate?.expenseEntryDismissed()
+    if self.isDismissable {
+      topLevelViewControllerDelegate?.topLevelViewControllerDismissed()
+    }
   }
   
   @IBAction func addExpenseButtonTapped() {

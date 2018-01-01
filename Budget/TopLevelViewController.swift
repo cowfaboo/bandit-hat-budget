@@ -10,8 +10,11 @@ import UIKit
 
 class TopLevelViewController: UIViewController {
   
+  weak var topLevelViewControllerDelegate: TopLevelViewControllerDelegate?
+  
   weak var interactivePresenter: InteractivePresenter?
-  var isInteractivelyDismissable: Bool = true
+  var isDismissable = true
+  var isSwipeDismissalEnabled = true
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -43,7 +46,7 @@ class TopLevelViewController: UIViewController {
   
   @objc func handleDrag(recognizer: UIPanGestureRecognizer) {
     
-    if !isInteractivelyDismissable {
+    if !isSwipeDismissalEnabled || !isDismissable {
       return
     }
     

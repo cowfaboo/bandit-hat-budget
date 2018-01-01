@@ -9,11 +9,14 @@
 import UIKit
 import BudgetKit
 
-class CategoryManagementViewController: UIViewController, InteractivePresenter {
+class CategoryManagementViewController: UIViewController, InteractivePresenter, TopLevelNavigable {
+  
+  var topLevelNavigationController: TopLevelNavigationController?
   
   var presentationAnimator: PresentationAnimator = TopSlideAnimator()
   
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var createButton: UIButton!
   
   var categoryArray = [BKCategory]()
   var selectedIndexPath: IndexPath?
@@ -25,6 +28,8 @@ class CategoryManagementViewController: UIViewController, InteractivePresenter {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    createButton.tintColor = .text
+    
     tableView.register(UINib(nibName: "CategoryManagementCell", bundle: nil), forCellReuseIdentifier: "CategoryManagementCell")
     
     BKSharedBasicRequestClient.getCategories { (success: Bool, categoryArray: Array<BKCategory>?) in
@@ -45,7 +50,7 @@ class CategoryManagementViewController: UIViewController, InteractivePresenter {
     super.didReceiveMemoryWarning()
   }
   
-  func presentCategoryCreationView() {
+  @IBAction func createButtonTapped() {
     let categoryDetailViewController = CategoryDetailViewController(nibName: "CategoryDetailViewController", bundle: nil)
     categoryDetailViewController.delegate = self
     let topSlideViewController = TopSlideViewController(presenting: categoryDetailViewController, from: self, withDistanceFromTop: 64.0)
