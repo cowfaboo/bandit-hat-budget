@@ -9,15 +9,9 @@
 import UIKit
 import BudgetKit
 
-protocol HouseholdLaunchDelegate: class {
-  func householdLaunched()
-}
-
 class HouseholdLaunchViewController: UIViewController, TopLevelNavigable {
   
   var topLevelNavigationController: TopLevelNavigationController?
-  
-  weak var householdLaunchDelegate: HouseholdLaunchDelegate?
   
   @IBOutlet weak var createButton: BHButton!
   @IBOutlet weak var signInButton: BHButton!
@@ -26,10 +20,8 @@ class HouseholdLaunchViewController: UIViewController, TopLevelNavigable {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    //isInteractivelyDismissable = false
-    
     view.clipsToBounds = true
-    backgroundColorView.backgroundColor = UIColor.palette[2].withAlphaComponent(0.8)
+    backgroundColorView.backgroundColor = UIColor.palette[2].withAlphaComponent(0.7)
     
     createButton.themeColor = UIColor.palette[2]
     signInButton.backgroundColor = UIColor.palette[2]
@@ -47,7 +39,6 @@ class HouseholdLaunchViewController: UIViewController, TopLevelNavigable {
   @IBAction func createButtonTapped() {
     
     let householdCreationViewController = HouseholdCreationViewController(nibName: "HouseholdCreationViewController", bundle: nil)
-    householdCreationViewController.householdLaunchDelegate = householdLaunchDelegate
     
     if let topLevelNavigationController = topLevelNavigationController {
       topLevelNavigationController.push(householdCreationViewController)
@@ -57,7 +48,6 @@ class HouseholdLaunchViewController: UIViewController, TopLevelNavigable {
   @IBAction func signInButtonTapped() {
     
     let householdSignInViewController = HouseholdSignInViewController(nibName: "HouseholdSignInViewController", bundle: nil)
-    householdSignInViewController.householdLaunchDelegate = householdLaunchDelegate
     
     if let topLevelNavigationController = topLevelNavigationController {
       topLevelNavigationController.push(householdSignInViewController)

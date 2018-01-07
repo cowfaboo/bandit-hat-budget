@@ -13,7 +13,6 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter, T
   
   var topLevelNavigationController: TopLevelNavigationController?
   
-  weak var householdLaunchDelegate: HouseholdLaunchDelegate?
   var presentationAnimator: PresentationAnimator = TopSlideAnimator()
   
   @IBOutlet weak var nameTextField: UITextField!
@@ -24,6 +23,7 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter, T
   @IBOutlet weak var confirmPasswordUnderlineView: UIView!
   @IBOutlet weak var createButton: BHButton!
   @IBOutlet weak var createButtonContainerViewBottomConstraint: NSLayoutConstraint!
+  @IBOutlet weak var backgroundColorView: UIView!
   
   
   override func viewWillAppear(_ animated: Bool) {
@@ -40,15 +40,15 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter, T
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
-    view.backgroundColor = UIColor.palette[2].withAlphaComponent(0.8)
+    backgroundColorView.backgroundColor = UIColor.palette[2].withAlphaComponent(0.7)
     nameUnderlineView.backgroundColor = UIColor.palette[2]
     passwordUnderlineView.backgroundColor = UIColor.palette[2]
     confirmPasswordUnderlineView.backgroundColor = UIColor.palette[2]
     createButton.themeColor = UIColor.palette[2]
     
-    nameTextField.attributedPlaceholder = NSAttributedString(string: "Household Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.black.withAlphaComponent(0.25)])
-    passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.black.withAlphaComponent(0.25)])
-    confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Confirm Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.black.withAlphaComponent(0.25)])
+    nameTextField.attributedPlaceholder = NSAttributedString(string: "Household Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5)])
+    passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5)])
+    confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Confirm Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5)])
     
     nameTextField.addTarget(self, action: #selector(nameTextFieldDidChange), for: .editingChanged)
     passwordTextField.addTarget(self, action: #selector(passwordTextFieldDidChange), for: .editingChanged)
@@ -77,7 +77,7 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter, T
       
     } else {
       
-      BKSharedBasicRequestClient.createGroup(withName: self.nameTextField.text!.sanitizeHouseholdName(), password: self.passwordTextField.text!) { (success, errorMessage, group) in
+      BKSharedBasicRequestClient.createGroup(withName: self.nameTextField.text!.sanitizeHouseholdOrUserName(), password: self.passwordTextField.text!) { (success, errorMessage, group) in
         
         guard success, let _ = group else {
           
@@ -87,7 +87,12 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter, T
         }
         
         Utilities.setDataViewNeedsUpdate()
-        self.householdLaunchDelegate?.householdLaunched()
+        
+        let userClaimViewController = UserClaimViewController(nibName: "UserClaimViewController", bundle: nil)
+        
+        if let topLevelNavigationController = self.topLevelNavigationController {
+          topLevelNavigationController.push(userClaimViewController)
+        }
       }
     }
   }
@@ -153,7 +158,7 @@ extension HouseholdCreationViewController: UITextFieldDelegate {
   
   func checkSecondaryFormValidity() -> String? {
     
-    let name = nameTextField.text?.sanitizeHouseholdName() ?? ""
+    let name = nameTextField.text?.sanitizeHouseholdOrUserName() ?? ""
     let password = passwordTextField.text ?? ""
     let confirmPassword = confirmPasswordTextField.text ?? ""
     

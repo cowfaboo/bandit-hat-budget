@@ -76,7 +76,7 @@ extension String {
     return false
   }
   
-  func sanitizeHouseholdName() -> String {
+  func sanitizeHouseholdOrUserName() -> String {
     
     let sanitizedString = self.trimmingCharacters(in: .whitespacesAndNewlines)
     

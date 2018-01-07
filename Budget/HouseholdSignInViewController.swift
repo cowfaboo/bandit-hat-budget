@@ -13,7 +13,6 @@ class HouseholdSignInViewController: UIViewController, InteractivePresenter, Top
   
   var topLevelNavigationController: TopLevelNavigationController?
   
-  weak var householdLaunchDelegate: HouseholdLaunchDelegate?
   var presentationAnimator: PresentationAnimator = TopSlideAnimator()
   
   @IBOutlet weak var nameTextField: UITextField!
@@ -66,7 +65,7 @@ class HouseholdSignInViewController: UIViewController, InteractivePresenter, Top
   
   @IBAction func signInButtonTapped() {
       
-    BKSharedBasicRequestClient.signIn(withName: nameTextField.text!.sanitizeHouseholdName(), password: passwordTextField.text!) { (success, errorMessage, group) in
+    BKSharedBasicRequestClient.signIn(withName: nameTextField.text!.sanitizeHouseholdOrUserName(), password: passwordTextField.text!) { (success, errorMessage, group) in
       
       guard success, let _ = group else {
         
@@ -76,7 +75,12 @@ class HouseholdSignInViewController: UIViewController, InteractivePresenter, Top
       }
       
       Utilities.setDataViewNeedsUpdate()
-      self.householdLaunchDelegate?.householdLaunched()
+      
+      let userClaimViewController = UserClaimViewController(nibName: "UserClaimViewController", bundle: nil)
+      
+      if let topLevelNavigationController = self.topLevelNavigationController {
+        topLevelNavigationController.push(userClaimViewController)
+      }
     }
   }
   

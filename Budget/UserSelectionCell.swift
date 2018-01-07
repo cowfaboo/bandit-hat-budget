@@ -22,16 +22,27 @@ class UserSelectionCell: UITableViewCell {
   var themeColor: UIColor? {
     didSet {
       nameLabel.textColor = themeColor
-      self.selectedBackgroundView?.backgroundColor = themeColor?.withAlphaComponent(0.04)
+      //self.selectedBackgroundView?.backgroundColor = themeColor?.withAlphaComponent(0.04)
+      self.tintColor = themeColor
+    }
+  }
+  
+  var userIsSelected = false {
+    didSet {
+      if userIsSelected {
+        accessoryType = .checkmark
+      } else {
+        accessoryType = .none
+      }
     }
   }
   
   override func awakeFromNib() {
     super.awakeFromNib()
     
-    let backgroundView = UIView()
-    backgroundView.backgroundColor = themeColor?.withAlphaComponent(0.04)
-    self.selectedBackgroundView = backgroundView
+    //let backgroundView = UIView()
+    //backgroundView.backgroundColor = themeColor?.withAlphaComponent(0.04)
+    //self.selectedBackgroundView = backgroundView
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {

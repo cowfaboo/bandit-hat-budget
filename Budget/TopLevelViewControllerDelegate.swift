@@ -9,11 +9,11 @@
 import Foundation
 
 protocol TopLevelViewControllerDelegate: class {
-  func topLevelViewControllerDismissed()
+  func topLevelViewControllerDismissed(_: TopLevelViewController)
 }
 
 extension TopLevelViewControllerDelegate where Self: UIViewController  {
-  func topLevelViewControllerDismissed() {
+  func topLevelViewControllerDismissed(_: TopLevelViewController) {
     // default implementation simply dismisses presented view controller
     dismiss(animated: true)
   }

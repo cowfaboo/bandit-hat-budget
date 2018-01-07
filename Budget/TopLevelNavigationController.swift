@@ -38,6 +38,16 @@ class TopLevelNavigationController: TopLevelViewController {
     }
   }
   
+  var canGoBack: Bool = true {
+    didSet {
+      if canGoBack {
+        backButton.isHidden = false
+      } else {
+        backButton.isHidden = true
+      }
+    }
+  }
+  
   init(withRootViewController rootViewController: UIViewController & TopLevelNavigable) {
     super.init(nibName: "TopLevelNavigationController", bundle: nil)
     rootViewController.topLevelNavigationController = self
@@ -88,7 +98,7 @@ class TopLevelNavigationController: TopLevelViewController {
   
   @IBAction func closeButtonTapped() {
     if self.isDismissable {
-      topLevelViewControllerDelegate?.topLevelViewControllerDismissed()
+      topLevelViewControllerDelegate?.topLevelViewControllerDismissed(self)
     }
   }
   
@@ -108,6 +118,10 @@ class TopLevelNavigationController: TopLevelViewController {
   
   func pop() {
     
+    if !canGoBack {
+      return
+    }
+    
     viewControllerStack.removeLast()
     if let viewController = viewControllerStack.last {
       (viewController as! TopLevelNavigable).willBecomeCurrentTopLevelNavigableViewController()
@@ -122,7 +136,7 @@ class TopLevelNavigationController: TopLevelViewController {
   
   @objc func handlePreviousDrag(_ recognizer: UIScreenEdgePanGestureRecognizer) {
     
-    if viewControllerStack.count == 1 {
+    if viewControllerStack.count == 1 || !canGoBack {
       return
     }
     

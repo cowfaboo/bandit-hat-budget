@@ -18,6 +18,12 @@
 		6525897D1E636163009CC4AC /* UserFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6525897B1E636163009CC4AC /* UserFilterCell.xib */; };
 		6525897F1E63D064009CC4AC /* ViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6525897E1E63D064009CC4AC /* ViewContainer.swift */; };
 		6531D1191FFAE9A800F40B13 /* TopLevelViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531D1181FFAE9A800F40B13 /* TopLevelViewControllerDelegate.swift */; };
+		6531D11C1FFC7BF700F40B13 /* UserManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531D11A1FFC7BF700F40B13 /* UserManagementViewController.swift */; };
+		6531D11D1FFC7BF700F40B13 /* UserManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6531D11B1FFC7BF700F40B13 /* UserManagementViewController.xib */; };
+		6531D1201FFC7D6F00F40B13 /* UserManagementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531D11E1FFC7D6F00F40B13 /* UserManagementCell.swift */; };
+		6531D1211FFC7D6F00F40B13 /* UserManagementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6531D11F1FFC7D6F00F40B13 /* UserManagementCell.xib */; };
+		6531D1241FFC890A00F40B13 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531D1221FFC890A00F40B13 /* UserDetailViewController.swift */; };
+		6531D1251FFC890A00F40B13 /* UserDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6531D1231FFC890A00F40B13 /* UserDetailViewController.xib */; };
 		653202B01DF7A6D800CAB751 /* UserSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */; };
 		653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */; };
 		65335D001DFD2400000B6081 /* BHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65335CFF1DFD2400000B6081 /* BHButton.swift */; };
@@ -97,10 +103,6 @@
 		65C350801DF358FE00F8AE10 /* BKCategory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C3507C1DF358FE00F8AE10 /* BKCategory+CoreDataProperties.swift */; };
 		65D32F6C1E235C3E008475DD /* BottomSlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D32F6A1E235C3E008475DD /* BottomSlideViewController.swift */; };
 		65D32F6D1E235C3E008475DD /* BottomSlideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65D32F6B1E235C3E008475DD /* BottomSlideViewController.xib */; };
-		65E5E21C1DE7E1F10066944F /* UserCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E21A1DE7E1F10066944F /* UserCreationViewController.swift */; };
-		65E5E21D1DE7E1F10066944F /* UserCreationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E5E21B1DE7E1F10066944F /* UserCreationViewController.xib */; };
-		65E5E2201DE7E2160066944F /* UserSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5E21E1DE7E2160066944F /* UserSelectionViewController.swift */; };
-		65E5E2211DE7E2160066944F /* UserSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E5E21F1DE7E2160066944F /* UserSelectionViewController.xib */; };
 		65E5E22B1DE7E75F0066944F /* BudgetKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E5E2291DE7E75F0066944F /* BudgetKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65E5E22E1DE7E75F0066944F /* BudgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E5E2271DE7E75F0066944F /* BudgetKit.framework */; };
 		65E5E22F1DE7E75F0066944F /* BudgetKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 65E5E2271DE7E75F0066944F /* BudgetKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -153,6 +155,12 @@
 		6525897B1E636163009CC4AC /* UserFilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFilterCell.xib; sourceTree = "<group>"; };
 		6525897E1E63D064009CC4AC /* ViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewContainer.swift; sourceTree = "<group>"; };
 		6531D1181FFAE9A800F40B13 /* TopLevelViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLevelViewControllerDelegate.swift; sourceTree = "<group>"; };
+		6531D11A1FFC7BF700F40B13 /* UserManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementViewController.swift; sourceTree = "<group>"; };
+		6531D11B1FFC7BF700F40B13 /* UserManagementViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserManagementViewController.xib; sourceTree = "<group>"; };
+		6531D11E1FFC7D6F00F40B13 /* UserManagementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementCell.swift; sourceTree = "<group>"; };
+		6531D11F1FFC7D6F00F40B13 /* UserManagementCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserManagementCell.xib; sourceTree = "<group>"; };
+		6531D1221FFC890A00F40B13 /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
+		6531D1231FFC890A00F40B13 /* UserDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailViewController.xib; sourceTree = "<group>"; };
 		653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionCell.swift; sourceTree = "<group>"; };
 		653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserSelectionCell.xib; sourceTree = "<group>"; };
 		65335CFF1DFD2400000B6081 /* BHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BHButton.swift; sourceTree = "<group>"; };
@@ -234,10 +242,6 @@
 		65C3507C1DF358FE00F8AE10 /* BKCategory+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BKCategory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65D32F6A1E235C3E008475DD /* BottomSlideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSlideViewController.swift; sourceTree = "<group>"; };
 		65D32F6B1E235C3E008475DD /* BottomSlideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomSlideViewController.xib; sourceTree = "<group>"; };
-		65E5E21A1DE7E1F10066944F /* UserCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCreationViewController.swift; sourceTree = "<group>"; };
-		65E5E21B1DE7E1F10066944F /* UserCreationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCreationViewController.xib; sourceTree = "<group>"; };
-		65E5E21E1DE7E2160066944F /* UserSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionViewController.swift; sourceTree = "<group>"; };
-		65E5E21F1DE7E2160066944F /* UserSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserSelectionViewController.xib; sourceTree = "<group>"; };
 		65E5E2271DE7E75F0066944F /* BudgetKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BudgetKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65E5E2291DE7E75F0066944F /* BudgetKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BudgetKit.h; sourceTree = "<group>"; };
 		65E5E22A1DE7E75F0066944F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -378,12 +382,8 @@
 				657BADF81F6B75A600AC2A0F /* HouseholdSignInViewController.xib */,
 				659AD1331DE6B8FC0035E538 /* UserClaimViewController.swift */,
 				659AD1341DE6B8FC0035E538 /* UserClaimViewController.xib */,
-				65E5E21E1DE7E2160066944F /* UserSelectionViewController.swift */,
-				65E5E21F1DE7E2160066944F /* UserSelectionViewController.xib */,
 				653202AE1DF7A6D800CAB751 /* UserSelectionCell.swift */,
 				653202AF1DF7A6D800CAB751 /* UserSelectionCell.xib */,
-				65E5E21A1DE7E1F10066944F /* UserCreationViewController.swift */,
-				65E5E21B1DE7E1F10066944F /* UserCreationViewController.xib */,
 			);
 			name = "Sign In";
 			sourceTree = "<group>";
@@ -465,6 +465,12 @@
 				65ACF96B1E932EC600A8F110 /* CategoryManagementCell.xib */,
 				65ACF96E1E95E8C800A8F110 /* CategoryDetailViewController.swift */,
 				65ACF96F1E95E8C800A8F110 /* CategoryDetailViewController.xib */,
+				6531D11A1FFC7BF700F40B13 /* UserManagementViewController.swift */,
+				6531D11B1FFC7BF700F40B13 /* UserManagementViewController.xib */,
+				6531D11E1FFC7D6F00F40B13 /* UserManagementCell.swift */,
+				6531D11F1FFC7D6F00F40B13 /* UserManagementCell.xib */,
+				6531D1221FFC890A00F40B13 /* UserDetailViewController.swift */,
+				6531D1231FFC890A00F40B13 /* UserDetailViewController.xib */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -593,27 +599,28 @@
 				658390FE1DE906F3001BCE1C /* AmountDataViewController.xib in Resources */,
 				6525897D1E636163009CC4AC /* UserFilterCell.xib in Resources */,
 				659AD1361DE6B8FC0035E538 /* UserClaimViewController.xib in Resources */,
-				65E5E2211DE7E2160066944F /* UserSelectionViewController.xib in Resources */,
 				650714621E2DD82E008468ED /* CategorySelectionCell.xib in Resources */,
 				658390FA1DE8FC57001BCE1C /* DataNavigationController.xib in Resources */,
 				65A98B341DFF7DA300465E3E /* ExpenseDataCell.xib in Resources */,
+				6531D11D1FFC7BF700F40B13 /* UserManagementViewController.xib in Resources */,
 				652589791E63512D009CC4AC /* UserFilterViewController.xib in Resources */,
 				658391021DE91BB2001BCE1C /* CategoryManagementViewController.xib in Resources */,
 				65D32F6D1E235C3E008475DD /* BottomSlideViewController.xib in Resources */,
 				658AE5FF1E86F404009834EB /* SettingsViewController.xib in Resources */,
-				65E5E21D1DE7E1F10066944F /* UserCreationViewController.xib in Resources */,
 				6574B4541EAC509900034D99 /* BHAlertViewController.xib in Resources */,
 				65187D3C1E7B73A200A79261 /* AmountWidgetViewController.xib in Resources */,
 				659AD12A1DE6B3CD0035E538 /* LaunchScreen.storyboard in Resources */,
 				65C183BA1E07586200CC5EE8 /* DataHeaderViewController.xib in Resources */,
 				65ACF9691E8A11FA00A8F110 /* SettingsCell.xib in Resources */,
 				65E96BE11E5A202600EDE0A2 /* TopSlideViewController.xib in Resources */,
+				6531D1211FFC7D6F00F40B13 /* UserManagementCell.xib in Resources */,
 				659AD1271DE6B3CD0035E538 /* Assets.xcassets in Resources */,
 				6585A3121FC0B6A200576CCE /* TopLevelNavigationController.xib in Resources */,
 				65ACF96D1E932EC600A8F110 /* CategoryManagementCell.xib in Resources */,
 				657BADF61F6B759800AC2A0F /* HouseholdCreationViewController.xib in Resources */,
 				659AD1321DE6B5800035E538 /* ContainerViewController.xib in Resources */,
 				653202B11DF7A6D800CAB751 /* UserSelectionCell.xib in Resources */,
+				6531D1251FFC890A00F40B13 /* UserDetailViewController.xib in Resources */,
 				65E96BE61E5BACB300EDE0A2 /* CalendarCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,7 +643,6 @@
 				657017311F68D98A00C60B68 /* HouseholdLaunchViewController.swift in Sources */,
 				65E96BD71E5A186000EDE0A2 /* CalendarViewController.swift in Sources */,
 				65ACF9701E95E8C800A8F110 /* CategoryDetailViewController.swift in Sources */,
-				65E5E21C1DE7E1F10066944F /* UserCreationViewController.swift in Sources */,
 				65ACF96C1E932EC600A8F110 /* CategoryManagementCell.swift in Sources */,
 				6585A3111FC0B6A200576CCE /* TopLevelNavigationController.swift in Sources */,
 				6585A3161FC0CC8300576CCE /* TopLevelNavigable.swift in Sources */,
@@ -668,19 +674,21 @@
 				65187D361E749A7D00A79261 /* PresentationAnimator.swift in Sources */,
 				65335D001DFD2400000B6081 /* BHButton.swift in Sources */,
 				65C183B91E07586200CC5EE8 /* DataHeaderViewController.swift in Sources */,
-				65E5E2201DE7E2160066944F /* UserSelectionViewController.swift in Sources */,
 				65A98B331DFF7DA300465E3E /* ExpenseDataCell.swift in Sources */,
 				657BADF91F6B75A600AC2A0F /* HouseholdSignInViewController.swift in Sources */,
 				65A8E4921DF48E9000CEB71F /* ExpenseDataViewController.swift in Sources */,
 				658391011DE91BB2001BCE1C /* CategoryManagementViewController.swift in Sources */,
 				65B6886E1E41A3DE003E1323 /* TopLevelViewController.swift in Sources */,
 				6574B4561EAC5A5700034D99 /* BHAlertAction.swift in Sources */,
+				6531D11C1FFC7BF700F40B13 /* UserManagementViewController.swift in Sources */,
 				6563FCC41E479FFF00949E80 /* InteractivePresenter.swift in Sources */,
 				65B6886A1E3EABFD003E1323 /* TopLayerAnimator.swift in Sources */,
 				65E96BE71E5BACB300EDE0A2 /* CalendarCell.swift in Sources */,
 				65E96BE01E5A202600EDE0A2 /* TopSlideViewController.swift in Sources */,
 				65A98B381E036FDF00465E3E /* DirectionalPanGestureRecognizer.swift in Sources */,
+				6531D1241FFC890A00F40B13 /* UserDetailViewController.swift in Sources */,
 				65B688671E3E9D95003E1323 /* BottomSlideAnimator.swift in Sources */,
+				6531D1201FFC7D6F00F40B13 /* UserManagementCell.swift in Sources */,
 				659AD1391DE6B9090035E538 /* ExpenseEntryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

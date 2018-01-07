@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HouseholdCreationViewController" customModule="Budget" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundColorView" destination="Kof-pg-paW" id="gGq-CB-gKi"/>
                 <outlet property="confirmPasswordTextField" destination="bQo-7Q-EYp" id="PQZ-v1-YR2"/>
                 <outlet property="confirmPasswordUnderlineView" destination="x9b-eX-1TB" id="nc4-g2-HxH"/>
                 <outlet property="createButton" destination="Rxe-Mj-NXp" id="1Ow-DS-71d"/>
@@ -28,6 +29,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kof-pg-paW">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                    <color key="backgroundColor" red="0.21335586910000001" green="0.51134985690000001" blue="0.7641435862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Household Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p1b-ug-7cy">
                     <rect key="frame" x="16" y="108" width="343" height="44"/>
                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -117,6 +122,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="Kof-pg-paW" secondAttribute="trailing" id="9aO-Cu-zXR"/>
                 <constraint firstItem="yGB-Tr-iGo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="9cc-YP-995"/>
                 <constraint firstItem="GqF-eq-4Zy" firstAttribute="top" secondItem="pXQ-V0-pxY" secondAttribute="bottom" constant="32" id="BD2-1t-a3x"/>
                 <constraint firstItem="p1b-ug-7cy" firstAttribute="top" secondItem="zWv-9I-DgS" secondAttribute="top" constant="64" id="Bw3-5f-G0U"/>
@@ -126,14 +132,17 @@
                 <constraint firstAttribute="bottom" secondItem="8j0-NV-sUq" secondAttribute="bottom" id="L9J-2j-xJr"/>
                 <constraint firstItem="8j0-NV-sUq" firstAttribute="trailing" secondItem="zWv-9I-DgS" secondAttribute="trailing" id="MsE-Jd-ulk"/>
                 <constraint firstItem="bQo-7Q-EYp" firstAttribute="top" secondItem="yGB-Tr-iGo" secondAttribute="bottom" constant="32" id="MwI-Mk-MKW"/>
+                <constraint firstItem="Kof-pg-paW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Nbr-QE-zql"/>
                 <constraint firstItem="8j0-NV-sUq" firstAttribute="leading" secondItem="zWv-9I-DgS" secondAttribute="leading" id="UT7-lf-1s8"/>
                 <constraint firstAttribute="trailing" secondItem="pXQ-V0-pxY" secondAttribute="trailing" constant="16" id="V0l-FL-kYz"/>
+                <constraint firstItem="Kof-pg-paW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VAS-Ef-mpU"/>
                 <constraint firstItem="yGB-Tr-iGo" firstAttribute="top" secondItem="GqF-eq-4Zy" secondAttribute="bottom" id="XbQ-LC-yxr"/>
                 <constraint firstItem="zWv-9I-DgS" firstAttribute="trailing" secondItem="p1b-ug-7cy" secondAttribute="trailing" constant="16" id="Xo8-SO-zGy"/>
                 <constraint firstItem="pXQ-V0-pxY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="b0P-Y8-HOa"/>
                 <constraint firstItem="x9b-eX-1TB" firstAttribute="top" secondItem="bQo-7Q-EYp" secondAttribute="bottom" id="fmh-dG-gtf"/>
                 <constraint firstItem="pXQ-V0-pxY" firstAttribute="top" secondItem="p1b-ug-7cy" secondAttribute="bottom" id="gg1-x2-bU3"/>
                 <constraint firstAttribute="trailing" secondItem="x9b-eX-1TB" secondAttribute="trailing" constant="16" id="jYf-YK-k2O"/>
+                <constraint firstAttribute="bottom" secondItem="Kof-pg-paW" secondAttribute="bottom" id="jws-FE-oIG"/>
                 <constraint firstAttribute="trailing" secondItem="yGB-Tr-iGo" secondAttribute="trailing" constant="16" id="nCp-nv-TJf"/>
                 <constraint firstItem="x9b-eX-1TB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="pgp-5c-nE1"/>
                 <constraint firstItem="GqF-eq-4Zy" firstAttribute="leading" secondItem="zWv-9I-DgS" secondAttribute="leading" constant="16" id="pmV-ih-wml"/>

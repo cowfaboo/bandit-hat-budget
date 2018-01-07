@@ -124,7 +124,7 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
   
   @IBAction func dismissButtonTapped() {
     if self.isDismissable {
-      topLevelViewControllerDelegate?.topLevelViewControllerDismissed()
+      topLevelViewControllerDelegate?.topLevelViewControllerDismissed(self)
     }
   }
   

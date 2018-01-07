@@ -48,25 +48,31 @@ class ContainerViewController: UIViewController, InteractivePresenter, TopLevelV
   func presentHouseholdLaunchView() {
     
     let householdLaunchViewController = HouseholdLaunchViewController(nibName: "HouseholdLaunchViewController", bundle: nil)
-    householdLaunchViewController.householdLaunchDelegate = self
     let topLevelNavigationController = TopLevelNavigationController(withRootViewController: householdLaunchViewController)
     topLevelNavigationController.topLevelViewControllerDelegate = self
     topLevelNavigationController.interactivePresenter = self
     topLevelNavigationController.transitioningDelegate = self
     topLevelNavigationController.modalPresentationStyle = .custom
     topLevelNavigationController.modalPresentationCapturesStatusBarAppearance = true
+    topLevelNavigationController.isDismissable = false
     
     presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
-    present(topLevelNavigationController, animated: true, completion: nil)
+    present(topLevelNavigationController, animated: true)
   }
   
   func presentUserClaimView() {
     
     let userClaimViewController = UserClaimViewController(nibName: "UserClaimViewController", bundle: nil)
-    userClaimViewController.userClaimDelegate = self
-    let navigationController = UINavigationController(rootViewController: userClaimViewController)
-    navigationController.navigationBar.isHidden = true
-    present(navigationController, animated: true, completion: nil)
+    let topLevelNavigationController = TopLevelNavigationController(withRootViewController: userClaimViewController)
+    topLevelNavigationController.topLevelViewControllerDelegate = self
+    topLevelNavigationController.interactivePresenter = self
+    topLevelNavigationController.transitioningDelegate = self
+    topLevelNavigationController.modalPresentationStyle = .custom
+    topLevelNavigationController.modalPresentationCapturesStatusBarAppearance = true
+    topLevelNavigationController.isDismissable = false
+    
+    presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
+    present(topLevelNavigationController, animated: true)
   }
   
   func presentExpenseEntryView() {
@@ -79,8 +85,7 @@ class ContainerViewController: UIViewController, InteractivePresenter, TopLevelV
     expenseEntryViewController.modalPresentationStyle = .custom
     
     presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
-    
-    present(expenseEntryViewController, animated: true, completion: nil)
+    present(expenseEntryViewController, animated: true)
   }
   
   func presentSettingsView() {
@@ -115,12 +120,6 @@ extension ContainerViewController: SettingsDelegate {
   }
 }
 
-extension ContainerViewController: UserClaimDelegate {
-  func userClaimed() {
-    dismiss(animated: true)
-  }
-}
-
 extension ContainerViewController: ExpenseEntryDelegate {
   
   func expenseEntered() {
@@ -129,12 +128,6 @@ extension ContainerViewController: ExpenseEntryDelegate {
       dataViewController.updateData()
     }
     
-    dismiss(animated: true)
-  }
-}
-
-extension ContainerViewController: HouseholdLaunchDelegate {
-  func householdLaunched() {
     dismiss(animated: true)
   }
 }

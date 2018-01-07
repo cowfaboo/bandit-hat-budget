@@ -15,6 +15,7 @@ let GroupIDKey = "GroupID"
 class Settings {
   
   class func hasClaimedUser() -> Bool {
+    //return false
     if UserDefaults.standard.string(forKey: UserIDKey) == nil {
       return false
     }

@@ -49,7 +49,7 @@ public class BKGroup: NSManagedObject {
   }
   
   public class func signedIn() -> Bool {
-    
+    //return false
     let viewContext = BKSharedDataController.persistentContainer.viewContext
     let fetchRequest: NSFetchRequest<BKGroup> = self.fetchRequest()
     var group: BKGroup?

@@ -60,6 +60,10 @@ extension SettingsViewController: UITableViewDelegate {
       
     } else if indexPath.row == 1 {
       
+      let userManagementViewController = UserManagementViewController(nibName: "UserManagementViewController", bundle: nil)
+      if let topLevelNavigationController = topLevelNavigationController {
+        topLevelNavigationController.push(userManagementViewController)
+      }
     }
     
     selectedIndexPath = indexPath

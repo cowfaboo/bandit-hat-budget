@@ -21,10 +21,6 @@ class CategoryManagementViewController: UIViewController, InteractivePresenter, 
   var categoryArray = [BKCategory]()
   var selectedIndexPath: IndexPath?
   
-  override func viewWillAppear(_ animated: Bool) {
-    print("view will appear")
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
 
