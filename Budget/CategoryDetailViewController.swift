@@ -347,7 +347,6 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
         
         if success {
           self.delegate?.didDeleteCategory()
-          Utilities.setDataViewNeedsUpdate()
         }
       }
     }
@@ -377,7 +376,6 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
       
       self.view.endEditing(true)
       self.delegate?.didCreateNewCategory()
-      Utilities.setDataViewNeedsUpdate()
     }
   }
   
@@ -405,7 +403,6 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
       
       self.view.endEditing(true)
       self.delegate?.didUpdateCategory()
-      Utilities.setDataViewNeedsUpdate()
     }
   }
   

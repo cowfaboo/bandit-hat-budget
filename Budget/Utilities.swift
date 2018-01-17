@@ -51,14 +51,8 @@ class Utilities {
     return model == "iPhone10,3" || model == "iPhone10,6"
   }
   
-  class func dataViewNeedsUpdate() -> Bool {
-    let dataViewNeedsUpdate = UserDefaults.standard.bool(forKey: DataViewNeedsUpdateKey)
-    UserDefaults.standard.set(false, forKey: DataViewNeedsUpdateKey)
-    return dataViewNeedsUpdate
-  }
-  
-  class func setDataViewNeedsUpdate() {
-    UserDefaults.standard.set(true, forKey: DataViewNeedsUpdateKey)
+  class func updateDataViews() {
+    NotificationCenter.default.post(name: .updateDataView, object: nil)
   }
 }
 
@@ -405,4 +399,8 @@ extension UIViewController {
     let topSlideViewController = TopSlideViewController(presenting: alertViewController, from: presentingViewController)
     present(topSlideViewController, animated: true, completion: nil)
   }
+}
+
+extension Notification.Name {
+  static let updateDataView = Notification.Name(rawValue: "updateDataView")
 }

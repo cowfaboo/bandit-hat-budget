@@ -51,6 +51,46 @@ public class BKUser: NSManagedObject {
     return nil
   }
   
+  public class func fetchUsers() ->[BKUser]? {
+    
+    let viewContext = BKSharedDataController.persistentContainer.viewContext
+    let fetchRequest: NSFetchRequest<BKUser> = self.fetchRequest()
+    
+    if let results = try? viewContext.fetch(fetchRequest) {
+      return results
+    }
+    
+    return nil
+  }
+  
+  public class func deleteUser(withCloudID cloudID: String) {
+    
+    let viewContext = BKSharedDataController.persistentContainer.viewContext
+    let fetchRequest: NSFetchRequest<BKUser> = self.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "cloudID == %@", cloudID)
+    var user: BKUser?
+    
+    
+    if let results = try? viewContext.fetch(fetchRequest) {
+      if results.count > 0 {
+        user = results.first
+      }
+    }
+    
+    guard user != nil else {
+      return
+    }
+    
+    do {
+      let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+      try BKSharedDataController.persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: BKSharedDataController.persistentContainer.viewContext)
+      BKSharedDataController.saveContext()
+      
+    } catch {
+      print("failed to properly delete user locally")
+    }
+  }
+  
   func configure(with userDictionary: Dictionary<String, AnyObject>) -> Bool {
     
     guard let cloudID = userDictionary["_id"] as? String,

@@ -86,8 +86,6 @@ class HouseholdCreationViewController: UIViewController, InteractivePresenter, T
           return
         }
         
-        Utilities.setDataViewNeedsUpdate()
-        
         let userClaimViewController = UserClaimViewController(nibName: "UserClaimViewController", bundle: nil)
         
         if let topLevelNavigationController = self.topLevelNavigationController {

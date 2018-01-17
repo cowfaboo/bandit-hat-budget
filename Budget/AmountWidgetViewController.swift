@@ -91,6 +91,11 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
       amountPieView.secondaryAmount = 0
       categoryLabel.textColor = color
       amountPieView.themeColor = color
+      
+      // no need to display placeholder uncategorized amount views
+      if category == nil {
+        view.isHidden = true
+      }
       return
     }
     

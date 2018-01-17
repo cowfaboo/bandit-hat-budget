@@ -23,7 +23,7 @@ public class BKExpense {
     
     guard let cloudID = expenseDictionary["_id"] as? String,
       let name = expenseDictionary["name"] as? String,
-      let amountString = expenseDictionary["amount"] as? String, let amount = Float(amountString),
+      let amountNumber = expenseDictionary["amount"] as? NSNumber,
       let userID = expenseDictionary["user"] as? String,
       let dateString = expenseDictionary["date"] as? String,
       let dateCreatedString = expenseDictionary["createdAt"] as? String,
@@ -33,13 +33,13 @@ public class BKExpense {
     
     guard let dateCreated = BKUtilities.dateTime(from: dateCreatedString),
       let dateUpdated = BKUtilities.dateTime(from: dateUpdatedString),
-      let date = BKUtilities.date(from: dateString) else {
+      let date = BKUtilities.dateTime(from: dateString) else {
         return nil
     }
     
     self.cloudID = cloudID
     self.name = name
-    self.amount = amount
+    self.amount = Float(truncating: amountNumber)
     self.userID = userID
     self.date = date
     self.dateCreated = dateCreated

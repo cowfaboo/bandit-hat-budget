@@ -74,7 +74,7 @@ class HouseholdSignInViewController: UIViewController, InteractivePresenter, Top
         return
       }
       
-      Utilities.setDataViewNeedsUpdate()
+     Utilities.updateDataViews()
       
       let userClaimViewController = UserClaimViewController(nibName: "UserClaimViewController", bundle: nil)
       

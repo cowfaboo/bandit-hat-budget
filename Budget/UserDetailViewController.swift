@@ -172,7 +172,6 @@ class UserDetailViewController: UIViewController, InteractivePresenter {
         
         if success {
           self.delegate?.didDeleteUser()
-          Utilities.setDataViewNeedsUpdate()
         }
       }
     }
@@ -194,7 +193,6 @@ class UserDetailViewController: UIViewController, InteractivePresenter {
       
       self.view.endEditing(true)
       self.delegate?.didCreateNewUser()
-      Utilities.setDataViewNeedsUpdate()
     }
   }
   
@@ -211,7 +209,6 @@ class UserDetailViewController: UIViewController, InteractivePresenter {
     let becomeAction = BHAlertAction(withTitle: "Confirm", color: UIColor.positive) {
       Settings.claimUser(user)
       self.delegate?.didBecomeNewUser()
-      Utilities.setDataViewNeedsUpdate()
       self.dismiss(animated: true, completion: nil)
     }
     

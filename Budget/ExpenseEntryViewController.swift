@@ -146,7 +146,7 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
         return
       }
         
-      Utilities.setDataViewNeedsUpdate()
+      Utilities.updateDataViews()
       self.expenseEntryDelegate?.expenseEntered()
     }
   }

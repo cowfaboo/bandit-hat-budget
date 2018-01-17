@@ -45,6 +45,8 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: .updateDataView, object: nil)
+    
     dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
     dataHeaderViewController!.date = date
     dataHeaderViewController!.timeRangeType = timeRangeType
@@ -54,16 +56,6 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
     updateData()
     
     viewIsLoaded = true
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    if Utilities.dataViewNeedsUpdate() {
-      updateData()
-    } else {
-      updateDataViews()
-    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -114,6 +106,7 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
     
     var index = 0
     for amount in amountArray {
+      
       let currentXPosition: CGFloat
       if index % 2 == 0 {
         currentXPosition = remainingWidthSpacing / 3
@@ -173,7 +166,7 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
 // MARK: - Data Displaying Protocol Methods
 extension AmountDataViewController: DataDisplaying {
   
-  func updateData() {
+  @objc func updateData() {
     
     var dates: (startDate: Date, endDate: Date)
     if timeRangeType == .monthly {
@@ -182,16 +175,24 @@ extension AmountDataViewController: DataDisplaying {
       dates = date.startAndEndOfYear()
     }
     
-    BKSharedBasicRequestClient.getAmountsByCategory(forUserID: userFilter?.cloudID, startDate: dates.startDate, endDate: dates.endDate) { (success, amountArray) in
+    BKSharedBasicRequestClient.getCategories { (success, categoryArray) in
       
-      guard success, let amountArray = amountArray else {
-        print("failed to get amounts")
+      guard success, categoryArray != nil else {
+        print("failed to get categories")
         return
       }
       
-      self.amountArray = amountArray
-      self.updateDataViews()
-      self.amountDataDelegate?.didFinishLoadingAmountData()
+      BKSharedBasicRequestClient.getAmountsByCategory(forUserID: self.userFilter?.cloudID, startDate: dates.startDate, endDate: dates.endDate) { (success, amountArray) in
+        
+        guard success, let amountArray = amountArray else {
+          print("failed to get amounts")
+          return
+        }
+        
+        self.amountArray = amountArray
+        self.updateDataViews()
+        self.amountDataDelegate?.didFinishLoadingAmountData()
+      }
     }
   }
   

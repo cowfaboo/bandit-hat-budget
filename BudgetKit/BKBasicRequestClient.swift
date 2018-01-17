@@ -25,6 +25,23 @@ public class BKBasicRequestClient: BKClient {
         let categoryDictionaryArray = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! Array<[String: AnyObject]>
         var categoryArray = [BKCategory]()
         
+        // delete any categories that didn't come back from cloud - they have been deleted from another device
+        if let existingCategories = BKCategory.fetchCategories() {
+          for category in existingCategories {
+            
+            let categoryHasBeenDeleted = !categoryDictionaryArray.contains(where: { (categoryDictionary) -> Bool in
+              if let cloudID = categoryDictionary["_id"] as? String {
+                return cloudID == category.cloudID
+              }
+              return false
+            })
+            
+            if categoryHasBeenDeleted {
+              BKCategory.deleteCategory(withCloudID: category.cloudID)
+            }
+          }
+        }
+        
         for categoryDictionary in categoryDictionaryArray {
           if let bkCategory = BKCategory.createOrUpdate(with: categoryDictionary) {
             categoryArray.append(bkCategory)
@@ -51,6 +68,23 @@ public class BKBasicRequestClient: BKClient {
         
         let userDictionaryArray = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! Array<[String: AnyObject]>
         var userArray = [BKUser]()
+        
+        // delete any users that didn't come back from cloud - they have been deleted from another device
+        if let existingUsers = BKUser.fetchUsers() {
+          for user in existingUsers {
+            
+            let userHasBeenDeleted = !userDictionaryArray.contains(where: { (userDictionary) -> Bool in
+              if let cloudID = userDictionary["_id"] as? String {
+                return cloudID == user.cloudID
+              }
+              return false
+            })
+            
+            if userHasBeenDeleted {
+              BKUser.deleteUser(withCloudID: user.cloudID)
+            }
+          }
+        }
         
         for userDictionary in userDictionaryArray {
           if let bkUser = BKUser.createOrUpdate(with: userDictionary) {
@@ -237,6 +271,28 @@ public class BKBasicRequestClient: BKClient {
             amountArray.append(bkAmount)
           }
         }
+        
+        // now iterate through categories to check if amountArray is missing any. If so, add them with amount 0
+        if let categories = BKCategory.fetchCategories() {
+          for category in categories {
+            if !amountArray.contains(where: { $0.categoryID == category.cloudID}) {
+               let emptyAmount = BKAmount(withAmount: 0, categoryID: category.cloudID, userID: userID, startDate: startDate, endDate: endDate)
+              amountArray.append(emptyAmount)
+            }
+          }
+        }
+        
+        // finally, sort amount array so that amounts are always displayed in a consistent order
+        amountArray.sort {
+          if $0.categoryID == nil {
+            return false
+          } else if $1.categoryID == nil {
+            return true
+          } else {
+            return $0.categoryID! < $1.categoryID!
+          }
+        }
+        
         completion(true, amountArray)
       } else {
         completion(false, nil)
@@ -377,7 +433,7 @@ public class BKBasicRequestClient: BKClient {
     var bodyString = "name=\(name)&color=\(color.hexString)"
     
     if let monthlyBudget = monthlyBudget {
-      bodyString = bodyString + "&monthly_budget=\(monthlyBudget)"
+      bodyString = bodyString + "&monthlyBudget=\(monthlyBudget)"
     }
     
     if let description = description {
@@ -456,6 +512,7 @@ public class BKBasicRequestClient: BKClient {
     
     makeAPICallToEndpoint(endpoint, method: method, body: nil, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
       if success {
+        BKCategory.deleteCategory(withCloudID: category.cloudID)
         completion(true)
       } else {
         completion(false)
@@ -471,6 +528,7 @@ public class BKBasicRequestClient: BKClient {
     
     makeAPICallToEndpoint(endpoint, method: method, body: nil, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
       if success {
+        BKUser.deleteUser(withCloudID: user.cloudID)
         completion(true)
       } else {
         completion(false)

@@ -108,6 +108,8 @@ extension CategoryManagementViewController: CategoryDetailDelegate {
       tableView.deselectRow(at: selectedIndexPath, animated: true)
     }
     
+    Utilities.updateDataViews()
+    
     BKSharedBasicRequestClient.getCategories { (success: Bool, categoryArray: Array<BKCategory>?) in
       
       guard success, let categoryArray = categoryArray else {
@@ -126,6 +128,8 @@ extension CategoryManagementViewController: CategoryDetailDelegate {
       tableView.deselectRow(at: selectedIndexPath, animated: true)
     }
     
+    Utilities.updateDataViews()
+    
     BKSharedBasicRequestClient.getCategories { (success: Bool, categoryArray: Array<BKCategory>?) in
       
       guard success, let categoryArray = categoryArray else {
@@ -143,6 +147,8 @@ extension CategoryManagementViewController: CategoryDetailDelegate {
     if let selectedIndexPath = selectedIndexPath {
       tableView.deselectRow(at: selectedIndexPath, animated: true)
     }
+    
+    Utilities.updateDataViews()
     
     BKSharedBasicRequestClient.getCategories { (success: Bool, categoryArray: Array<BKCategory>?) in
       

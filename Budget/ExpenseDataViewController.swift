@@ -50,6 +50,8 @@ class ExpenseDataViewController: UIViewController, TableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: .updateDataView, object: nil)
+    
     if shouldIncludeDataHeader {
       dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
       dataHeaderViewController!.date = date
@@ -96,12 +98,6 @@ class ExpenseDataViewController: UIViewController, TableViewController {
       closeButton.isHidden = true
     } else {
       closeButton.isHidden = false
-    }
-    
-    if Utilities.dataViewNeedsUpdate() {
-      updateData()
-    } else {
-      tableView.reloadData()
     }
   }
   
@@ -199,7 +195,7 @@ class ExpenseDataViewController: UIViewController, TableViewController {
 // MARK: - Data Displaying Protocol Methods
 extension ExpenseDataViewController: DataDisplaying {
   
-  func updateData() {
+  @objc func updateData() {
     
     currentPage = 0
     
@@ -210,23 +206,31 @@ extension ExpenseDataViewController: DataDisplaying {
       dates = date.startAndEndOfYear()
     }
     
-    BKSharedBasicRequestClient.getExpenses(forUserID: userFilter?.cloudID, categoryID: category?.cloudID, startDate: dates.startDate, endDate: dates.endDate, page: currentPage) { (success, expenseArray) in
+    BKSharedBasicRequestClient.getCategories { (success, categoryArray) in
       
-      guard success, let expenseArray = expenseArray else {
-        print("failed to get expenses")
+      guard success, categoryArray != nil else {
+        print("failed to get categories")
         return
       }
       
-      self.expenseArray = expenseArray
-      self.tableView.reloadData()
-      self.expenseDataDelegate?.didFinishLoadingExpenseData()
-      
-      if self.expenseArray.count < 25 {
-        self.hasNextPage = false
-        self.lastPageFooterLabel.isHidden = false
-      } else {
-        self.hasNextPage = true
-        self.lastPageFooterLabel.isHidden = true
+      BKSharedBasicRequestClient.getExpenses(forUserID: self.userFilter?.cloudID, categoryID: self.category?.cloudID, startDate: dates.startDate, endDate: dates.endDate, page: self.currentPage) { (success, expenseArray) in
+        
+        guard success, let expenseArray = expenseArray else {
+          print("failed to get expenses")
+          return
+        }
+        
+        self.expenseArray = expenseArray
+        self.tableView.reloadData()
+        self.expenseDataDelegate?.didFinishLoadingExpenseData()
+        
+        if self.expenseArray.count < 25 {
+          self.hasNextPage = false
+          self.lastPageFooterLabel.isHidden = false
+        } else {
+          self.hasNextPage = true
+          self.lastPageFooterLabel.isHidden = true
+        }
       }
     }
   }

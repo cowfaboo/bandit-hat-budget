@@ -57,6 +57,46 @@ public class BKCategory: NSManagedObject {
     return nil
   }
   
+  public class func fetchCategories() ->[BKCategory]? {
+    
+    let viewContext = BKSharedDataController.persistentContainer.viewContext
+    let fetchRequest: NSFetchRequest<BKCategory> = self.fetchRequest()
+    
+    if let results = try? viewContext.fetch(fetchRequest) {
+      return results
+    }
+    
+    return nil
+  }
+  
+  public class func deleteCategory(withCloudID cloudID: String) {
+    
+    let viewContext = BKSharedDataController.persistentContainer.viewContext
+    let fetchRequest: NSFetchRequest<BKCategory> = self.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "cloudID == %@", cloudID)
+    var category: BKCategory?
+    
+    
+    if let results = try? viewContext.fetch(fetchRequest) {
+      if results.count > 0 {
+        category = results.first
+      }
+    }
+    
+    guard category != nil else {
+      return
+    }
+    
+    do {
+      let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+      try BKSharedDataController.persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: BKSharedDataController.persistentContainer.viewContext)
+      BKSharedDataController.saveContext()
+      
+    } catch {
+      print("failed to properly delete category locally")
+    }
+  }
+  
   func configure(with categoryDictionary: Dictionary<String, AnyObject>) -> Bool {
     
     guard let cloudID = categoryDictionary["_id"] as? String,
@@ -82,10 +122,8 @@ public class BKCategory: NSManagedObject {
       self.details = details
     }
     
-    if let monthlyBudgetString = categoryDictionary["monthlyBudget"] as? String {
-      if let monthlyBudget = Float(monthlyBudgetString) {
-        self.monthlyBudget = monthlyBudget
-      }
+    if let monthlyBudgetNumber = categoryDictionary["monthlyBudget"] as? NSNumber {
+      self.monthlyBudget = Float(truncating: monthlyBudgetNumber)
     }
     
     return true
