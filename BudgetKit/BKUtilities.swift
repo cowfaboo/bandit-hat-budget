@@ -24,9 +24,17 @@ public class BKUtilities {
   
   class func date(from string: String) -> Date? {
     
+    let isDateTimeString = string.count != 10
+    var formattedDateString = string
+    
     let dateFormatter = DateFormatter()
+    if isDateTimeString {
+      formattedDateString.removeLast(14)
+    }
+    
     dateFormatter.dateFormat = "yyyy-MM-dd"
-    if let date = dateFormatter.date(from: string) {
+    
+    if let date = dateFormatter.date(from: formattedDateString) {
       return date
     }
     

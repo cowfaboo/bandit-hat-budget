@@ -39,6 +39,9 @@ class ExpenseDataCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
+    
+    selectedBackgroundView = UIView()
+    selectedBackgroundView?.backgroundColor = UIColor(white: 0.97, alpha: 1.0)
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {

@@ -14,7 +14,9 @@ protocol ExpenseDataDelegate: class {
   func didFinishLoadingExpenseData()
 }
 
-class ExpenseDataViewController: UIViewController, TableViewController {
+class ExpenseDataViewController: UIViewController, TableViewController, InteractivePresenter, TopLevelViewControllerDelegate {
+  
+  var presentationAnimator: PresentationAnimator = TopLayerAnimator()
   
   weak var expenseDataDelegate: ExpenseDataDelegate?
   
@@ -190,6 +192,44 @@ class ExpenseDataViewController: UIViewController, TableViewController {
       }
     }
   }
+  
+  func presentExpenseEntryView(withExpense expense: BKExpense) {
+    
+    let expenseEntryViewController = ExpenseEntryViewController(nibName: "ExpenseEntryViewController", bundle: nil)
+    expenseEntryViewController.existingExpense = expense
+    expenseEntryViewController.interactivePresenter = self
+    expenseEntryViewController.topLevelViewControllerDelegate = self
+    expenseEntryViewController.expenseEntryDelegate = self
+    expenseEntryViewController.transitioningDelegate = self
+    expenseEntryViewController.modalPresentationStyle = .custom
+    
+    presentationAnimator.initialCenter = CGPoint(x: Utilities.screenWidth / 2, y: Utilities.screenHeight * 1.5)
+    present(expenseEntryViewController, animated: true)
+  }
+  
+  func interactivePresentationDismissed() {
+    if let selectedRow = tableView.indexPathForSelectedRow {
+      tableView.deselectRow(at: selectedRow, animated: true)
+    }
+  }
+  
+  func topLevelViewControllerDismissed(_ topLevelViewController: TopLevelViewController) {
+    if let selectedRow = tableView.indexPathForSelectedRow {
+      tableView.deselectRow(at: selectedRow, animated: true)
+    }
+    dismiss(animated: true)
+  }
+}
+
+extension ExpenseDataViewController: ExpenseEntryDelegate {
+  
+  func expenseEntered() {
+    if let selectedRow = tableView.indexPathForSelectedRow {
+      tableView.deselectRow(at: selectedRow, animated: true)
+    }
+    self.updateData()
+    dismiss(animated: true)
+  }
 }
 
 // MARK: - Data Displaying Protocol Methods
@@ -261,7 +301,8 @@ extension ExpenseDataViewController: DataDisplaying {
 // MARK: - Table View Delegate Methods
 extension ExpenseDataViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
+    let expense = self.expenseArray[indexPath.row]
+    self.presentExpenseEntryView(withExpense: expense)
   }
 }
 
@@ -293,5 +334,36 @@ extension ExpenseDataViewController: UIScrollViewDelegate {
       currentlyLoading = true
       loadNextPage()
     }
+  }
+}
+
+extension ExpenseDataViewController: UIViewControllerTransitioningDelegate {
+  
+  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    presentationAnimator.presenting = true
+    return presentationAnimator
+  }
+  
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    presentationAnimator.presenting = false
+    return presentationAnimator
+  }
+  
+  func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = true
+      return presentationAnimator
+    }
+    return nil
+  }
+  
+  func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    
+    if presentationAnimator.interactive {
+      presentationAnimator.presenting = false
+      return presentationAnimator
+    }
+    return nil
   }
 }

@@ -592,4 +592,68 @@ public class BKBasicRequestClient: BKClient {
       }
     }
   }
+  
+  public func updateExpense(expense: BKExpense, name: String? = nil, amount: Float? = nil, userID: String? = nil, categoryID: String? = nil, date: Date? = nil, completion: @escaping BKCreateExpenseCompletionBlock) {
+    
+    var bodyString = ""
+    
+    if let name = name {
+      bodyString = "name=\(name)"
+    }
+    
+    if let amount = amount {
+      if bodyString.isEmpty {
+        bodyString = "amount=\(amount)"
+      } else {
+        bodyString = bodyString + "&amount=\(amount)"
+      }
+    }
+    
+    if let userID = userID {
+      if bodyString.isEmpty {
+        bodyString = "user_id=\(userID)"
+      } else {
+        bodyString = bodyString + "&user_id=\(userID)"
+      }
+    }
+    
+    if let categoryID = categoryID {
+      if bodyString.isEmpty {
+        bodyString = "category_id=\(categoryID)"
+      } else {
+        bodyString = bodyString + "&category_id=\(categoryID)"
+      }
+    }
+    
+    if let date = date {
+      let dateString = BKUtilities.dateString(from: date)
+      if bodyString.isEmpty {
+        bodyString = "date=\(dateString)"
+      } else {
+        bodyString = bodyString + "&date=\(dateString)"
+      }
+    }
+    
+    let endpoint = ExpenseEndpoint + "/\(expense.cloudID)"
+    let method = "PATCH"
+    let requestDescription = "updateExpense"
+    let body = bodyString.data(using: String.Encoding.utf8)
+    
+    makeAPICallToEndpoint(endpoint, method: method, body: body, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
+      
+      if success {
+        
+        let expenseDictionary = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! [String: AnyObject]
+        
+        if let bkExpense = BKExpense(expenseDictionary: expenseDictionary) {
+          completion(true, bkExpense)
+        } else {
+          completion(false, nil)
+        }
+        
+      } else {
+        completion(false, nil)
+      }
+    }
+  }
 }

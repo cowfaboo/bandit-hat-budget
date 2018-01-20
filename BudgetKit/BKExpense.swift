@@ -33,7 +33,7 @@ public class BKExpense {
     
     guard let dateCreated = BKUtilities.dateTime(from: dateCreatedString),
       let dateUpdated = BKUtilities.dateTime(from: dateUpdatedString),
-      let date = BKUtilities.dateTime(from: dateString) else {
+      let date = BKUtilities.date(from: dateString) else {
         return nil
     }
     

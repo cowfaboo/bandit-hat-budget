@@ -63,6 +63,8 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     }
   }
   
+  var existingExpense: BKExpense?
+  
   override func viewWillAppear(_ animated: Bool) {
     amountTextField.becomeFirstResponder()
   }
@@ -93,6 +95,13 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     
     addExpenseButton.isEnabled = false
     
+    if let existingExpense = existingExpense {
+      self.nameTextField.text = existingExpense.name
+      self.amountTextField.text = existingExpense.amount.dollarAmount()
+      self.selectedDate = existingExpense.date
+      self.addExpenseButton.setTitle("Update Expense", for: .normal)
+    }
+    
     BKSharedBasicRequestClient.getCategories { (success: Bool, categoryArray: Array<BKCategory>?) in
       
       guard success, let categoryArray = categoryArray else {
@@ -102,9 +111,23 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
       
       self.categoryArray = categoryArray
       self.categoryCollectionView.reloadData()
-      if (self.categoryArray.count > 0) {
+      
+      if let existingExpense = self.existingExpense {
+        if let categoryID = existingExpense.categoryID {
+          self.selectedCategory = BKCategory.fetchCategory(withCloudID: categoryID)
+        }
+      }
+      
+      if self.selectedCategory == nil && self.categoryArray.count > 0 {
         self.selectedCategory = self.categoryArray[0]
       }
+      
+      if let selectedCategory = self.selectedCategory {
+        if let categoryIndex = categoryArray.index(of: selectedCategory) {
+          self.categoryCollectionView.selectItem(at: IndexPath(item: categoryIndex, section: 0), animated: false, scrollPosition: .left)
+        }
+      }
+      self.updateFormValidity()
     }
     
     if !isDismissable {
@@ -139,15 +162,30 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     let name = nameTextField.text!
     let amount = Float(amountTextField.text!)!
     
-    BKSharedBasicRequestClient.createExpense(withName: name, amount: amount, userID: userID, categoryID: selectedCategory!.cloudID, date: selectedDate) { (success, expense) in
+    if let existingExpense = existingExpense {
       
-      guard success, let _ = expense else {
-        print("failed to create expense")
-        return
-      }
+      BKSharedBasicRequestClient.updateExpense(expense: existingExpense, name: name, amount: amount, userID: existingExpense.userID, categoryID: selectedCategory!.cloudID, date: selectedDate) { (success, expense) in
+        guard success, let _ = expense else {
+          print("failed to update expense")
+          return
+        }
         
-      Utilities.updateDataViews()
-      self.expenseEntryDelegate?.expenseEntered()
+        Utilities.updateDataViews()
+        self.expenseEntryDelegate?.expenseEntered()
+      }
+      
+    } else {
+      
+      BKSharedBasicRequestClient.createExpense(withName: name, amount: amount, userID: userID, categoryID: selectedCategory!.cloudID, date: selectedDate) { (success, expense) in
+        
+        guard success, let _ = expense else {
+          print("failed to create expense")
+          return
+        }
+        
+        Utilities.updateDataViews()
+        self.expenseEntryDelegate?.expenseEntered()
+      }
     }
   }
   
