@@ -130,6 +130,13 @@ extension ContainerViewController: ExpenseEntryDelegate {
     
     dismiss(animated: true)
   }
+  
+  func expenseDeleted() {
+    
+    if let dataViewController = dataNavigationController.currentViewController as? DataDisplaying {
+      dataViewController.updateData()
+    }
+  }
 }
 
 extension ContainerViewController: UIViewControllerTransitioningDelegate {

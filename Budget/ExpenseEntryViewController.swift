@@ -11,6 +11,7 @@ import BudgetKit
 
 protocol ExpenseEntryDelegate: class {
   func expenseEntered()
+  func expenseDeleted()
 }
 
 class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
@@ -26,6 +27,7 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
   @IBOutlet weak var dollarSignTextField: UITextField!
   
   @IBOutlet weak var addExpenseButton: BHButton!
+  @IBOutlet weak var deleteExpenseButton: BHButton!
   @IBOutlet weak var changeDateButton: UIButton!
   @IBOutlet weak var dateTextButton: UIButton!
   @IBOutlet weak var closeButton: UIButton!
@@ -33,6 +35,8 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
   @IBOutlet weak var categoryCollectionView: UICollectionView!
   
   @IBOutlet weak var addExpenseButtonContainerViewBottomConstraint: NSLayoutConstraint!
+  @IBOutlet private weak var deleteButtonWidthConstraint: NSLayoutConstraint!
+  @IBOutlet private weak var deleteButtonLeadingConstraint: NSLayoutConstraint!
   
   var categoryArray = [BKCategory]()
   
@@ -46,6 +50,7 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
         addExpenseButton.themeColor = selectedCategory.color
         changeDateButton.tintColor = selectedCategory.color
         dateTextButton.tintColor = selectedCategory.color
+        deleteExpenseButton.themeColor = UIColor.negative
       }
     }
   }
@@ -96,10 +101,14 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     addExpenseButton.isEnabled = false
     
     if let existingExpense = existingExpense {
-      self.nameTextField.text = existingExpense.name
-      self.amountTextField.text = existingExpense.amount.dollarAmount()
-      self.selectedDate = existingExpense.date
-      self.addExpenseButton.setTitle("Update Expense", for: .normal)
+      nameTextField.text = existingExpense.name
+      amountTextField.text = existingExpense.amount.dollarAmount()
+      selectedDate = existingExpense.date
+      addExpenseButton.setTitle("Update Expense", for: .normal)
+      
+      deleteButtonWidthConstraint.constant = (view.frame.width - 48) / 3
+      deleteButtonLeadingConstraint.constant = 16
+      deleteExpenseButton.setTitle("Delete", for: .normal)
     }
     
     BKSharedBasicRequestClient.getCategories { (success: Bool, categoryArray: Array<BKCategory>?) in
@@ -186,6 +195,47 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
         Utilities.updateDataViews()
         self.expenseEntryDelegate?.expenseEntered()
       }
+    }
+  }
+  
+  @IBAction func deleteButtonTapped() {
+    
+    let cancelAction = BHAlertAction(withTitle: "Cancel") {
+      self.dismiss(animated: true, completion: nil)
+    }
+    
+    let deleteAction = BHAlertAction(withTitle: "Delete", color: UIColor.negative) {
+      self.deleteExpense() { (success) in
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        if success {
+          Utilities.updateDataViews()
+          self.expenseEntryDelegate?.expenseDeleted()
+        }
+      }
+    }
+    
+    let alertViewController = BHAlertViewController(withTitle: "Delete Expense?", message: "Are you sure you want to delete this expense?", actions: [cancelAction, deleteAction])
+    let topSlideViewController = TopSlideViewController(presenting: alertViewController, from: self, withDistanceFromTop: 64.0)
+    present(topSlideViewController, animated: true, completion: nil)
+  }
+  
+  func deleteExpense(completion: @escaping (Bool) -> ()) {
+    
+    guard let expense = existingExpense else {
+      completion(false)
+      return
+    }
+    
+    BKSharedBasicRequestClient.delete(expense: expense) { (success) in
+      guard success else {
+        print("failed to delete expense")
+        completion(false)
+        return
+      }
+      
+      completion(true)
     }
   }
   

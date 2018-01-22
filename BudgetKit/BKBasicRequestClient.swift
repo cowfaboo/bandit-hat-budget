@@ -536,6 +536,21 @@ public class BKBasicRequestClient: BKClient {
     }
   }
   
+  public func delete(expense: BKExpense, completion: @escaping BKDeleteCompletionBlock) {
+    
+    let endpoint = ExpenseEndpoint + "/\(expense.cloudID)"
+    let method = "DELETE"
+    let requestDescription = "deleteExpense"
+    
+    makeAPICallToEndpoint(endpoint, method: method, body: nil, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
+      if success {
+        completion(true)
+      } else {
+        completion(false)
+      }
+    }
+  }
+  
   public func update(category: BKCategory, name: String? = nil, color: UIColor? = nil, monthlyBudget: Float? = nil, description: String? = nil, completion: @escaping BKCreateCategoryCompletionBlock) {
     
     var bodyString = ""

@@ -227,7 +227,10 @@ extension ExpenseDataViewController: ExpenseEntryDelegate {
     if let selectedRow = tableView.indexPathForSelectedRow {
       tableView.deselectRow(at: selectedRow, animated: true)
     }
-    self.updateData()
+    dismiss(animated: true)
+  }
+  
+  func expenseDeleted() {
     dismiss(animated: true)
   }
 }

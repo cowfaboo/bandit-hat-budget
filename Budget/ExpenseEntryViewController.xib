@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,6 +19,9 @@
                 <outlet property="changeDateButton" destination="K4K-Hk-Mzx" id="Eey-qP-cAO"/>
                 <outlet property="closeButton" destination="Eyu-PK-rTY" id="kjL-Qy-aH2"/>
                 <outlet property="dateTextButton" destination="BML-Z5-8GY" id="Ld8-mc-sGa"/>
+                <outlet property="deleteButtonLeadingConstraint" destination="mj9-UZ-ffq" id="UyD-Hc-Ngu"/>
+                <outlet property="deleteButtonWidthConstraint" destination="6x7-T5-rFN" id="oNY-CK-908"/>
+                <outlet property="deleteExpenseButton" destination="oL3-Kg-MHH" id="5A8-TL-2KK"/>
                 <outlet property="dollarSignTextField" destination="0B2-SD-UBx" id="4PJ-hx-h8w"/>
                 <outlet property="nameTextField" destination="9Hq-Vq-KQc" id="vk3-Gp-M4g"/>
                 <outlet property="tintView" destination="HyU-iK-11N" id="TXw-Vu-wZH"/>
@@ -174,13 +177,27 @@
                                 <action selector="addExpenseButtonTapped" destination="-1" eventType="touchUpInside" id="kfO-GO-w8h"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oL3-Kg-MHH" customClass="BHButton" customModule="Budget" customModuleProvider="target">
+                            <rect key="frame" x="359" y="154" width="0.0" height="64"/>
+                            <constraints>
+                                <constraint firstAttribute="width" id="6x7-T5-rFN"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <state key="normal" title="Add Expense"/>
+                            <connections>
+                                <action selector="deleteButtonTapped" destination="-1" eventType="touchUpInside" id="L9u-PR-qUL"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="WLi-P7-yMv" secondAttribute="trailing" constant="16" id="A1x-5E-lFX"/>
+                        <constraint firstAttribute="trailing" secondItem="oL3-Kg-MHH" secondAttribute="trailing" constant="16" id="1Kf-7A-aap"/>
                         <constraint firstItem="WLi-P7-yMv" firstAttribute="leading" secondItem="Vj1-3K-54e" secondAttribute="leading" constant="16" id="OWy-1r-KTs"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="WLi-P7-yMv" secondAttribute="bottom" constant="12" id="ZhL-mm-Ijg"/>
+                        <constraint firstItem="oL3-Kg-MHH" firstAttribute="bottom" secondItem="WLi-P7-yMv" secondAttribute="bottom" id="aIb-LE-6eA"/>
+                        <constraint firstItem="oL3-Kg-MHH" firstAttribute="top" secondItem="WLi-P7-yMv" secondAttribute="top" id="jt0-db-ExS"/>
                         <constraint firstItem="WLi-P7-yMv" firstAttribute="centerY" secondItem="Vj1-3K-54e" secondAttribute="centerY" id="kwf-2P-xh4"/>
+                        <constraint firstItem="oL3-Kg-MHH" firstAttribute="leading" secondItem="WLi-P7-yMv" secondAttribute="trailing" id="mj9-UZ-ffq"/>
                         <constraint firstItem="WLi-P7-yMv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Vj1-3K-54e" secondAttribute="top" constant="12" id="qBa-4w-tiP"/>
                     </constraints>
                 </view>
