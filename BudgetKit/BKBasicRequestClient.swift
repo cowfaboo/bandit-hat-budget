@@ -48,6 +48,7 @@ public class BKBasicRequestClient: BKClient {
           }
         }
         
+        BKSharedDataController.saveContext()
         completion(true, categoryArray)
         
       } else {
@@ -92,8 +93,47 @@ public class BKBasicRequestClient: BKClient {
           }
         }
         
+        BKSharedDataController.saveContext()
         completion(true, userArray)
         
+      } else {
+        completion(false, nil)
+      }
+    }
+  }
+  
+  public func getAllRecentExpenses(completion: @escaping BKGetExpensesCompletionBlock) {
+    
+    var parameterString: String?
+    
+    if let startDate = BKUtilities.dateOfLastExpenseFetch() {
+      let startDateString = BKUtilities.dateString(from: startDate)
+      parameterString = "updated_since=\(startDateString)"
+    }
+    
+    let endpoint = ExpenseEndpoint
+    let method = "GET"
+    let requestDescription = "fetchRecentExpenses"
+    
+    makeAPICallToEndpoint(endpoint, method: method, parameterString: parameterString, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
+      
+      if success {
+        
+        let expenseDictionaryArray = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! Array<[String: AnyObject]>
+        var expenseArray = [BKExpense]()
+        
+        for expenseDictionary in expenseDictionaryArray {
+          if let bkExpense = BKExpense.createOrUpdate(with: expenseDictionary) {
+            expenseArray.append(bkExpense)
+          }
+        }
+        
+        // only update the date of last expense fetch if we're sure that all the expenses up until now have been saved
+        if BKSharedDataController.saveContext() {
+          BKUtilities.setDateOfLastExpenseFetch(Date())
+        }
+        
+        completion(true, expenseArray)
       } else {
         completion(false, nil)
       }
@@ -184,11 +224,13 @@ public class BKBasicRequestClient: BKClient {
         let expenseDictionaryArray = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! Array<[String: AnyObject]>
         var expenseArray = [BKExpense]()
         
-        for expense in expenseDictionaryArray {
-          if let bkExpense = BKExpense(expenseDictionary: expense) {
+        for expenseDictionary in expenseDictionaryArray {
+          if let bkExpense = BKExpense.createOrUpdate(with: expenseDictionary) {
             expenseArray.append(bkExpense)
           }
         }
+        
+        BKSharedDataController.saveContext()
         completion(true, expenseArray)
       } else {
         completion(false, nil)
@@ -343,7 +385,34 @@ public class BKBasicRequestClient: BKClient {
         groupDictionary["password"] = password as AnyObject
         
         if let bkGroup = BKGroup.createOrUpdate(with: groupDictionary) {
-          completion(true, nil, bkGroup)
+          
+          // once we have signed in successfully, do an initial fetch of users, categories and expenses
+          BKSharedBasicRequestClient.getUsers(completion: { (success, userArray) in
+            
+            guard success else {
+              completion(false, "A server error occurred. Error code: \(BKAPIErrorType.clientProcessing)", nil)
+              return
+            }
+            
+            BKSharedBasicRequestClient.getCategories { (success, categoryArray) in
+              
+              guard success else {
+                completion(false, "A server error occurred. Error code: \(BKAPIErrorType.clientProcessing)", nil)
+                return
+              }
+              
+              BKSharedBasicRequestClient.getAllRecentExpenses { (success, expenseArray) in
+                
+                guard success else {
+                  completion(false, "A server error occurred. Error code: \(BKAPIErrorType.clientProcessing)", nil)
+                  return
+                }
+                
+                completion(true, nil, bkGroup)
+              }
+            }
+          })
+          
         } else {
           completion(false, "An unexpected error occurred. Error code: \(BKAPIErrorType.clientProcessing)", nil)
         }
@@ -383,6 +452,7 @@ public class BKBasicRequestClient: BKClient {
         groupDictionary["password"] = password as AnyObject
         
         if let bkGroup = BKGroup.createOrUpdate(with: groupDictionary) {
+          BKSharedDataController.saveContext()
           completion(true, nil, bkGroup)
         } else {
           completion(false, "An unexpected error occurred. Error code: \(BKAPIErrorType.clientProcessing)", nil)
@@ -417,6 +487,7 @@ public class BKBasicRequestClient: BKClient {
         let userDictionary = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! [String: AnyObject]
         
         if let bkUser = BKUser.createOrUpdate(with: userDictionary) {
+          BKSharedDataController.saveContext()
           completion(true, bkUser)
         } else {
           completion(false, nil)
@@ -452,6 +523,7 @@ public class BKBasicRequestClient: BKClient {
         let categoryDictionary = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! [String: AnyObject]
         
         if let bkCategory = BKCategory.createOrUpdate(with: categoryDictionary) {
+          BKSharedDataController.saveContext()
           completion(true, bkCategory)
         } else {
           completion(false, nil)
@@ -492,7 +564,8 @@ public class BKBasicRequestClient: BKClient {
         
         let expenseDictionary = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! [String: AnyObject]
         
-        if let bkExpense = BKExpense(expenseDictionary: expenseDictionary) {
+        if let bkExpense = BKExpense.createOrUpdate(with: expenseDictionary) {
+          BKSharedDataController.saveContext()
           completion(true, bkExpense)
         } else {
           completion(false, nil)
@@ -544,6 +617,7 @@ public class BKBasicRequestClient: BKClient {
     
     makeAPICallToEndpoint(endpoint, method: method, body: nil, requestDescription: requestDescription) { (success, response, responseData, apiErrorType, customErrorMessage) in
       if success {
+        BKExpense.deleteExpense(withCloudID: expense.cloudID)
         completion(true)
       } else {
         completion(false)
@@ -597,6 +671,7 @@ public class BKBasicRequestClient: BKClient {
         let categoryDictionary = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! [String: AnyObject]
         
         if let bkCategory = BKCategory.createOrUpdate(with: categoryDictionary) {
+          BKSharedDataController.saveContext()
           completion(true, bkCategory)
         } else {
           completion(false, nil)
@@ -660,7 +735,8 @@ public class BKBasicRequestClient: BKClient {
         
         let expenseDictionary = (try! JSONSerialization.jsonObject(with: responseData!, options: [])) as! [String: AnyObject]
         
-        if let bkExpense = BKExpense(expenseDictionary: expenseDictionary) {
+        if let bkExpense = BKExpense.createOrUpdate(with: expenseDictionary) {
+          BKSharedDataController.saveContext()
           completion(true, bkExpense)
         } else {
           completion(false, nil)

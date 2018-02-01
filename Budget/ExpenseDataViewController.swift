@@ -11,7 +11,6 @@ import BudgetKit
 
 protocol ExpenseDataDelegate: class {
   func shouldDismissExpenseData()
-  func didFinishLoadingExpenseData()
 }
 
 class ExpenseDataViewController: UIViewController, TableViewController, InteractivePresenter, TopLevelViewControllerDelegate {
@@ -32,8 +31,8 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
   var lastPageFooterLabel: UILabel!
   
   var expenseArray = [BKExpense]()
-  var date: Date = Date()
-  var timeRangeType: TimeRangeType = .monthly
+  var startDate: Date = Date().startAndEndOfMonth().startDate
+  var endDate: Date = Date().startAndEndOfMonth().endDate
   var category: BKCategory?
   var userFilter: BKUser? {
     didSet {
@@ -56,7 +55,7 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
     
     if shouldIncludeDataHeader {
       dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
-      dataHeaderViewController!.date = date
+      dataHeaderViewController!.date = startDate
       dataHeaderViewController!.user = userFilter
       dataHeaderViewController!.timeRangeType = timeRangeType
       add(dataHeaderViewController!, to: headerView)
@@ -107,6 +106,17 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
     super.didReceiveMemoryWarning()
   }
   
+  @objc func updateData() {
+    
+    currentPage = 0
+    dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter)
+    
+    self.expenseArray = BKExpense.fetchExpenses(forUser: self.userFilter, category: self.category, startDate: startDate, endDate: endDate)
+    self.tableView.reloadData()
+    
+    self.lastPageFooterLabel.isHidden = false
+  }
+  
   // MARK: - Private Utility Methods
   
   func setUpFooterView() {
@@ -149,20 +159,13 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
   
   func loadNextPage() {
     
-    var dates: (startDate: Date, endDate: Date)
-    if timeRangeType == .monthly {
-      dates = date.startAndEndOfMonth()
-    } else {
-      dates = date.startAndEndOfYear()
-    }
-    
     nextPageActivityIndicatorView.alpha = 0.0
     nextPageActivityIndicatorView.startAnimating()
     UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseIn], animations: { 
       self.nextPageActivityIndicatorView.alpha = 1.0
     }, completion: nil)
     
-    BKSharedBasicRequestClient.getExpenses(forUserID: userFilter?.cloudID, categoryID: category?.cloudID, startDate: dates.startDate, endDate: dates.endDate, page: currentPage + 1) { (success, expenseArray) in
+    BKSharedBasicRequestClient.getExpenses(forUserID: userFilter?.cloudID, categoryID: category?.cloudID, startDate: startDate, endDate: endDate, page: currentPage + 1) { (success, expenseArray) in
       
       self.nextPageActivityIndicatorView.stopAnimating()
       
@@ -238,46 +241,6 @@ extension ExpenseDataViewController: ExpenseEntryDelegate {
 // MARK: - Data Displaying Protocol Methods
 extension ExpenseDataViewController: DataDisplaying {
   
-  @objc func updateData() {
-    
-    currentPage = 0
-    
-    var dates: (startDate: Date, endDate: Date)
-    if timeRangeType == .monthly {
-      dates = date.startAndEndOfMonth()
-    } else {
-      dates = date.startAndEndOfYear()
-    }
-    
-    BKSharedBasicRequestClient.getCategories { (success, categoryArray) in
-      
-      guard success, categoryArray != nil else {
-        print("failed to get categories")
-        return
-      }
-      
-      BKSharedBasicRequestClient.getExpenses(forUserID: self.userFilter?.cloudID, categoryID: self.category?.cloudID, startDate: dates.startDate, endDate: dates.endDate, page: self.currentPage) { (success, expenseArray) in
-        
-        guard success, let expenseArray = expenseArray else {
-          print("failed to get expenses")
-          return
-        }
-        
-        self.expenseArray = expenseArray
-        self.tableView.reloadData()
-        self.expenseDataDelegate?.didFinishLoadingExpenseData()
-        
-        if self.expenseArray.count < 25 {
-          self.hasNextPage = false
-          self.lastPageFooterLabel.isHidden = false
-        } else {
-          self.hasNextPage = true
-          self.lastPageFooterLabel.isHidden = true
-        }
-      }
-    }
-  }
-  
   func fadeOut(completion: (() -> ())?) {
     tableView.alpha = 1.0
     UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseOut], animations: {
@@ -298,6 +261,10 @@ extension ExpenseDataViewController: DataDisplaying {
         completion()
       }
     }
+  }
+  
+  func scrollToTop() {
+    self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
   }
 }
 
@@ -335,7 +302,7 @@ extension ExpenseDataViewController: UIScrollViewDelegate {
     
     if currentOffset >= difference - 32 {
       currentlyLoading = true
-      loadNextPage()
+      //loadNextPage()
     }
   }
 }

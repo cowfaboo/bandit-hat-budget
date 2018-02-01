@@ -100,16 +100,48 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     
     addExpenseButton.isEnabled = false
     
+    if let fetchedCategories = BKCategory.fetchCategories() {
+      categoryArray = fetchedCategories
+      categoryCollectionView.reloadData()
+    }
+    
     if let existingExpense = existingExpense {
       nameTextField.text = existingExpense.name
       amountTextField.text = existingExpense.amount.dollarAmount()
-      selectedDate = existingExpense.date
+      selectedDate = existingExpense.date as Date
       addExpenseButton.setTitle("Update Expense", for: .normal)
       
       deleteButtonWidthConstraint.constant = (view.frame.width - 48) / 3
       deleteButtonLeadingConstraint.constant = 16
       deleteExpenseButton.setTitle("Delete", for: .normal)
+      
+      if let categoryID = existingExpense.category?.cloudID {
+        self.selectedCategory = BKCategory.fetchCategory(withCloudID: categoryID)
+        
+        if let selectedCategory = self.selectedCategory {
+          if let categoryIndex = categoryArray.index(of: selectedCategory) {
+            self.categoryCollectionView.selectItem(at: IndexPath(item: categoryIndex, section: 0), animated: false, scrollPosition: .left)
+          }
+        }
+      }
     }
+    
+    updateCategories()
+    
+    if !isDismissable {
+      closeButton.isHidden = true
+    }
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+  }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+  
+  func updateCategories() {
     
     BKSharedBasicRequestClient.getCategories { (success: Bool, categoryArray: Array<BKCategory>?) in
       
@@ -122,7 +154,7 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
       self.categoryCollectionView.reloadData()
       
       if let existingExpense = self.existingExpense {
-        if let categoryID = existingExpense.categoryID {
+        if let categoryID = existingExpense.category?.cloudID {
           self.selectedCategory = BKCategory.fetchCategory(withCloudID: categoryID)
         }
       }
@@ -138,18 +170,6 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
       }
       self.updateFormValidity()
     }
-    
-    if !isDismissable {
-      closeButton.isHidden = true
-    }
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-  }
-  
-  deinit {
-    NotificationCenter.default.removeObserver(self)
   }
   
   // MARK: - Action Methods
@@ -173,7 +193,7 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     
     if let existingExpense = existingExpense {
       
-      BKSharedBasicRequestClient.updateExpense(expense: existingExpense, name: name, amount: amount, userID: existingExpense.userID, categoryID: selectedCategory!.cloudID, date: selectedDate) { (success, expense) in
+      BKSharedBasicRequestClient.updateExpense(expense: existingExpense, name: name, amount: amount, userID: existingExpense.user.cloudID, categoryID: selectedCategory!.cloudID, date: selectedDate) { (success, expense) in
         guard success, let _ = expense else {
           print("failed to update expense")
           return

@@ -45,6 +45,19 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
     }
   }
   
+  func update(withDate date: Date, timeRangeType: TimeRangeType, user: BKUser?) {
+    
+    if timeRangeType == .monthly {
+      dateLabel.text = date.monthYearString()
+    } else {
+      dateLabel.text = date.yearString()
+    }
+    
+    if let user = user {
+      filterButton.setTitle(user.name ?? "", for: .normal)
+    }
+  }
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
   }

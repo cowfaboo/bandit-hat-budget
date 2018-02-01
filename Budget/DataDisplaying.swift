@@ -11,8 +11,23 @@ import BudgetKit
 
 protocol DataDisplaying: class {
   var userFilter: BKUser? { get set }
+  var startDate: Date { get set }
+  var endDate: Date { get set }
+  var timeRangeType: TimeRangeType { get }
   
-  func updateData()
   func fadeOut(completion: (() -> ())?)
   func fadeIn(completion: (() -> ())?)
+  func scrollToTop()
+}
+
+extension DataDisplaying {
+  var timeRangeType: TimeRangeType {
+    if startDate.monthYearString() == endDate.monthYearString() {
+      return .monthly
+    } else if startDate.yearString() == endDate.yearString() {
+      return .annual
+    } else {
+      return .other
+    }
+  }
 }

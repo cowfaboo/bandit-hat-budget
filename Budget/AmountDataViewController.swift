@@ -9,46 +9,38 @@
 import UIKit
 import BudgetKit
 
-protocol AmountDataDelegate: class {
-  func didFinishLoadingAmountData()
-  func shouldFilterByUser(_ user: BKUser?)
-}
-
 class AmountDataViewController: UIViewController, InteractivePresenter {
   
   var presentationAnimator: PresentationAnimator = BottomSlideAnimator()
   
-  weak var amountDataDelegate: AmountDataDelegate?
-  
   @IBOutlet weak var headerView: UIView!
   @IBOutlet weak var dataScrollView: UIScrollView!
-  
   
   var dataHeaderViewController: DataHeaderViewController?
   
   var amountWidgetArray = [AmountWidgetViewController]()
   var containerViewArray = [UIView]()
   var amountArray = [BKAmount]()
-  var date: Date = Date()
   var userFilter: BKUser? {
     didSet {
       if viewIsLoaded {
         dataHeaderViewController?.user = userFilter
-        updateData()
+        updateData(withAnimation: false)
       }
     }
   }
-  var timeRangeType: TimeRangeType = .monthly
+  var startDate: Date = Date().startAndEndOfMonth().startDate
+  var endDate: Date = Date().startAndEndOfMonth().endDate
   
   var viewIsLoaded = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: .updateDataView, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateDataViewNotification), name: .updateDataView, object: nil)
     
     dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
-    dataHeaderViewController!.date = date
+    dataHeaderViewController!.date = startDate
     dataHeaderViewController!.timeRangeType = timeRangeType
     dataHeaderViewController!.user = userFilter
     add(dataHeaderViewController!, to: headerView)
@@ -62,27 +54,54 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
     super.didReceiveMemoryWarning()
   }
   
-  func updateDataViews() {
+  @objc func receiveUpdateDataViewNotification() {
+    updateData(withAnimation: true)
+  }
+  
+  func updateData(withAnimation animationEnabled: Bool = false) {
+    
+    dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter)
+    BKAmount.getAmountsByCategory(forUser: self.userFilter, startDate: self.startDate, endDate: self.endDate, completion: { (amounts) in
+      self.amountArray = amounts
+      self.reloadDataViews(withAnimation: animationEnabled)
+    })
+  }
+  
+  func reloadDataViews(withAnimation animationEnabled: Bool) {
     if (amountArray.count != containerViewArray.count) {
       resetDataViews()
     }
     
     var index = 0
     for amountWidget in amountWidgetArray {
-      if amountWidget.amount.amount != amountArray[index].amount || amountWidget.amount.categoryID != amountArray[index].categoryID {
-        amountWidget.amount = amountArray[index]
-        amountWidget.refreshView()
+      amountWidget.amount = amountArray[index]
+      amountWidget.timeRangeType = timeRangeType
+      
+      let completionPercentage: Float
+      if (timeRangeType == .monthly && startDate.isMonthEqualTo(Date())) {
+        completionPercentage = Date().completionPercentageOfMonth()
+      } else if (timeRangeType == .annual && startDate.isYearEqualTo(Date())) {
+        completionPercentage = Date().completionPercentageOfYear()
+      } else {
+        completionPercentage = 0
       }
+      
+      amountWidget.completionPercentage = completionPercentage
+      amountWidget.refreshView(withAnimation: animationEnabled)
       index += 1
     }
+    
+    fadeIn(completion: nil)
   }
   
   func resetDataViews() {
     
+    self.dataScrollView.alpha = 0.0
+    
     let completionPercentage: Float
-    if (timeRangeType == .monthly && date.isMonthEqualTo(Date())) {
+    if (timeRangeType == .monthly && startDate.isMonthEqualTo(Date())) {
       completionPercentage = Date().completionPercentageOfMonth()
-    } else if (timeRangeType == .annual && date.isYearEqualTo(Date())) {
+    } else if (timeRangeType == .annual && startDate.isYearEqualTo(Date())) {
       completionPercentage = Date().completionPercentageOfYear()
     } else {
       completionPercentage = 0
@@ -121,7 +140,7 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
       let amountWidgetViewController = AmountWidgetViewController(withAmount: amount, timeRangeType: timeRangeType, completionPercentage: completionPercentage)
       amountWidgetViewController.amountWidgetDelegate = self
       add(amountWidgetViewController, to: containerView)
-      amountWidgetViewController.refreshView()
+      amountWidgetViewController.refreshView(withAnimation: false)
       amountWidgetArray.append(amountWidgetViewController)
       
       if index % 2 == 1 {
@@ -146,9 +165,9 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
   func amountViewTapped(amount: BKAmount) {
     
     let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
-    expenseDataViewController.date = date
+    expenseDataViewController.startDate = startDate
+    expenseDataViewController.endDate = endDate
     expenseDataViewController.userFilter = userFilter
-    expenseDataViewController.timeRangeType = timeRangeType
     expenseDataViewController.shouldIncludeDataHeader = false
     expenseDataViewController.expenseDataDelegate = self
     
@@ -166,38 +185,7 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
 // MARK: - Data Displaying Protocol Methods
 extension AmountDataViewController: DataDisplaying {
   
-  @objc func updateData() {
-    
-    var dates: (startDate: Date, endDate: Date)
-    if timeRangeType == .monthly {
-      dates = date.startAndEndOfMonth()
-    } else {
-      dates = date.startAndEndOfYear()
-    }
-    
-    BKSharedBasicRequestClient.getCategories { (success, categoryArray) in
-      
-      guard success, categoryArray != nil else {
-        print("failed to get categories")
-        return
-      }
-      
-      BKSharedBasicRequestClient.getAmountsByCategory(forUserID: self.userFilter?.cloudID, startDate: dates.startDate, endDate: dates.endDate) { (success, amountArray) in
-        
-        guard success, let amountArray = amountArray else {
-          print("failed to get amounts")
-          return
-        }
-        
-        self.amountArray = amountArray
-        self.updateDataViews()
-        self.amountDataDelegate?.didFinishLoadingAmountData()
-      }
-    }
-  }
-  
   func fadeOut(completion: (() -> ())?) {
-    dataScrollView.alpha = 1.0
     UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseOut], animations: {
       self.dataScrollView.alpha = 0.0
     }) { (success) in
@@ -208,7 +196,6 @@ extension AmountDataViewController: DataDisplaying {
   }
   
   func fadeIn(completion: (() -> ())?) {
-    dataScrollView.alpha = 0.0
     UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseIn], animations: {
       self.dataScrollView.alpha = 1.0
     }) { (success) in
@@ -217,6 +204,10 @@ extension AmountDataViewController: DataDisplaying {
       }
     }
   }
+  
+  func scrollToTop() {
+    dataScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+  }
 }
 
 // MARK: - Amount Widget Delegate Methods
@@ -224,9 +215,9 @@ extension AmountDataViewController: AmountWidgetDelegate {
   func didSelect(category: BKCategory) {
     
     let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
-    expenseDataViewController.date = date
+    expenseDataViewController.startDate = startDate
+    expenseDataViewController.endDate = endDate
     expenseDataViewController.userFilter = userFilter
-    expenseDataViewController.timeRangeType = timeRangeType
     expenseDataViewController.shouldIncludeDataHeader = false
     expenseDataViewController.expenseDataDelegate = self
     expenseDataViewController.category = category

@@ -23,15 +23,9 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
   @IBOutlet weak var categoryLabel: UILabel!
   @IBOutlet weak var amountLabel: UILabel!
   
-  private var isPlaceholder: Bool = false {
-    didSet {
-      amountLabel.alpha = 0
-    }
-  }
-  
-  private var timeRangeType: TimeRangeType = .monthly
+  var timeRangeType: TimeRangeType = .monthly
   var amount: BKAmount!
-  private var completionPercentage: Float = 0
+  var completionPercentage: Float = 0
   
   private var category: BKCategory? {
     didSet {
@@ -43,7 +37,7 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
     }
   }
   
-  init(withAmount amount: BKAmount, timeRangeType: TimeRangeType?, completionPercentage: Float?, isPlaceholder: Bool? = false) {
+  init(withAmount amount: BKAmount, timeRangeType: TimeRangeType?, completionPercentage: Float?) {
     super.init(nibName: "AmountWidgetViewController", bundle: nil);
         
     self.amount = amount
@@ -55,10 +49,6 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
     if let completionPercentage = completionPercentage {
       self.completionPercentage = completionPercentage
     }
-    
-    if let isPlaceholder = isPlaceholder {
-      self.isPlaceholder = isPlaceholder
-    }
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -69,7 +59,7 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
   
-  func refreshView() {
+  func refreshView(withAnimation animationEnabled: Bool) {
     
     var color: UIColor
     var monthlyBudget: Float?
@@ -84,21 +74,6 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
       self.category = nil
     }
     
-    
-    if isPlaceholder {
-      amountPieView.totalAmount = 1
-      amountPieView.primaryAmount = 0
-      amountPieView.secondaryAmount = 0
-      categoryLabel.textColor = color
-      amountPieView.themeColor = color
-      
-      // no need to display placeholder uncategorized amount views
-      if category == nil {
-        view.isHidden = true
-      }
-      return
-    }
-    
     let spentAmountString = amount.amount.simpleDollarAmount()
     let totalAmountString: String
     
@@ -111,9 +86,9 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
         totalAmount = monthlyBudget * 12
       }
       
-      amountPieView.totalAmount = totalAmount
-      amountPieView.primaryAmount = amount.amount
-      amountPieView.secondaryAmount = totalAmount * completionPercentage
+      amountPieView.updateTotalAmount(totalAmount)
+      amountPieView.updatePrimaryAmount(amount.amount, withAnimation: animationEnabled)
+      amountPieView.updateSecondaryAmount(totalAmount * completionPercentage, withAnimation: animationEnabled)
       totalAmountString = totalAmount.simpleDollarAmount()
       
       let attributedString = NSMutableAttributedString(string: "\(spentAmountString) of \(totalAmountString)")
@@ -127,9 +102,10 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
       amountLabel.attributedText = attributedString
       
     } else {
-      amountPieView.totalAmount = amount.amount / completionPercentage
-      amountPieView.primaryAmount = amount.amount
-      amountPieView.secondaryAmount = amount.amount
+      
+      amountPieView.updateTotalAmount(amount.amount / completionPercentage)
+      amountPieView.updatePrimaryAmount(amount.amount, withAnimation: animationEnabled)
+      amountPieView.updateSecondaryAmount(amount.amount, withAnimation: animationEnabled)
       totalAmountString = ""
       
       let attributedString = NSMutableAttributedString(string: "\(spentAmountString)")
@@ -139,12 +115,10 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
     }
     
     categoryLabel.textColor = color
-    amountPieView.themeColor = color
+    amountPieView.updateThemeColor(color)
     amountLabel.textColor = color
     
-    
-    
-    if amountLabel.alpha == 0 && !isPlaceholder {
+    if amountLabel.alpha == 0 {
       UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
         self.amountLabel.alpha = 1
       }, completion: nil)
@@ -160,18 +134,17 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
   }
   
   @IBAction func amountWidgetTapped() {
-    if !isPlaceholder {
-      if let category = category {
-        amountWidgetDelegate?.didSelect(category: category)
-      } else {
-        let confirmAction = BHAlertAction(withTitle: "Got It", action: {
-          self.dismiss(animated: true, completion: nil)
-        })
-        
-        let alertViewController = BHAlertViewController(withTitle: "Sorry...", message: "There's no way to view uncategorized expenses grouped together at the moment.", actions: [confirmAction])
-        let topSlideViewController = TopSlideViewController(presenting: alertViewController, from: self)
-        present(topSlideViewController, animated: true, completion: nil)
-      }
+    
+    if let category = category {
+      amountWidgetDelegate?.didSelect(category: category)
+    } else {
+      let confirmAction = BHAlertAction(withTitle: "Got It", action: {
+        self.dismiss(animated: true, completion: nil)
+      })
+      
+      let alertViewController = BHAlertViewController(withTitle: "Sorry...", message: "There's no way to view uncategorized expenses grouped together at the moment.", actions: [confirmAction])
+      let topSlideViewController = TopSlideViewController(presenting: alertViewController, from: self)
+      present(topSlideViewController, animated: true, completion: nil)
     }
   }
 }

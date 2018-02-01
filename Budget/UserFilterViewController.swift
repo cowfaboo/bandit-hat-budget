@@ -60,11 +60,11 @@ extension UserFilterViewController: UITableViewDelegate {
     if indexPath.row == 0 {
       currentUser = nil
       tableView.reloadData()
-      ContainerViewController.sharedInstance.dataNavigationController.currentUser = nil
+      ContainerViewController.sharedInstance.dataNavigationController.currentViewController.userFilter = nil
     } else {
       currentUser = userArray[indexPath.row - 1]
       tableView.reloadData()
-      ContainerViewController.sharedInstance.dataNavigationController.currentUser = userArray[indexPath.row - 1]
+      ContainerViewController.sharedInstance.dataNavigationController.currentViewController.userFilter = userArray[indexPath.row - 1]
     }
     
     delegate?.shouldDismissUserFilter()

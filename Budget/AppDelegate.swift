@@ -55,6 +55,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func applicationDidBecomeActive(_ application: UIApplication) {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    // May want to think a bit harder about exactly when we want to update recent expenses.
+    BKSharedBasicRequestClient.getUsers { (success, userArray) in
+      BKSharedBasicRequestClient.getCategories { (success, categoryArray) in
+        BKSharedBasicRequestClient.getAllRecentExpenses { (success, expenseArray) in
+          Utilities.updateDataViews()
+        }
+      }
+    }
   }
   
   func applicationWillTerminate(_ application: UIApplication) {

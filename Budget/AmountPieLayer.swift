@@ -10,6 +10,8 @@ import UIKit
 
 class AmountPieLayer: CAShapeLayer {
   
+  var animationEnabled: Bool = false
+  
   var themeColor: UIColor = UIColor.text {
     didSet {
       setNeedsLayout()
@@ -30,7 +32,6 @@ class AmountPieLayer: CAShapeLayer {
   }
   
   override func display() {
-    
     // total amount is what the entire circle is worth. primary amount is how much of that 
     // is filled in. secondary amount is how much *should* be filled in given the current date.
     // if secondary amount > primary amount, secondary angle is green, starts at primary and ends at secondary.
@@ -38,8 +39,19 @@ class AmountPieLayer: CAShapeLayer {
     fillColor = UIColor.clear.cgColor
     
     let cgTotalAmount = CGFloat(totalAmount)
-    var cgPrimaryAmount = CGFloat((presentation()?.primaryAmount) ?? 0)
-    let cgSecondaryAmount = CGFloat((presentation()?.secondaryAmount) ?? 0)
+    
+    let currentPrimaryAmount: Float
+    let currentSecondaryAmount: Float
+    if animationEnabled {
+      currentPrimaryAmount = presentation()?.primaryAmount ?? 0
+      currentSecondaryAmount = presentation()?.secondaryAmount ?? 0
+    } else {
+      currentPrimaryAmount = primaryAmount
+      currentSecondaryAmount = secondaryAmount
+    }
+    
+    var cgPrimaryAmount = CGFloat(currentPrimaryAmount)
+    let cgSecondaryAmount = CGFloat(currentSecondaryAmount)
     
     let cgExcessAmount = max(cgPrimaryAmount - cgTotalAmount, 0)
     if cgExcessAmount > 0 {

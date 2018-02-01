@@ -12,6 +12,7 @@ import UIKit
 enum TimeRangeType {
   case monthly
   case annual
+  case other
 }
 
 enum DataPresentationType {

@@ -123,19 +123,11 @@ extension ContainerViewController: SettingsDelegate {
 extension ContainerViewController: ExpenseEntryDelegate {
   
   func expenseEntered() {
-    
-    if let dataViewController = dataNavigationController.currentViewController as? DataDisplaying {
-      dataViewController.updateData()
-    }
-    
     dismiss(animated: true)
   }
   
   func expenseDeleted() {
-    
-    if let dataViewController = dataNavigationController.currentViewController as? DataDisplaying {
-      dataViewController.updateData()
-    }
+    dismiss(animated: true)
   }
 }
 

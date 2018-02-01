@@ -8,6 +8,8 @@
 
 import Foundation
 
+let DateOfLastExpenseFetch = "DateOfLastExpenseFetch"
+
 public class BKUtilities {
   
   class func dateTime(from string: String) -> Date? {
@@ -64,6 +66,14 @@ public class BKUtilities {
     }
     
     return nil
+  }
+  
+  class func dateOfLastExpenseFetch() -> Date? {
+    return UserDefaults.standard.object(forKey: DateOfLastExpenseFetch) as? Date
+  }
+  
+  class func setDateOfLastExpenseFetch(_ date: Date) {
+    UserDefaults.standard.set(date, forKey: DateOfLastExpenseFetch)
   }
 }
 

@@ -24,9 +24,9 @@ class ExpenseDataCell: UITableViewCell {
       nameLabel.textColor = UIColor.text
       amountLabel.text = expense.amount.dollarAmount()
       amountLabel.textColor = UIColor.text
-      dateLabel.text = "\(expense.date.dayOfMonth())"
+      dateLabel.text = "\((expense.date as Date).dayOfMonth())"
       
-      guard let categoryID = expense.categoryID, let category = BKCategory.fetchCategory(withCloudID: categoryID) else {
+      guard let categoryID = expense.category?.cloudID, let category = BKCategory.fetchCategory(withCloudID: categoryID) else {
         categoryLabel.text = "Uncategorized"
         categoryLabel.textColor = UIColor.text.withAlphaComponent(0.5)
         return

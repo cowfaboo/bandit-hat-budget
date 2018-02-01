@@ -10,28 +10,22 @@ import UIKit
 
 class AmountPieView: UIView {
   
-  var totalAmount: Float = 0 {
-    didSet {
-      (layer as! AmountPieLayer).totalAmount = totalAmount
-    }
+  func updatePrimaryAmount(_ primaryAmount: Float, withAnimation animationEnabled: Bool = false) {
+    (layer as! AmountPieLayer).animationEnabled = animationEnabled
+    (layer as! AmountPieLayer).primaryAmount = primaryAmount
   }
   
-  var primaryAmount: Float = 0 {
-    didSet {
-      (layer as! AmountPieLayer).primaryAmount = primaryAmount
-    }
+  func updateSecondaryAmount(_ secondaryAmount: Float, withAnimation animationEnabled: Bool = false) {
+    (layer as! AmountPieLayer).animationEnabled = animationEnabled
+    (layer as! AmountPieLayer).secondaryAmount = secondaryAmount
   }
   
-  var secondaryAmount: Float = 0 {
-    didSet {
-      (layer as! AmountPieLayer).secondaryAmount = secondaryAmount
-    }
+  func updateTotalAmount(_ totalAmount: Float) {
+    (layer as! AmountPieLayer).totalAmount = totalAmount
   }
   
-  var themeColor: UIColor = UIColor.text {
-    didSet {
-      (layer as! AmountPieLayer).themeColor = themeColor
-    }
+  func updateThemeColor(_ themeColor: UIColor) {
+    (layer as! AmountPieLayer).themeColor = themeColor
   }
   
   override class var layerClass: AnyClass {

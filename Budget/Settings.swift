@@ -33,4 +33,6 @@ class Settings {
   class func relinquishUser() {
     UserDefaults.standard.set(nil, forKey: UserIDKey)
   }
+  
+  
 }

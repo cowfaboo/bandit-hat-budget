@@ -18,16 +18,6 @@ class DataNavigationController: UIViewController {
   @IBOutlet weak var nextView: UIView!
   @IBOutlet weak var previousView: UIView!
   
-  @IBOutlet weak var nextDummyHeaderView: UIView!
-  @IBOutlet weak var previousDummyHeaderView: UIView!
-  
-  @IBOutlet weak var nextDummyScrollView: UIScrollView!
-  @IBOutlet weak var previousDummyScrollView: UIScrollView!
-  var previousDummyAmountWidgetArray = [AmountWidgetViewController]()
-  var previousDummyContainerViewArray = [UIView]()
-  var nextDummyAmountWidgetArray = [AmountWidgetViewController]()
-  var nextDummyContainerViewArray = [UIView]()
-  
   @IBOutlet weak var currentViewLeadingConstraint: NSLayoutConstraint!
   @IBOutlet weak var currentViewTrailingConstraint: NSLayoutConstraint!
   @IBOutlet weak var nextViewLeadingConstraint: NSLayoutConstraint!
@@ -35,22 +25,8 @@ class DataNavigationController: UIViewController {
   @IBOutlet weak var previousViewLeadingConstraint: NSLayoutConstraint!
   @IBOutlet weak var previousViewTrailingConstraint: NSLayoutConstraint!
   
-  var nextDataHeaderViewController: DataHeaderViewController!
-  var previousDataHeaderViewController: DataHeaderViewController!
-  
   @IBOutlet weak var amountsButton: BHButton!
   @IBOutlet weak var expensesButton: BHButton!
-  
-  var currentDate = Date().startAndEndOfMonth().startDate
-  var currentUser: BKUser? {
-    didSet {
-      if let currentViewController = currentViewController as? DataDisplaying {
-        currentViewController.userFilter = currentUser
-      }
-    }
-  }
-  
-  var timeRangeType = TimeRangeType.monthly
   
   var dataPresentationType = DataPresentationType.amounts {
     didSet {
@@ -64,9 +40,9 @@ class DataNavigationController: UIViewController {
     }
   }
   
-  var currentViewController: UIViewController!
-  var nextViewController: UIViewController!
-  var previousViewController: UIViewController!
+  var currentViewController: (UIViewController & DataDisplaying)!
+  var nextViewController: (UIViewController & DataDisplaying)?
+  var previousViewController: (UIViewController & DataDisplaying)?
   
   var leftRecognizer: DirectionalPanGestureRecognizer!
   var rightRecognizer: DirectionalPanGestureRecognizer!
@@ -75,12 +51,12 @@ class DataNavigationController: UIViewController {
     super.viewDidLoad()
     
     leftRecognizer = DirectionalPanGestureRecognizer(target: self, action: #selector(handlePreviousDrag(_:)))
-    leftRecognizer.gestureDirection = .StrictHorizontal
+    leftRecognizer.gestureDirection = .Horizontal
     leftRecognizer.delegate = self
     view.addGestureRecognizer(leftRecognizer)
     
     rightRecognizer = DirectionalPanGestureRecognizer(target: self, action: #selector(handleNextDrag(_:)))
-    rightRecognizer.gestureDirection = .StrictHorizontal
+    rightRecognizer.gestureDirection = .Horizontal
     rightRecognizer.delegate = self
     view.addGestureRecognizer(rightRecognizer)
     
@@ -89,9 +65,9 @@ class DataNavigationController: UIViewController {
     amountsButton.isCircular = true
     
     let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
-    amountDataViewController.date = currentDate
-    amountDataViewController.timeRangeType = .monthly
-    amountDataViewController.userFilter = currentUser
+    amountDataViewController.startDate = Date().startAndEndOfMonth().startDate
+    amountDataViewController.endDate = Date().startAndEndOfMonth().endDate
+    amountDataViewController.userFilter = nil
     navigate(to: amountDataViewController)
   }
   
@@ -102,8 +78,6 @@ class DataNavigationController: UIViewController {
   @objc func handlePreviousDrag(_ recognizer: UIScreenEdgePanGestureRecognizer) {
     
     if recognizer.state == .began {
-      
-      buildDummyPreviousView()
       
       view.endEditing(true)
       view.isUserInteractionEnabled = false
@@ -133,6 +107,9 @@ class DataNavigationController: UIViewController {
       
     } else if recognizer.state == .ended {
       
+      leftRecognizer.isEnabled = false
+      rightRecognizer.isEnabled = false
+      
       view.isUserInteractionEnabled = true
       currentViewController?.view.isUserInteractionEnabled = true
       previousViewController?.view.isUserInteractionEnabled = true
@@ -146,7 +123,7 @@ class DataNavigationController: UIViewController {
         
         
         animateToPreviousView(withDistanceToTravel: distanceToTravel, andVelocity: velocity) {
-          self.buildPreviousDataViewController()
+          self.makePreviousDataViewCurrent()
         }
         
       } else {
@@ -165,8 +142,6 @@ class DataNavigationController: UIViewController {
     
     if recognizer.state == .began {
       
-      buildDummyNextView()
-      
       view.endEditing(true)
       view.isUserInteractionEnabled = false
       
@@ -184,7 +159,7 @@ class DataNavigationController: UIViewController {
       var progress = recognizer.translation(in: view).x / -TransitionDistance
       progress = min(1.0, max(0.0, progress))
       
-      if timeRangeType == .annual {
+      if currentViewController?.timeRangeType == .annual {
         progress = progress / (1.0 + (progress * 4.0))
       }
       
@@ -198,6 +173,9 @@ class DataNavigationController: UIViewController {
       
     } else if recognizer.state == .ended {
       
+      leftRecognizer.isEnabled = false
+      rightRecognizer.isEnabled = false
+      
       view.isUserInteractionEnabled = true
       currentViewController?.view.isUserInteractionEnabled = true
       previousViewController?.view.isUserInteractionEnabled = true
@@ -208,7 +186,7 @@ class DataNavigationController: UIViewController {
       var velocity = recognizer.velocity(in: view).x
       
       
-      if timeRangeType == .annual {
+      if currentViewController?.timeRangeType == .annual {
         progress = progress / (1.0 + (progress * 4.0))
         velocity = velocity / (1.0 + (velocity * 4.0))
         let distanceToTravel = progress * TransitionDistance
@@ -229,7 +207,7 @@ class DataNavigationController: UIViewController {
         let distanceToTravel = oppositeProgress * TransitionDistance
         
         animateToNextView(withDistanceToTravel: distanceToTravel, andVelocity: -velocity) {
-          self.buildNextDataViewController()
+          self.makeNextDataViewCurrent()
         }
       }
       
@@ -267,6 +245,8 @@ class DataNavigationController: UIViewController {
       if let completion = completion {
         completion()
       }
+      self.rightRecognizer.isEnabled = true
+      self.leftRecognizer.isEnabled = true
     })
   }
   
@@ -295,7 +275,8 @@ class DataNavigationController: UIViewController {
       self.view.layoutIfNeeded()
       
     }, completion: { (finished: Bool) -> Void in
-      
+      self.rightRecognizer.isEnabled = true
+      self.leftRecognizer.isEnabled = true
     })
   }
   
@@ -326,6 +307,8 @@ class DataNavigationController: UIViewController {
       if let completion = completion {
         completion()
       }
+      self.rightRecognizer.isEnabled = true
+      self.leftRecognizer.isEnabled = true
     })
   }
   
@@ -333,174 +316,135 @@ class DataNavigationController: UIViewController {
     
     let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
     
-    expenseDataViewController.date = currentDate
-    expenseDataViewController.userFilter = currentUser
-    expenseDataViewController.timeRangeType = timeRangeType
+    expenseDataViewController.userFilter = currentViewController.userFilter
+    expenseDataViewController.startDate = currentViewController.startDate
+    expenseDataViewController.endDate = currentViewController.endDate
     
-    if let dataDisplayingViewController = currentViewController as? DataDisplaying {
-      dataDisplayingViewController.fadeOut() {
-        self.navigate(to: expenseDataViewController, withAnimatedTransition: true)
-        self.dataPresentationType = .expenses
-      }
-    } else {
-      self.navigate(to: expenseDataViewController, withAnimatedTransition: true)
-      self.dataPresentationType = .expenses
-    }
+    self.dataPresentationType = .expenses
+    self.navigate(to: expenseDataViewController, withAnimatedTransition: true)
   }
   
   @IBAction func amountsButtonTapped() {
     
     let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
-    amountDataViewController.date = currentDate
-    amountDataViewController.userFilter = currentUser
-    amountDataViewController.timeRangeType = timeRangeType
+    amountDataViewController.startDate = currentViewController.startDate
+    amountDataViewController.endDate = currentViewController.endDate
+    amountDataViewController.userFilter = currentViewController.userFilter
     
-    if let dataDisplayingViewController = currentViewController as? DataDisplaying {
-      dataDisplayingViewController.fadeOut() {
-        self.navigate(to: amountDataViewController, withAnimatedTransition: true)
-        self.dataPresentationType = .amounts
-      }
-    } else {
-      self.navigate(to: amountDataViewController, withAnimatedTransition: true)
-      self.dataPresentationType = .amounts
-    }
-  }
-  
-  func buildDummyPreviousView() {
-    
-    let previousDate: Date
-    
-    if timeRangeType == .monthly {
-      previousDate = currentDate.startOfPreviousMonth()
-    } else {
-      previousDate = currentDate
-    }
-    
-    if let previousDataHeaderViewController = previousDataHeaderViewController {
-      previousDataHeaderViewController.removeFromContainerView()
-    }
-    
-    previousDataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
-    previousDataHeaderViewController.date = previousDate
-    previousDataHeaderViewController.user = currentUser
-    previousDataHeaderViewController.timeRangeType = .monthly
-    add(previousDataHeaderViewController, to: previousDummyHeaderView)
-    
-    if dataPresentationType == .amounts {
-      previousDummyScrollView.isHidden = false
-      updatePreviousDummyDataViews()
-    } else {
-      previousDummyScrollView.isHidden = true
-    }
-  }
-  
-  func buildDummyNextView() {
-    
-    var nextDate = currentDate.startOfNextMonth()
-    let nextTimeRangeType: TimeRangeType
-    
-    if nextDate > Date() {
-      nextTimeRangeType = .annual
-      nextDate = currentDate
-    } else {
-      nextTimeRangeType = .monthly
-    }
-    
-    if let nextDataHeaderViewController = nextDataHeaderViewController {
-      nextDataHeaderViewController.removeFromContainerView()
-    }
-    
-    nextDataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
-    nextDataHeaderViewController.date = nextDate
-    nextDataHeaderViewController.user = currentUser
-    nextDataHeaderViewController.timeRangeType = nextTimeRangeType
-    add(nextDataHeaderViewController, to: nextDummyHeaderView)
-    
-    if dataPresentationType == .amounts {
-      nextDummyScrollView.isHidden = false
-      updateNextDummyDataViews()
-    } else {
-      nextDummyScrollView.isHidden = true
-    }
+    self.dataPresentationType = .amounts
+    self.navigate(to: amountDataViewController, withAnimatedTransition: false)
   }
   
   func buildPreviousDataViewController() {
     
-    if timeRangeType == .monthly {
-      currentDate = currentDate.startOfPreviousMonth()
+    let dates: (startDate: Date, endDate: Date)
+    
+    if currentViewController.timeRangeType == .annual {
+      dates = Date().startAndEndOfMonth()
     } else {
-      timeRangeType = .monthly
+      dates = currentViewController.startDate.startOfPreviousMonth().startAndEndOfMonth()
     }
     
     if dataPresentationType == .amounts {
       
-      let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
-      amountDataViewController.date = currentDate
-      amountDataViewController.userFilter = currentUser
-      amountDataViewController.amountDataDelegate = self
-      navigate(to: amountDataViewController)
+      let amountDataViewController: AmountDataViewController = (self.previousViewController as? AmountDataViewController) ?? AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
+      amountDataViewController.startDate = dates.startDate
+      amountDataViewController.endDate = dates.endDate
+      amountDataViewController.userFilter = currentViewController.userFilter
+      if let previousViewController = previousViewController {
+        previousViewController.removeFromContainerView()
+      }
+      
+      previousViewController = amountDataViewController
+      add(amountDataViewController, to: previousView)
       
     } else {
       
-      let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
-      expenseDataViewController.date = currentDate
-      expenseDataViewController.userFilter = currentUser
-      expenseDataViewController.expenseDataDelegate = self
-      navigate(to: expenseDataViewController)
+      let expenseDataViewController = ((self.previousViewController as? ExpenseDataViewController) ?? ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil))
+      expenseDataViewController.startDate = dates.startDate
+      expenseDataViewController.endDate = dates.endDate
+      expenseDataViewController.userFilter = currentViewController.userFilter
+      if let previousViewController = previousViewController {
+        previousViewController.removeFromContainerView()
+      }
+      
+      previousViewController = expenseDataViewController
+      add(previousViewController!, to: previousView)
     }
+    
+    previousViewController?.scrollToTop()
   }
   
   func buildNextDataViewController() {
     
-    let nextDate = currentDate.startOfNextMonth()
+    let nextDate = currentViewController.endDate.startOfNextMonth()
     
     if nextDate > Date() {
       
+      let dates = currentViewController.startDate.startAndEndOfYear()
+      
       if dataPresentationType == .amounts {
         
-        let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
-        amountDataViewController.timeRangeType = .annual
-        amountDataViewController.userFilter = currentUser
-        amountDataViewController.amountDataDelegate = self
-        navigate(to: amountDataViewController)
+        let amountDataViewController = (self.nextViewController as? AmountDataViewController) ?? AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
+        amountDataViewController.startDate = dates.startDate
+        amountDataViewController.endDate = dates.endDate
+        amountDataViewController.userFilter = currentViewController.userFilter
+        if let nextViewController = nextViewController {
+          nextViewController.removeFromContainerView()
+        }
+        
+        nextViewController = amountDataViewController
+        add(nextViewController!, to: nextView)
         
       } else {
         
-        let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
-        expenseDataViewController.timeRangeType = .annual
-        expenseDataViewController.userFilter = currentUser
-        expenseDataViewController.expenseDataDelegate = self
-        navigate(to: expenseDataViewController)
+        let expenseDataViewController = (self.nextViewController as? ExpenseDataViewController) ?? ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
+        expenseDataViewController.startDate = dates.startDate
+        expenseDataViewController.endDate = dates.endDate
+        expenseDataViewController.userFilter = currentViewController.userFilter
+        if let nextViewController = nextViewController {
+          nextViewController.removeFromContainerView()
+        }
+        
+        nextViewController = expenseDataViewController
+        add(nextViewController!, to: nextView)
       }
-      
-      timeRangeType = .annual
       
     } else {
       
-      currentDate = nextDate
+      let dates = currentViewController.startDate.startOfNextMonth().startAndEndOfMonth()
       
       if dataPresentationType == .amounts {
         
-        let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
-        amountDataViewController.date = currentDate
-        amountDataViewController.userFilter = currentUser
-        amountDataViewController.amountDataDelegate = self
-        navigate(to: amountDataViewController)
+        let amountDataViewController = (self.nextViewController as? AmountDataViewController) ?? AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
+        amountDataViewController.startDate = dates.startDate
+        amountDataViewController.endDate = dates.endDate
+        amountDataViewController.userFilter = currentViewController.userFilter
+        if let nextViewController = nextViewController {
+          nextViewController.removeFromContainerView()
+        }
+        
+        nextViewController = amountDataViewController
+        add(nextViewController!, to: nextView)
         
       } else {
         
-        let expenseDataViewController = ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
-        expenseDataViewController.date = currentDate
-        expenseDataViewController.userFilter = currentUser
-        expenseDataViewController.expenseDataDelegate = self
-        navigate(to: expenseDataViewController)
+        let expenseDataViewController = (self.nextViewController as? ExpenseDataViewController) ?? ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
+        expenseDataViewController.startDate = dates.startDate
+        expenseDataViewController.endDate = dates.endDate
+        expenseDataViewController.userFilter = currentViewController.userFilter
+        if let nextViewController = nextViewController {
+          nextViewController.removeFromContainerView()
+        }
+        
+        nextViewController = expenseDataViewController
+        add(nextViewController!, to: nextView)
       }
-      
-      timeRangeType = .monthly
     }
+    nextViewController?.scrollToTop()
   }
   
-  func navigate(to viewController: UIViewController, withAnimatedTransition shouldAnimateTransition: Bool = false) {
+  func navigate(to viewController: (UIViewController & DataDisplaying), withAnimatedTransition shouldAnimateTransition: Bool = false) {
     
     if let currentViewController = currentViewController {
       currentViewController.removeFromContainerView()
@@ -508,6 +452,13 @@ class DataNavigationController: UIViewController {
     
     currentViewController = viewController
     add(currentViewController, to: currentView, withAnimatedTransition: shouldAnimateTransition)
+    
+    nextViewController?.removeFromContainerView()
+    previousViewController?.removeFromContainerView()
+    nextViewController = nil
+    previousViewController = nil
+    buildNextDataViewController()
+    buildPreviousDataViewController()
   }
   
   func repositionViews() {
@@ -518,133 +469,36 @@ class DataNavigationController: UIViewController {
     previousViewTrailingConstraint.constant = TransitionDistance
     nextViewLeadingConstraint.constant = TransitionDistance
     nextViewTrailingConstraint.constant = -TransitionDistance
+    
     view.layoutIfNeeded()
   }
   
-  func updatePreviousDummyDataViews() {
+  func makeNextDataViewCurrent() {
     
-    let amountDataViewController = (currentViewController as! AmountDataViewController)
-    let amountArray = amountDataViewController.amountArray
-    
-    if (amountArray.count == previousDummyContainerViewArray.count) {
-      return
+    if let currentViewController = currentViewController {
+      currentViewController.removeFromContainerView()
     }
     
-    let completionPercentage: Float = 0
+    swap(&currentViewController!, &nextViewController!)
+    add(currentViewController, to: currentView)
+    repositionViews()
     
-    for amountWidget in previousDummyAmountWidgetArray {
-      amountWidget.removeFromContainerView()
-    }
-    
-    for containerView in previousDummyContainerViewArray {
-      containerView.removeFromSuperview()
-    }
-    
-    previousDummyAmountWidgetArray = []
-    previousDummyContainerViewArray = []
-    
-    let containerWidth: CGFloat = 136
-    let containerHeight: CGFloat = 200
-    let remainingWidthSpacing = Utilities.screenWidth - containerWidth * 2
-    var currentYPosition: CGFloat = 0
-    
-    var index = 0
-    for amount in amountArray {
-      
-      let currentXPosition: CGFloat
-      if index % 2 == 0 {
-        currentXPosition = remainingWidthSpacing / 3
-      } else {
-        currentXPosition = ((remainingWidthSpacing / 3) * 2) + containerWidth
-      }
-      
-      let containerView = UIView(frame: CGRect(x: currentXPosition, y: currentYPosition, width: containerWidth, height: containerHeight))
-      previousDummyContainerViewArray.append(containerView)
-      previousDummyScrollView.addSubview(containerView)
-      
-      let amountWidgetViewController = AmountWidgetViewController(withAmount: amount, timeRangeType: timeRangeType, completionPercentage: completionPercentage, isPlaceholder: true)
-      add(amountWidgetViewController, to: containerView)
-      amountWidgetViewController.refreshView()
-      previousDummyAmountWidgetArray.append(amountWidgetViewController)
-      
-      if index % 2 == 1 {
-        currentYPosition += containerHeight + 28
-      }
-      
-      index += 1
-    }
-    
-    let numberOfRows: Int
-    if amountArray.count % 2 == 0 {
-      numberOfRows = amountArray.count / 2
-    } else {
-      numberOfRows = amountArray.count / 2 + 1
-    }
-    
-    previousDummyScrollView.contentSize = CGSize(width: Utilities.screenWidth, height: (containerHeight * CGFloat(numberOfRows)) + (28 * CGFloat(numberOfRows)) + 60)
-    
+    buildNextDataViewController()
+    buildPreviousDataViewController()
   }
   
-  func updateNextDummyDataViews() {
+  func makePreviousDataViewCurrent() {
     
-    let amountDataViewController = (currentViewController as! AmountDataViewController)
-    let amountArray = amountDataViewController.amountArray
-    
-    if (amountArray.count == nextDummyContainerViewArray.count) {
-      return
+    if let currentViewController = currentViewController {
+      currentViewController.removeFromContainerView()
     }
     
-    let completionPercentage: Float = 0
+    swap(&currentViewController!, &previousViewController!)
+    add(currentViewController, to: currentView)
+    repositionViews()
     
-    for amountWidget in nextDummyAmountWidgetArray {
-      amountWidget.removeFromContainerView()
-    }
-    
-    for containerView in nextDummyContainerViewArray {
-      containerView.removeFromSuperview()
-    }
-    
-    nextDummyAmountWidgetArray = []
-    nextDummyContainerViewArray = []
-    
-    let containerWidth: CGFloat = 136
-    let containerHeight: CGFloat = 200
-    let remainingWidthSpacing = Utilities.screenWidth - containerWidth * 2
-    var currentYPosition: CGFloat = 0
-    
-    var index = 0
-    for amount in amountArray {
-      let currentXPosition: CGFloat
-      if index % 2 == 0 {
-        currentXPosition = remainingWidthSpacing / 3
-      } else {
-        currentXPosition = ((remainingWidthSpacing / 3) * 2) + containerWidth
-      }
-      
-      let containerView = UIView(frame: CGRect(x: currentXPosition, y: currentYPosition, width: containerWidth, height: containerHeight))
-      nextDummyContainerViewArray.append(containerView)
-      nextDummyScrollView.addSubview(containerView)
-      
-      let amountWidgetViewController = AmountWidgetViewController(withAmount: amount, timeRangeType: timeRangeType, completionPercentage: completionPercentage, isPlaceholder: true)
-      add(amountWidgetViewController, to: containerView)
-      amountWidgetViewController.refreshView()
-      nextDummyAmountWidgetArray.append(amountWidgetViewController)
-      
-      if index % 2 == 1 {
-        currentYPosition += containerHeight + 28
-      }
-      
-      index += 1
-    }
-    
-    let numberOfRows: Int
-    if amountArray.count % 2 == 0 {
-      numberOfRows = amountArray.count / 2
-    } else {
-      numberOfRows = amountArray.count / 2 + 1
-    }
-    
-    nextDummyScrollView.contentSize = CGSize(width: Utilities.screenWidth, height: (containerHeight * CGFloat(numberOfRows)) + (28 * CGFloat(numberOfRows)) + 60) 
+    buildNextDataViewController()
+    buildPreviousDataViewController()
   }
 }
 
@@ -660,30 +514,5 @@ extension DataNavigationController: UIGestureRecognizerDelegate {
     } else {
       return false
     }
-  }
-}
-
-
-// MARK: - Amount Data Delegate Methods
-extension DataNavigationController: AmountDataDelegate {
-  
-  func didFinishLoadingAmountData() {
-    repositionViews()
-  }
-  
-  func shouldFilterByUser(_ user: BKUser?) {
-    currentUser = user
-  }
-}
-
-// MARK: - Expense Data Delegate Methods
-extension DataNavigationController: ExpenseDataDelegate {
-  
-  func shouldDismissExpenseData() {
-    
-  }
-  
-  func didFinishLoadingExpenseData() {
-    repositionViews()
   }
 }

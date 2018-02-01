@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 public class BKAmount {
   
@@ -50,6 +51,100 @@ public class BKAmount {
       if let endDate = BKUtilities.date(from: endDateString) {
         self.endDate = endDate
       }
+    }
+  }
+
+  public class func getAmountsByCategory(forUser user: BKUser? = nil, startDate: Date? = nil, endDate: Date? = nil, completion: @escaping ([BKAmount]) -> ()) {
+    
+    guard let categories = BKCategory.fetchCategories() else {
+      completion([])
+      return
+    }
+    
+    let viewContext = BKSharedDataController.persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = BKExpense.fetchRequest()
+    
+    var predicateArray = [NSPredicate]()
+    if let user = user {
+      predicateArray.append(NSPredicate(format: "user == %@", user))
+    }
+    
+    if let startDate = startDate {
+      predicateArray.append(NSPredicate(format: "date >= %@", startDate as NSDate))
+    }
+    
+    if let endDate = endDate {
+      predicateArray.append(NSPredicate(format: "date <= %@", endDate as NSDate))
+    }
+    
+    fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicateArray)
+    fetchRequest.resultType = .dictionaryResultType
+    
+    let amountExpression = NSExpression(forKeyPath: "amount")
+    let sumExpression = NSExpression(forFunction: "sum:", arguments: [amountExpression])
+    let categoryExpression = NSExpression(forKeyPath: "category.cloudID")
+    
+    let sumExpressionDescription = NSExpressionDescription()
+    sumExpressionDescription.name = "amountSum"
+    sumExpressionDescription.expression = sumExpression
+    sumExpressionDescription.expressionResultType = .floatAttributeType
+    
+    let categoryExpressionDescription = NSExpressionDescription()
+    categoryExpressionDescription.name = "categoryID"
+    categoryExpressionDescription.expression = categoryExpression
+    categoryExpressionDescription.expressionResultType = .stringAttributeType
+    
+    fetchRequest.propertiesToGroupBy = [categoryExpressionDescription]
+    fetchRequest.propertiesToFetch = [sumExpressionDescription, categoryExpressionDescription]
+    
+    let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { (asynchronousResult) in
+      processAsynchronousFetchResult(asynchronousResult, withCategories: categories, user: user, startDate: startDate, endDate: endDate, andCompletionHandler: completion)
+    }
+    
+    guard let result = try? viewContext.execute(asynchronousFetchRequest) else {
+      print("asynchronous BKAmount fetch request failed")
+      return
+    }
+  }
+  
+  class func processAsynchronousFetchResult(_ asynchronousResult: NSAsynchronousFetchResult<NSFetchRequestResult>, withCategories categories: [BKCategory], user: BKUser?, startDate: Date?, endDate: Date?, andCompletionHandler completion: @escaping ([BKAmount]) -> ()) {
+    
+    guard let results = asynchronousResult.finalResult as? Array<Dictionary<String, Any>> else {
+      completion([])
+      return
+    }
+    
+    var amountArray = [BKAmount]()
+    
+    for resultsDictionary in results {
+      let amount = BKAmount(withAmount: Float(truncating: resultsDictionary["amountSum"] as! NSNumber), categoryID: (resultsDictionary["categoryID"] as! String), userID: user?.cloudID, startDate: startDate, endDate: endDate)
+      amountArray.append(amount)
+    }
+    
+    
+    // now iterate through categories to check if results are missing any. If so, add them with amount 0
+    for category in categories {
+      if !results.contains(where: { ($0["categoryID"] as! String) == category.cloudID}) {
+        let emptyAmount = BKAmount(withAmount: 0, categoryID: category.cloudID, userID: user?.cloudID, startDate: startDate, endDate: endDate)
+        amountArray.append(emptyAmount)
+      }
+    }
+    
+    // finally, sort amount array so that amounts are always displayed in a consistent order
+    amountArray.sort {
+      if $0.categoryID == nil {
+        return false
+      } else if $1.categoryID == nil {
+        return true
+      } else {
+        return $0.categoryID! < $1.categoryID!
+      }
+    }
+    
+    
+    DispatchQueue.main.async {
+      completion(amountArray)
     }
   }
 }
