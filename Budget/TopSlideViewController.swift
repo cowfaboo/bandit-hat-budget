@@ -159,12 +159,14 @@ extension TopSlideViewController: UIGestureRecognizerDelegate {
 }
 
 extension TopSlideViewController: ViewContainer {
-  func contentHeightDidChange(_ contentHeight: CGFloat) {
+  func contentHeightDidChange(_ contentHeight: CGFloat, animation: Bool) {
     currentContentHeight = contentHeight
     
     containerViewHeightConstraint.constant = contentHeight
-    UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
-      self.view.layoutIfNeeded()
-    }, completion: nil)
+    if animation {
+      UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
+        self.view.layoutIfNeeded()
+      }, completion: nil)
+    }
   }
 }

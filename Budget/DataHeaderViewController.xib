@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,23 +13,25 @@
             <connections>
                 <outlet property="dateLabel" destination="ewp-q6-Dtg" id="f5u-kH-tTe"/>
                 <outlet property="filterButton" destination="snb-PN-kop" id="Qdb-kB-uFF"/>
+                <outlet property="overallAmountPieView" destination="bSy-Mc-fLc" id="hzo-AR-NCq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="September 2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="ewp-q6-Dtg">
-                    <rect key="frame" x="77.5" y="16" width="219.5" height="38.5"/>
-                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="32"/>
+                    <rect key="frame" x="98.5" y="16" width="178" height="29"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="snb-PN-kop">
-                    <rect key="frame" x="150" y="58.5" width="74" height="34"/>
-                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="snb-PN-kop" customClass="BHButton" customModule="Budget" customModuleProvider="target">
+                    <rect key="frame" x="138" y="55" width="99" height="32"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <inset key="contentEdgeInsets" minX="16" minY="6" maxX="16" maxY="6"/>
                     <state key="normal" title="Everyone">
                         <color key="titleColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" red="0.96862745100000003" green="0.61568627450000002" blue="0.51764705879999995" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -38,15 +40,37 @@
                         <action selector="filterButtonTapped" destination="-1" eventType="touchUpInside" id="Gzl-oJ-w6c"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HrF-Q6-TSj">
+                    <rect key="frame" x="0.0" y="99" width="375" height="1"/>
+                    <color key="backgroundColor" white="0.97187500000000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="nJv-Kr-aPW"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSy-Mc-fLc" customClass="AmountPieView" customModule="Budget" customModuleProvider="target">
+                    <rect key="frame" x="311" y="16" width="48" height="48"/>
+                    <color key="backgroundColor" red="0.90196078430000004" green="0.63529411759999999" blue="0.7725490196" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="eKn-Fc-z3l"/>
+                        <constraint firstAttribute="width" constant="48" id="eqp-JB-ZPf"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ewp-q6-Dtg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="0Nn-Qp-ogp"/>
-                <constraint firstItem="snb-PN-kop" firstAttribute="top" secondItem="ewp-q6-Dtg" secondAttribute="bottom" constant="4" id="JX3-FZ-LHx"/>
+                <constraint firstItem="snb-PN-kop" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="6qr-Hm-3TJ"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="snb-PN-kop" secondAttribute="trailing" constant="60" id="89i-k6-GJS"/>
+                <constraint firstAttribute="trailing" secondItem="HrF-Q6-TSj" secondAttribute="trailing" id="A1Z-0P-Jiq"/>
+                <constraint firstItem="snb-PN-kop" firstAttribute="top" secondItem="ewp-q6-Dtg" secondAttribute="bottom" constant="10" id="JX3-FZ-LHx"/>
+                <constraint firstItem="HrF-Q6-TSj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LFz-RC-HT7"/>
+                <constraint firstItem="bSy-Mc-fLc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="Msr-Gp-4NE"/>
+                <constraint firstAttribute="trailing" secondItem="bSy-Mc-fLc" secondAttribute="trailing" constant="16" id="Su1-hl-eRc"/>
                 <constraint firstItem="ewp-q6-Dtg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="UcK-A3-7Uu"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ewp-q6-Dtg" secondAttribute="trailing" constant="60" id="Xy7-3r-g1C"/>
                 <constraint firstItem="snb-PN-kop" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aiI-2q-Fse"/>
                 <constraint firstItem="ewp-q6-Dtg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="dxs-kX-HKR"/>
+                <constraint firstAttribute="bottom" secondItem="HrF-Q6-TSj" secondAttribute="bottom" id="nm5-pn-YFQ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

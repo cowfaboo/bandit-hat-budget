@@ -29,11 +29,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="308" height="215"/>
+            <rect key="frame" x="0.0" y="0.0" width="308" height="195"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p60-u5-xud">
-                    <rect key="frame" x="0.0" y="0.0" width="308" height="215"/>
+                    <rect key="frame" x="0.0" y="0.0" width="308" height="195"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="8pF-OV-caa">
@@ -57,7 +57,7 @@
                     </connections>
                 </button>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuk-fz-zS0">
-                    <rect key="frame" x="16" y="66" width="276" height="133"/>
+                    <rect key="frame" x="16" y="66" width="276" height="113"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -79,9 +79,9 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vPg-5K-Iqc" customClass="BHButton" customModule="Budget" customModuleProvider="target">
-                    <rect key="frame" x="16" y="135" width="276" height="64"/>
+                    <rect key="frame" x="16" y="135" width="276" height="44"/>
                     <constraints>
-                        <constraint firstAttribute="height" priority="750" constant="64" id="qXs-hL-B1G"/>
+                        <constraint firstAttribute="height" priority="750" constant="44" id="qXs-hL-B1G"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                     <state key="normal" title="Create">
@@ -92,9 +92,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZH-91-OG2" customClass="BHButton" customModule="Budget" customModuleProvider="target">
-                    <rect key="frame" x="292" y="135" width="0.0" height="64"/>
+                    <rect key="frame" x="292" y="135" width="0.0" height="44"/>
                     <constraints>
-                        <constraint firstAttribute="height" priority="750" constant="64" id="dUx-Yc-jQ9"/>
+                        <constraint firstAttribute="height" priority="750" constant="44" id="dUx-Yc-jQ9"/>
                         <constraint firstAttribute="width" id="m6R-m1-aDW"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>

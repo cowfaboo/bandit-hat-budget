@@ -153,7 +153,7 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     deleteButtonLeadingConstraint.constant = 0
     
     if let viewContainer = self.parent as? ViewContainer {
-      viewContainer.contentHeightDidChange(448)
+      viewContainer.contentHeightDidChange(428, animation: true)
     }
     
     view.layoutIfNeeded()
@@ -204,7 +204,7 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     }
     
     if let viewContainer = self.parent as? ViewContainer {
-      viewContainer.contentHeightDidChange(303 - heightModifier)
+      viewContainer.contentHeightDidChange(283 - heightModifier, animation: true)
     } 
   }
   
@@ -236,7 +236,7 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     updateFormValidity()
     
     if let viewContainer = self.parent as? ViewContainer {
-      viewContainer.contentHeightDidChange(448)
+      viewContainer.contentHeightDidChange(428, animation: true)
     }
     
     if let colorIndex = UIColor.paletteIndex(of: category!.color) {

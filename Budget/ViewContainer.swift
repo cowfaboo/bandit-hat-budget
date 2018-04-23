@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ViewContainer {
-  func contentHeightDidChange(_ contentHeight: CGFloat)
+  func contentHeightDidChange(_ contentHeight: CGFloat, animation: Bool)
 }

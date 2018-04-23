@@ -100,6 +100,13 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     
     addExpenseButton.isEnabled = false
     
+    addExpenseButton.isCircular = true
+    deleteExpenseButton.isCircular = true
+    addExpenseButton.titleLabel?.adjustsFontSizeToFitWidth = true
+    deleteExpenseButton.titleLabel?.adjustsFontSizeToFitWidth = true
+    addExpenseButton.titleLabel?.minimumScaleFactor = 0.7
+    deleteExpenseButton.titleLabel?.minimumScaleFactor = 0.7
+    
     if let fetchedCategories = BKCategory.fetchCategories() {
       categoryArray = fetchedCategories
       categoryCollectionView.reloadData()

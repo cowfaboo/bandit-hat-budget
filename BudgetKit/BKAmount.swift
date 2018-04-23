@@ -54,6 +54,49 @@ public class BKAmount {
     }
   }
 
+  public class func getAmount(forUser user: BKUser? = nil, startDate: Date? = nil, endDate: Date? = nil, completion: @escaping (BKAmount?) -> ()) {
+    
+    let viewContext = BKSharedDataController.persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = BKExpense.fetchRequest()
+    
+    var predicateArray = [NSPredicate]()
+    if let user = user {
+      predicateArray.append(NSPredicate(format: "user == %@", user))
+    }
+    
+    if let startDate = startDate {
+      predicateArray.append(NSPredicate(format: "date >= %@", startDate as NSDate))
+    }
+    
+    if let endDate = endDate {
+      predicateArray.append(NSPredicate(format: "date <= %@", endDate as NSDate))
+    }
+    
+    fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicateArray)
+    fetchRequest.resultType = .dictionaryResultType
+    
+    let amountExpression = NSExpression(forKeyPath: "amount")
+    let sumExpression = NSExpression(forFunction: "sum:", arguments: [amountExpression])
+    
+    let sumExpressionDescription = NSExpressionDescription()
+    sumExpressionDescription.name = "amountSum"
+    sumExpressionDescription.expression = sumExpression
+    sumExpressionDescription.expressionResultType = .floatAttributeType
+    
+    fetchRequest.propertiesToFetch = [sumExpressionDescription]
+    
+    let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { (asynchronousResult) in
+      processAmountFetchResult(asynchronousResult, withUser: user, startDate: startDate, endDate: endDate, andCompletionHandler: completion)
+    }
+    
+    guard let result = try? viewContext.execute(asynchronousFetchRequest) else {
+      print("asynchronous BKAmount fetch request failed")
+      return
+    }
+    
+  }
+  
   public class func getAmountsByCategory(forUser user: BKUser? = nil, startDate: Date? = nil, endDate: Date? = nil, completion: @escaping ([BKAmount]) -> ()) {
     
     guard let categories = BKCategory.fetchCategories() else {
@@ -99,7 +142,7 @@ public class BKAmount {
     fetchRequest.propertiesToFetch = [sumExpressionDescription, categoryExpressionDescription]
     
     let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { (asynchronousResult) in
-      processAsynchronousFetchResult(asynchronousResult, withCategories: categories, user: user, startDate: startDate, endDate: endDate, andCompletionHandler: completion)
+      processAmountsByCategoryFetchResult(asynchronousResult, withCategories: categories, user: user, startDate: startDate, endDate: endDate, andCompletionHandler: completion)
     }
     
     guard let result = try? viewContext.execute(asynchronousFetchRequest) else {
@@ -108,7 +151,21 @@ public class BKAmount {
     }
   }
   
-  class func processAsynchronousFetchResult(_ asynchronousResult: NSAsynchronousFetchResult<NSFetchRequestResult>, withCategories categories: [BKCategory], user: BKUser?, startDate: Date?, endDate: Date?, andCompletionHandler completion: @escaping ([BKAmount]) -> ()) {
+  class func processAmountFetchResult(_ asynchronousResult: NSAsynchronousFetchResult<NSFetchRequestResult>, withUser user: BKUser?, startDate: Date?, endDate: Date?, andCompletionHandler completion: @escaping (BKAmount?) -> ()) {
+    
+    guard let results = asynchronousResult.finalResult as? Array<Dictionary<String, Any>>, results.count > 0 else {
+      completion(nil)
+      return
+    }
+    
+    var amount = BKAmount(withAmount: Float(truncating: results[0]["amountSum"] as! NSNumber), categoryID: nil, userID: user?.cloudID, startDate: startDate, endDate: endDate)
+    
+    DispatchQueue.main.async {
+      completion(amount)
+    }
+  }
+  
+  class func processAmountsByCategoryFetchResult(_ asynchronousResult: NSAsynchronousFetchResult<NSFetchRequestResult>, withCategories categories: [BKCategory], user: BKUser?, startDate: Date?, endDate: Date?, andCompletionHandler completion: @escaping ([BKAmount]) -> ()) {
     
     guard let results = asynchronousResult.finalResult as? Array<Dictionary<String, Any>> else {
       completion([])

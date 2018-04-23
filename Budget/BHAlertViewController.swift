@@ -67,7 +67,7 @@ class BHAlertViewController: UIViewController {
       messageLabel.preferredMaxLayoutWidth = view.frame.size.width - 32
       titleLabel.preferredMaxLayoutWidth = view.frame.size.width - 32
       let size = view.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
-      viewContainer.contentHeightDidChange(size.height)
+      viewContainer.contentHeightDidChange(size.height, animation: false)
     }
   }
   

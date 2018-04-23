@@ -102,7 +102,7 @@ class UserDetailViewController: UIViewController, InteractivePresenter {
     deleteButtonLeadingConstraint.constant = 0
     
     if let viewContainer = self.parent as? ViewContainer {
-      viewContainer.contentHeightDidChange(215)
+      viewContainer.contentHeightDidChange(195, animation: true)
     }
     
     view.layoutIfNeeded()
@@ -131,14 +131,14 @@ class UserDetailViewController: UIViewController, InteractivePresenter {
       inUseDescriptionLabel.isHidden = false
       inUseDescriptionLabel.text = "You are currently tracking expenses as \(user!.name!)."
       if let viewContainer = self.parent as? ViewContainer {
-        viewContainer.contentHeightDidChange(154)
+        viewContainer.contentHeightDidChange(134, animation: true)
       }
     } else {
       actionButton.isHidden = false
       deleteButton.isHidden = false
       inUseDescriptionLabel.isHidden = true
       if let viewContainer = self.parent as? ViewContainer {
-        viewContainer.contentHeightDidChange(154)
+        viewContainer.contentHeightDidChange(134, animation: true)
       }
     }
   }

@@ -351,6 +351,7 @@ class DataNavigationController: UIViewController {
       amountDataViewController.startDate = dates.startDate
       amountDataViewController.endDate = dates.endDate
       amountDataViewController.userFilter = currentViewController.userFilter
+      amountDataViewController.updateData()
       if let previousViewController = previousViewController {
         previousViewController.removeFromContainerView()
       }
@@ -364,6 +365,7 @@ class DataNavigationController: UIViewController {
       expenseDataViewController.startDate = dates.startDate
       expenseDataViewController.endDate = dates.endDate
       expenseDataViewController.userFilter = currentViewController.userFilter
+      expenseDataViewController.updateData()
       if let previousViewController = previousViewController {
         previousViewController.removeFromContainerView()
       }
@@ -389,6 +391,7 @@ class DataNavigationController: UIViewController {
         amountDataViewController.startDate = dates.startDate
         amountDataViewController.endDate = dates.endDate
         amountDataViewController.userFilter = currentViewController.userFilter
+        amountDataViewController.updateData()
         if let nextViewController = nextViewController {
           nextViewController.removeFromContainerView()
         }
@@ -402,6 +405,7 @@ class DataNavigationController: UIViewController {
         expenseDataViewController.startDate = dates.startDate
         expenseDataViewController.endDate = dates.endDate
         expenseDataViewController.userFilter = currentViewController.userFilter
+        expenseDataViewController.updateData()
         if let nextViewController = nextViewController {
           nextViewController.removeFromContainerView()
         }
@@ -420,6 +424,7 @@ class DataNavigationController: UIViewController {
         amountDataViewController.startDate = dates.startDate
         amountDataViewController.endDate = dates.endDate
         amountDataViewController.userFilter = currentViewController.userFilter
+        amountDataViewController.updateData()
         if let nextViewController = nextViewController {
           nextViewController.removeFromContainerView()
         }
@@ -433,6 +438,7 @@ class DataNavigationController: UIViewController {
         expenseDataViewController.startDate = dates.startDate
         expenseDataViewController.endDate = dates.endDate
         expenseDataViewController.userFilter = currentViewController.userFilter
+        expenseDataViewController.updateData()
         if let nextViewController = nextViewController {
           nextViewController.removeFromContainerView()
         }

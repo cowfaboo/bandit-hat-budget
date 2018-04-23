@@ -12,13 +12,14 @@ class AmountPieLayer: CAShapeLayer {
   
   var animationEnabled: Bool = false
   
-  var themeColor: UIColor = UIColor.text {
+  var themeColor: UIColor = UIColor.neutral {
     didSet {
       setNeedsLayout()
     }
   }
   
   var totalAmount: Float = 0
+  var customNeedsDisplay: Bool = false
   
   @NSManaged var primaryAmount: Float
   
@@ -26,9 +27,15 @@ class AmountPieLayer: CAShapeLayer {
   
   override func layoutSublayers() {
     if primaryAmount == 0 && secondaryAmount == 0 {
-      path = UIBezierPath(ovalIn: CGRect(x: 6, y: 6, width: bounds.size.width - 12, height: bounds.size.height - 12)).cgPath
-      fillColor = themeColor.withAlphaComponent(0.1).cgColor
+      setNeedsDisplay()
     }
+    
+    shadowColor = UIColor.black.cgColor
+    shadowOffset = CGSize(width: 0.5, height: 1.0)
+    shadowOpacity = 0.1
+    shadowRadius = 2.0
+    shouldRasterize = true
+    rasterizationScale = UIScreen.main.scale
   }
   
   override func display() {

@@ -18,6 +18,7 @@ protocol DataDisplaying: class {
   func fadeOut(completion: (() -> ())?)
   func fadeIn(completion: (() -> ())?)
   func scrollToTop()
+  func updateData()
 }
 
 extension DataDisplaying {

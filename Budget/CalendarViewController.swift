@@ -23,7 +23,7 @@ class CalendarViewController: UIViewController {
   
   weak var calendarDelegate: CalendarDelegate?
   
-  var themeColor = UIColor.text
+  var themeColor = UIColor.neutral
   
   @IBOutlet weak var calendarCollectionView: UICollectionView!
   @IBOutlet weak var titleLabel: UILabel!

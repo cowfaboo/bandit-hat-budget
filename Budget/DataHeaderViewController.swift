@@ -13,20 +13,46 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
   
   var presentationAnimator: PresentationAnimator = TopSlideAnimator()
   
-  var date: Date = Date()
-  var user: BKUser? {
+  var date: Date = Date() {
     didSet {
-      if let user = user {
-        filterButton?.setTitle(user.name ?? "", for: .normal)
-      } else {
-        filterButton?.setTitle("Everyone", for: .normal)
+      if viewIsLoaded {
+        if timeRangeType == .monthly {
+          dateLabel.text = date.monthYearString()
+        } else {
+          dateLabel.text = date.yearString()
+        }
       }
     }
   }
-  var timeRangeType: TimeRangeType = .monthly
+  
+  var user: BKUser? {
+    didSet {
+      if viewIsLoaded {
+        if let user = user {
+          filterButton?.setTitle(user.name ?? "", for: .normal)
+        } else {
+          filterButton?.setTitle("Everyone", for: .normal)
+        }
+      }
+    }
+  }
+  var timeRangeType: TimeRangeType = .monthly {
+    didSet {
+      if viewIsLoaded {
+        if timeRangeType == .monthly {
+          dateLabel.text = date.monthYearString()
+        } else {
+          dateLabel.text = date.yearString()
+        }
+      }
+    }
+  }
   
   @IBOutlet private weak var dateLabel: UILabel!
-  @IBOutlet private weak var filterButton: UIButton!
+  @IBOutlet private weak var filterButton: BHButton!
+  @IBOutlet weak var overallAmountPieView: AmountPieView!
+  var overallAmount: BKAmount!
+  var viewIsLoaded: Bool = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -38,24 +64,72 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
     }
     
     dateLabel.textColor = UIColor.text
-    filterButton.setTitleColor(UIColor.text.withAlphaComponent(0.5), for: .normal)
+    filterButton.themeColor = UIColor.text
+    filterButton.isCircular = true
+    filterButton.isPrimaryAction = false
     
     if let user = user {
       filterButton.setTitle(user.name ?? "", for: .normal)
+    }
+    
+    self.overallAmountPieView.alpha = 0.0
+    
+    viewIsLoaded = true
+  }
+  
+  func update(withDate date: Date, timeRangeType: TimeRangeType, user: BKUser?, animation: Bool) {
+    
+    self.timeRangeType = timeRangeType
+    self.date = date
+    self.user = user
+    
+    let startDate: Date
+    let endDate: Date
+    if timeRangeType == .monthly {
+      startDate = date.startAndEndOfMonth().startDate
+      endDate = date.startAndEndOfMonth().endDate
+    } else {
+      startDate = date.startAndEndOfYear().startDate
+      endDate = date.startAndEndOfYear().endDate
+    }
+    
+    BKAmount.getAmount(forUser: user, startDate: startDate, endDate: endDate) { (amount) in
+      self.overallAmount = amount
+      self.reloadOverallAmountDataView(withAnimation: animation)
     }
   }
   
-  func update(withDate date: Date, timeRangeType: TimeRangeType, user: BKUser?) {
+  func reloadOverallAmountDataView(withAnimation animationEnabled: Bool) {
     
-    if timeRangeType == .monthly {
-      dateLabel.text = date.monthYearString()
+    let completionPercentage: Float
+    if (timeRangeType == .monthly && date.isMonthEqualTo(Date())) {
+      completionPercentage = Date().completionPercentageOfMonth()
+    } else if (timeRangeType == .annual && date.isYearEqualTo(Date())) {
+      completionPercentage = Date().completionPercentageOfYear()
     } else {
-      dateLabel.text = date.yearString()
+      completionPercentage = 0
     }
     
-    if let user = user {
-      filterButton.setTitle(user.name ?? "", for: .normal)
+    var totalAmount: Float = 0
+    if let categories = BKCategory.fetchCategories() {
+      for category in categories {
+        
+        let monthlyBudget = category.monthlyBudget
+        if timeRangeType == .monthly {
+          totalAmount += monthlyBudget
+        } else {
+          totalAmount += monthlyBudget * 12
+        }
+      }
     }
+    
+    overallAmountPieView.updateTotalAmount(totalAmount)
+    overallAmountPieView.updatePrimaryAmount(overallAmount.amount, withAnimation: animationEnabled)
+    overallAmountPieView.updateSecondaryAmount(totalAmount * completionPercentage, withAnimation: animationEnabled)
+    
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseIn], animations: {
+      self.overallAmountPieView.alpha = 1.0;
+    }, completion: nil)
   }
   
   override func didReceiveMemoryWarning() {

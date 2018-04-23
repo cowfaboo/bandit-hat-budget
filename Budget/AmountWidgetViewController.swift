@@ -26,6 +26,7 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
   var timeRangeType: TimeRangeType = .monthly
   var amount: BKAmount!
   var completionPercentage: Float = 0
+  var shouldHideLabels: Bool = false
   
   private var category: BKCategory? {
     didSet {
@@ -69,10 +70,13 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
       monthlyBudget = category.monthlyBudget
       self.category = category
     } else {
-      color = UIColor.text
+      color = UIColor.neutral
       monthlyBudget = nil
       self.category = nil
     }
+    
+    categoryLabel.isHidden = shouldHideLabels
+    amountLabel.isHidden = shouldHideLabels
     
     let spentAmountString = amount.amount.simpleDollarAmount()
     let totalAmountString: String

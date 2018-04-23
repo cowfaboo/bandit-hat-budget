@@ -21,14 +21,7 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
   var amountWidgetArray = [AmountWidgetViewController]()
   var containerViewArray = [UIView]()
   var amountArray = [BKAmount]()
-  var userFilter: BKUser? {
-    didSet {
-      if viewIsLoaded {
-        dataHeaderViewController?.user = userFilter
-        updateData(withAnimation: false)
-      }
-    }
-  }
+  var userFilter: BKUser?
   var startDate: Date = Date().startAndEndOfMonth().startDate
   var endDate: Date = Date().startAndEndOfMonth().endDate
   
@@ -45,9 +38,8 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
     dataHeaderViewController!.user = userFilter
     add(dataHeaderViewController!, to: headerView)
     
-    updateData()
-    
     viewIsLoaded = true
+    updateData()
   }
   
   override func didReceiveMemoryWarning() {
@@ -58,10 +50,14 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
     updateData(withAnimation: true)
   }
   
-  func updateData(withAnimation animationEnabled: Bool = false) {
+  func updateData(withAnimation animationEnabled: Bool) {
     
-    dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter)
-    BKAmount.getAmountsByCategory(forUser: self.userFilter, startDate: self.startDate, endDate: self.endDate, completion: { (amounts) in
+    if !viewIsLoaded {
+      return
+    }
+    
+    dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter, animation: animationEnabled)
+    BKAmount.getAmountsByCategory(forUser: userFilter, startDate: startDate, endDate: endDate, completion: { (amounts) in
       self.amountArray = amounts
       self.reloadDataViews(withAnimation: animationEnabled)
     })
@@ -207,6 +203,10 @@ extension AmountDataViewController: DataDisplaying {
   
   func scrollToTop() {
     dataScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+  }
+  
+  func updateData() {
+    self.updateData(withAnimation: false)
   }
 }
 

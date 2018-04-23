@@ -34,14 +34,7 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
   var startDate: Date = Date().startAndEndOfMonth().startDate
   var endDate: Date = Date().startAndEndOfMonth().endDate
   var category: BKCategory?
-  var userFilter: BKUser? {
-    didSet {
-      if viewIsLoaded {
-        dataHeaderViewController?.user = userFilter
-        updateData()
-      }
-    }
-  }
+  var userFilter: BKUser?
   var shouldIncludeDataHeader: Bool = true
   var currentPage: Int = 0
   var currentlyLoading: Bool = false
@@ -51,7 +44,7 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: .updateDataView, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateDataViewNotification), name: .updateDataView, object: nil)
     
     if shouldIncludeDataHeader {
       dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
@@ -67,7 +60,7 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
         headerLabel.textColor = category.color
         closeButton.tintColor = category.color
         
-        headerViewHeightConstraint.constant = 44
+        headerViewHeightConstraint.constant = 54
         view.layoutIfNeeded()
         
       } else if let userFilter = userFilter {
@@ -87,9 +80,8 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
     tableView.register(UINib(nibName: "ExpenseDataCell", bundle: nil), forCellReuseIdentifier: "ExpenseDataCell")
     
     setUpFooterView()
-    updateData()
-    
     viewIsLoaded = true
+    updateData()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -106,10 +98,18 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
     super.didReceiveMemoryWarning()
   }
   
-  @objc func updateData() {
+  @objc func receiveUpdateDataViewNotification() {
+    updateData(withAnimation: true)
+  }
+  
+  func updateData(withAnimation animationEnabled: Bool) {
+    
+    if !viewIsLoaded {
+      return
+    }
     
     currentPage = 0
-    dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter)
+    dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter, animation: animationEnabled)
     
     self.expenseArray = BKExpense.fetchExpenses(forUser: self.userFilter, category: self.category, startDate: startDate, endDate: endDate)
     self.tableView.reloadData()
@@ -265,6 +265,10 @@ extension ExpenseDataViewController: DataDisplaying {
   
   func scrollToTop() {
     self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+  }
+  
+  func updateData() {
+    updateData(withAnimation: false)
   }
 }
 

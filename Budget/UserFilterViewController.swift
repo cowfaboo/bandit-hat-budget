@@ -32,20 +32,15 @@ class UserFilterViewController: UIViewController, TableViewController {
     tableView.tableFooterView = UIView(frame: CGRect())
     tableView.separatorColor = UIColor.text.withAlphaComponent(0.1)
     
-    BKSharedBasicRequestClient.getUsers { (success: Bool, userArray: Array<BKUser>?) in
+    if let fetchedUsers = BKUser.fetchUsers() {
       
-      guard success, let userArray = userArray else {
-        print("failed to get users")
-        return
-      }
+      self.userArray = fetchedUsers
+      self.tableView.reloadData()
       
       if let viewContainer = self.parent as? ViewContainer {
         let height = min(CGFloat(userArray.count) * self.userCellHeight + self.everyoneCellHeight, 308)
-        viewContainer.contentHeightDidChange(height)
+        viewContainer.contentHeightDidChange(height, animation: false)
       }
-      
-      self.userArray = userArray
-      self.tableView.reloadData()
     }
   }
   
@@ -61,12 +56,18 @@ extension UserFilterViewController: UITableViewDelegate {
       currentUser = nil
       tableView.reloadData()
       ContainerViewController.sharedInstance.dataNavigationController.currentViewController.userFilter = nil
+      ContainerViewController.sharedInstance.dataNavigationController.previousViewController?.userFilter = nil
+      ContainerViewController.sharedInstance.dataNavigationController.nextViewController?.userFilter = nil
+      
     } else {
       currentUser = userArray[indexPath.row - 1]
       tableView.reloadData()
       ContainerViewController.sharedInstance.dataNavigationController.currentViewController.userFilter = userArray[indexPath.row - 1]
+      ContainerViewController.sharedInstance.dataNavigationController.previousViewController?.userFilter = userArray[indexPath.row - 1]
+      ContainerViewController.sharedInstance.dataNavigationController.nextViewController?.userFilter = userArray[indexPath.row - 1]
     }
     
+    Utilities.updateDataViews()
     delegate?.shouldDismissUserFilter()
   }
   

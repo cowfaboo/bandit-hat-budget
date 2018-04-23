@@ -167,22 +167,23 @@
                     <rect key="frame" x="0.0" y="295" width="375" height="372"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLi-P7-yMv" customClass="BHButton" customModule="Budget" customModuleProvider="target">
-                            <rect key="frame" x="16" y="154" width="343" height="64"/>
+                            <rect key="frame" x="16" y="158" width="343" height="56"/>
                             <constraints>
-                                <constraint firstAttribute="height" priority="750" constant="64" id="weI-SM-oSl"/>
+                                <constraint firstAttribute="height" priority="750" constant="56" id="weI-SM-oSl"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                             <state key="normal" title="Add Expense"/>
                             <connections>
                                 <action selector="addExpenseButtonTapped" destination="-1" eventType="touchUpInside" id="kfO-GO-w8h"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oL3-Kg-MHH" customClass="BHButton" customModule="Budget" customModuleProvider="target">
-                            <rect key="frame" x="359" y="154" width="0.0" height="64"/>
+                            <rect key="frame" x="359" y="158" width="0.0" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="width" id="6x7-T5-rFN"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <state key="normal" title="Add Expense"/>
                             <connections>
                                 <action selector="deleteButtonTapped" destination="-1" eventType="touchUpInside" id="L9u-PR-qUL"/>

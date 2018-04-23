@@ -86,7 +86,7 @@ extension UIColor {
     }
     
     if sanitizedString.count != 6 {
-      self.init(white: 0.25, alpha: 1.0)
+      self.init(red: 131.0/255.0, green: 144.0/255.0, blue: 152.0/255.0, alpha: 1.0)
     } else {
       var rgbValue: UInt32 = 0
       Scanner(string: sanitizedString).scanHexInt32(&rgbValue)
