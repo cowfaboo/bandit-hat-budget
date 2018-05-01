@@ -127,7 +127,6 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     titleLabel.text = "New Category"
     nameTextField.isEnabled = true
     budgetTextField.isEnabled = true
-    budgetPrefixTextField.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.regular)
     budgetPrefixTextField.text = "$"
     descriptionTextView.isEditable = true
     descriptionTextView.isSelectable = true
@@ -165,7 +164,6 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     nameTextField.isEnabled = false
     budgetTextField.text = "/ month"
     budgetTextField.isEnabled = false
-    budgetPrefixTextField.font = UIFont.systemFont(ofSize: 20.0, weight: UIFont.Weight.medium)
     budgetPrefixTextField.text = category?.monthlyBudget.simpleDollarAmount()
     descriptionTextView.text = category?.details
     descriptionTextView.isEditable = false
@@ -214,8 +212,6 @@ class CategoryDetailViewController: UIViewController, InteractivePresenter {
     nameTextField.text = category?.name
     budgetTextField.isEnabled = true
     budgetTextField.text = category?.monthlyBudget.simpleDollarAmount(withDollarSign: false)
-    budgetTextField.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.regular)
-    budgetPrefixTextField.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.regular)
     budgetPrefixTextField.text = "$"
     descriptionTextView.isEditable = true
     descriptionTextView.isSelectable = true

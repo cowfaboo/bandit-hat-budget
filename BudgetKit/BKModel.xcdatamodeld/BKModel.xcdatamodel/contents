@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17B1003" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="BKCategory" representedClassName="BKCategory" syncable="YES">
         <attribute name="cloudID" attributeType="String" syncable="YES"/>
         <attribute name="colorString" attributeType="String" syncable="YES"/>
@@ -21,7 +21,7 @@
         <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BKCategory" inverseName="expenses" inverseEntity="BKCategory" syncable="YES"/>
-        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="BKUser" inverseName="expenses" inverseEntity="BKUser" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BKUser" inverseName="expenses" inverseEntity="BKUser" syncable="YES"/>
         <fetchIndex name="byCloudIDIndex">
             <fetchIndexElement property="cloudID" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -47,8 +47,8 @@
     </entity>
     <elements>
         <element name="BKCategory" positionX="-54" positionY="-9" width="128" height="165"/>
+        <element name="BKExpense" positionX="-54" positionY="36" width="128" height="165"/>
         <element name="BKGroup" positionX="-54" positionY="36" width="128" height="105"/>
         <element name="BKUser" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="BKExpense" positionX="-54" positionY="36" width="128" height="165"/>
     </elements>
 </model>

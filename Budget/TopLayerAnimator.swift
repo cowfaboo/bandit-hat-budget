@@ -27,7 +27,10 @@ class TopLayerAnimator: UIPercentDrivenInteractiveTransition, PresentationAnimat
     self.transitionContext = transitionContext
     
     let containerViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
+    let presentedViewController = transitionContext.viewController(forKey: .from)
+    
     containerViewController?.view.isHidden = false
+    presentedViewController?.view.endEditing(true)
 
     self.update(0)
   }

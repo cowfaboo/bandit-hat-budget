@@ -115,9 +115,9 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
     containerViewArray = []
     
     let containerWidth: CGFloat = 136
-    let containerHeight: CGFloat = 200
+    let containerHeight: CGFloat = 212
     let remainingWidthSpacing = Utilities.screenWidth - containerWidth * 2
-    var currentYPosition: CGFloat = 0
+    var currentYPosition: CGFloat = 4
     
     var index = 0
     for amount in amountArray {
@@ -140,7 +140,7 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
       amountWidgetArray.append(amountWidgetViewController)
       
       if index % 2 == 1 {
-        currentYPosition += containerHeight + 28
+        currentYPosition += containerHeight + 8
       }
       
       index += 1
@@ -153,7 +153,7 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
       numberOfRows = amountArray.count / 2 + 1
     }
     
-    dataScrollView.contentSize = CGSize(width: Utilities.screenWidth, height: (containerHeight * CGFloat(numberOfRows)) + (28 * CGFloat(numberOfRows)) + 60)
+    dataScrollView.contentSize = CGSize(width: Utilities.screenWidth, height: (containerHeight * CGFloat(numberOfRows)) + (8 * CGFloat(numberOfRows)) + 72)
     
   }
   

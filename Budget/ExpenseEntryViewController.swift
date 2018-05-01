@@ -74,10 +74,6 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     amountTextField.becomeFirstResponder()
   }
   
-  override func viewWillDisappear(_ animated: Bool) {
-    view.endEditing(true)
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -200,7 +196,7 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     
     if let existingExpense = existingExpense {
       
-      BKSharedBasicRequestClient.updateExpense(expense: existingExpense, name: name, amount: amount, userID: existingExpense.user.cloudID, categoryID: selectedCategory!.cloudID, date: selectedDate) { (success, expense) in
+      BKSharedBasicRequestClient.updateExpense(expense: existingExpense, name: name, amount: amount, userID: existingExpense.user?.cloudID, categoryID: selectedCategory!.cloudID, date: selectedDate) { (success, expense) in
         guard success, let _ = expense else {
           print("failed to update expense")
           return

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,30 +20,30 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="136" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="136" height="212"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VhU-KJ-2VL" customClass="AmountPieView" customModule="Budget" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="136" height="136"/>
+                    <rect key="frame" x="0.0" y="4" width="136" height="136"/>
                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="4Gw-tj-o3n">
-                    <rect key="frame" x="0.0" y="152" width="136" height="22"/>
-                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="751" text="Homeeopathic Improvement" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="4Gw-tj-o3n">
+                    <rect key="frame" x="0.0" y="168" width="136" height="43"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVH-Sn-d7P">
-                    <rect key="frame" x="0.0" y="178" width="136" height="18"/>
+                    <rect key="frame" x="0.0" y="148" width="136" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="18" id="vhi-23-dXb"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ll-D1-Fxh">
-                    <rect key="frame" x="0.0" y="0.0" width="136" height="136"/>
+                    <rect key="frame" x="0.0" y="4" width="136" height="136"/>
                     <connections>
                         <action selector="amountWidgetTapped" destination="-1" eventType="touchUpInside" id="RyY-7k-ywb"/>
                     </connections>
@@ -54,19 +54,18 @@
                 <constraint firstItem="VhU-KJ-2VL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0or-Zc-hWW"/>
                 <constraint firstItem="HVH-Sn-d7P" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="983-DJ-ecU"/>
                 <constraint firstItem="8Ll-D1-Fxh" firstAttribute="leading" secondItem="VhU-KJ-2VL" secondAttribute="leading" id="9es-BT-Fi9"/>
-                <constraint firstItem="VhU-KJ-2VL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="AFy-DI-wp9"/>
+                <constraint firstItem="VhU-KJ-2VL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="4" id="AFy-DI-wp9"/>
                 <constraint firstAttribute="trailing" secondItem="HVH-Sn-d7P" secondAttribute="trailing" id="Gmt-cG-gB2"/>
                 <constraint firstAttribute="trailing" secondItem="4Gw-tj-o3n" secondAttribute="trailing" id="LyQ-Bb-EBT"/>
+                <constraint firstItem="4Gw-tj-o3n" firstAttribute="top" secondItem="HVH-Sn-d7P" secondAttribute="bottom" constant="2" id="Nmw-16-v8w"/>
                 <constraint firstItem="4Gw-tj-o3n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="O8G-Hs-hJR"/>
                 <constraint firstItem="8Ll-D1-Fxh" firstAttribute="top" secondItem="VhU-KJ-2VL" secondAttribute="top" id="Rnf-qH-kc7"/>
-                <constraint firstAttribute="bottom" secondItem="HVH-Sn-d7P" secondAttribute="bottom" constant="4" id="Yri-Mk-8jA"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4Gw-tj-o3n" secondAttribute="bottom" id="aZZ-xg-AeQ"/>
                 <constraint firstItem="8Ll-D1-Fxh" firstAttribute="bottom" secondItem="VhU-KJ-2VL" secondAttribute="bottom" id="dqv-L0-DQR"/>
-                <constraint firstItem="HVH-Sn-d7P" firstAttribute="top" secondItem="4Gw-tj-o3n" secondAttribute="bottom" constant="4" id="fKe-eZ-f1o"/>
-                <constraint firstItem="4Gw-tj-o3n" firstAttribute="top" relation="lessThanOrEqual" secondItem="VhU-KJ-2VL" secondAttribute="bottom" constant="16" id="fRZ-d4-eht"/>
                 <constraint firstItem="VhU-KJ-2VL" firstAttribute="width" secondItem="VhU-KJ-2VL" secondAttribute="height" multiplier="1:1" id="kPQ-gD-xZS"/>
                 <constraint firstItem="8Ll-D1-Fxh" firstAttribute="trailing" secondItem="VhU-KJ-2VL" secondAttribute="trailing" id="sdP-Xd-hhm"/>
                 <constraint firstAttribute="trailing" secondItem="VhU-KJ-2VL" secondAttribute="trailing" id="sdz-a3-WZN"/>
-                <constraint firstItem="4Gw-tj-o3n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8Ll-D1-Fxh" secondAttribute="bottom" constant="4" id="vEE-63-5pU"/>
+                <constraint firstItem="HVH-Sn-d7P" firstAttribute="top" secondItem="VhU-KJ-2VL" secondAttribute="bottom" constant="8" id="yp3-CC-krE"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

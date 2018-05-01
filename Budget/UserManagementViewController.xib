@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,6 +43,12 @@
                         <action selector="createButtonTapped" destination="-1" eventType="touchUpInside" id="j5Q-kY-ek1"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bm-t1-ySl">
+                    <rect key="frame" x="156" y="52" width="63" height="29"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -50,6 +56,8 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="nRb-VZ-dKN" secondAttribute="trailing" id="TwU-5n-cSA"/>
                 <constraint firstItem="nRb-VZ-dKN" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="exu-cd-xl7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="aT5-P3-buB" secondAttribute="bottom" id="ftu-rn-XBS"/>
+                <constraint firstItem="9bm-t1-ySl" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="rGj-LN-1o8"/>
+                <constraint firstItem="9bm-t1-ySl" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="vnH-Hl-Rz9"/>
                 <constraint firstItem="aT5-P3-buB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wQB-Ab-9G3"/>
                 <constraint firstItem="aT5-P3-buB" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="44" id="yL2-K8-eBu"/>
             </constraints>

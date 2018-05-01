@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		650714611E2DD82E008468ED /* CategorySelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507145F1E2DD82E008468ED /* CategorySelectionCell.swift */; };
 		650714621E2DD82E008468ED /* CategorySelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650714601E2DD82E008468ED /* CategorySelectionCell.xib */; };
+		65157967209188AE00F22FB8 /* BKExpense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65157966209188AE00F22FB8 /* BKExpense+CoreDataProperties.swift */; };
 		65187D361E749A7D00A79261 /* PresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65187D351E749A7D00A79261 /* PresentationAnimator.swift */; };
 		65187D3B1E7B73A200A79261 /* AmountWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65187D391E7B73A200A79261 /* AmountWidgetViewController.swift */; };
 		65187D3C1E7B73A200A79261 /* AmountWidgetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65187D3A1E7B73A200A79261 /* AmountWidgetViewController.xib */; };
@@ -89,7 +90,6 @@
 		65ACF9701E95E8C800A8F110 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ACF96E1E95E8C800A8F110 /* CategoryDetailViewController.swift */; };
 		65ACF9711E95E8C800A8F110 /* CategoryDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ACF96F1E95E8C800A8F110 /* CategoryDetailViewController.xib */; };
 		65B6587620197451003593B1 /* BKExpense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B6587420197451003593B1 /* BKExpense+CoreDataClass.swift */; };
-		65B6587720197451003593B1 /* BKExpense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B6587520197451003593B1 /* BKExpense+CoreDataProperties.swift */; };
 		65B688671E3E9D95003E1323 /* BottomSlideAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B688661E3E9D95003E1323 /* BottomSlideAnimator.swift */; };
 		65B6886A1E3EABFD003E1323 /* TopLayerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B688691E3EABFD003E1323 /* TopLayerAnimator.swift */; };
 		65B6886C1E4181CD003E1323 /* DataDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B6886B1E4181CD003E1323 /* DataDisplaying.swift */; };
@@ -147,6 +147,7 @@
 /* Begin PBXFileReference section */
 		6507145F1E2DD82E008468ED /* CategorySelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySelectionCell.swift; sourceTree = "<group>"; };
 		650714601E2DD82E008468ED /* CategorySelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySelectionCell.xib; sourceTree = "<group>"; };
+		65157966209188AE00F22FB8 /* BKExpense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKExpense+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65187D351E749A7D00A79261 /* PresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationAnimator.swift; sourceTree = "<group>"; };
 		65187D391E7B73A200A79261 /* AmountWidgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountWidgetViewController.swift; sourceTree = "<group>"; };
 		65187D3A1E7B73A200A79261 /* AmountWidgetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmountWidgetViewController.xib; sourceTree = "<group>"; };
@@ -229,7 +230,6 @@
 		65ACF96E1E95E8C800A8F110 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		65ACF96F1E95E8C800A8F110 /* CategoryDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryDetailViewController.xib; sourceTree = "<group>"; };
 		65B6587420197451003593B1 /* BKExpense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKExpense+CoreDataClass.swift"; sourceTree = "<group>"; };
-		65B6587520197451003593B1 /* BKExpense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BKExpense+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65B688661E3E9D95003E1323 /* BottomSlideAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSlideAnimator.swift; sourceTree = "<group>"; };
 		65B688691E3EABFD003E1323 /* TopLayerAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopLayerAnimator.swift; sourceTree = "<group>"; };
 		65B6886B1E4181CD003E1323 /* DataDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDisplaying.swift; sourceTree = "<group>"; };
@@ -412,7 +412,7 @@
 				6570172A1F68B8DE00C60B68 /* BKGroup+CoreDataProperties.swift */,
 				654D5D9C1DEFC0590089939A /* BKAmount.swift */,
 				65B6587420197451003593B1 /* BKExpense+CoreDataClass.swift */,
-				65B6587520197451003593B1 /* BKExpense+CoreDataProperties.swift */,
+				65157966209188AE00F22FB8 /* BKExpense+CoreDataProperties.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -701,6 +701,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C3507D1DF358FE00F8AE10 /* BKUser+CoreDataClass.swift in Sources */,
+				65157967209188AE00F22FB8 /* BKExpense+CoreDataProperties.swift in Sources */,
 				65B6587620197451003593B1 /* BKExpense+CoreDataClass.swift in Sources */,
 				65C3507E1DF358FE00F8AE10 /* BKUser+CoreDataProperties.swift in Sources */,
 				65C350781DF354F200F8AE10 /* BKDataController.swift in Sources */,
@@ -710,7 +711,6 @@
 				65E5E2391DE7EB5D0066944F /* BKClient.swift in Sources */,
 				654D5D9D1DEFC0590089939A /* BKAmount.swift in Sources */,
 				65C350761DF354B700F8AE10 /* BKModel.xcdatamodeld in Sources */,
-				65B6587720197451003593B1 /* BKExpense+CoreDataProperties.swift in Sources */,
 				65C350801DF358FE00F8AE10 /* BKCategory+CoreDataProperties.swift in Sources */,
 				65E5E2351DE7E7E50066944F /* BKBasicRequestClient.swift in Sources */,
 				65C3507F1DF358FE00F8AE10 /* BKCategory+CoreDataClass.swift in Sources */,

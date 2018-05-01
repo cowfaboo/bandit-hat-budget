@@ -52,7 +52,6 @@ class TopLevelViewController: UIViewController {
     
     if recognizer.state == .began {
       
-      view.endEditing(true)
       interactivePresenter?.interactiveDismissalBegan()
       
     } else if recognizer.state == .changed {
