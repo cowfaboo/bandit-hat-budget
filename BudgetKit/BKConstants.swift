@@ -8,7 +8,7 @@
 
 import Foundation
 
-let APIPrefix = "https://boiling-bastion-50971.herokuapp.com"
+let APIPrefix = "https://bandit-hat-budget-api.herokuapp.com"
 
 let CategoryEndpoint = APIPrefix + "/category"
 let UserEndpoint = APIPrefix + "/user"
