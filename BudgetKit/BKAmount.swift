@@ -175,14 +175,19 @@ public class BKAmount {
     var amountArray = [BKAmount]()
     
     for resultsDictionary in results {
-      let amount = BKAmount(withAmount: Float(truncating: resultsDictionary["amountSum"] as! NSNumber), categoryID: (resultsDictionary["categoryID"] as! String), userID: user?.cloudID, startDate: startDate, endDate: endDate)
+      
+      guard let categoryID = resultsDictionary["categoryID"] else {
+        continue
+      }
+      
+      let amount = BKAmount(withAmount: Float(truncating: resultsDictionary["amountSum"] as! NSNumber), categoryID: (categoryID as! String), userID: user?.cloudID, startDate: startDate, endDate: endDate)
       amountArray.append(amount)
     }
     
     
     // now iterate through categories to check if results are missing any. If so, add them with amount 0
     for category in categories {
-      if !results.contains(where: { ($0["categoryID"] as! String) == category.cloudID}) {
+      if !results.contains(where: { $0["categoryID"] != nil && ($0["categoryID"] as! String) == category.cloudID}) {
         let emptyAmount = BKAmount(withAmount: 0, categoryID: category.cloudID, userID: user?.cloudID, startDate: startDate, endDate: endDate)
         amountArray.append(emptyAmount)
       }
