@@ -14,6 +14,7 @@ class DataNavigationController: UIViewController {
   
   let TransitionDistance = Utilities.screenWidth
   
+  @IBOutlet weak var headerView: UIView!
   @IBOutlet weak var currentView: UIView!
   @IBOutlet weak var nextView: UIView!
   @IBOutlet weak var previousView: UIView!
@@ -40,12 +41,37 @@ class DataNavigationController: UIViewController {
     }
   }
   
+  var dataHeaderViewController: DataHeaderViewController!
   var currentViewController: (UIViewController & DataDisplaying)!
   var nextViewController: (UIViewController & DataDisplaying)?
   var previousViewController: (UIViewController & DataDisplaying)?
   
   var leftRecognizer: DirectionalPanGestureRecognizer!
   var rightRecognizer: DirectionalPanGestureRecognizer!
+  
+  var currentDateRange: (startDate: Date, endDate: Date) = Date().startAndEndOfMonth()
+  
+  var previousDateRange: (startDate: Date, endDate: Date) {
+    get {
+      // if the current date range refers to the year as a whole, previous should just be the current month
+      if currentDateRange.startDate.monthYearString() != currentDateRange.endDate.monthYearString() {
+        return Date().startAndEndOfMonth()
+      } else {
+        return currentDateRange.startDate.startOfPreviousMonth().startAndEndOfMonth()
+      }
+    }
+  }
+  
+  var nextDateRange: (startDate: Date, endDate: Date) {
+    get {
+      // if the current date range refers to the current month, next should be annual view
+      if currentDateRange.endDate.startOfNextMonth() > Date() {
+        return Date().startAndEndOfYear()
+      } else {
+        return currentDateRange.endDate.startOfNextMonth().startAndEndOfMonth()
+      }
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -60,9 +86,12 @@ class DataNavigationController: UIViewController {
     rightRecognizer.delegate = self
     view.addGestureRecognizer(rightRecognizer)
     
-    
     expensesButton.isCircular = true
     amountsButton.isCircular = true
+    
+    dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
+    dataHeaderViewController.update(withStartDate: currentDateRange.startDate, endDate: currentDateRange.endDate, user: nil, animation: false)
+    add(dataHeaderViewController!, to: headerView)
     
     let amountDataViewController = AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
     amountDataViewController.startDate = Date().startAndEndOfMonth().startDate
@@ -121,6 +150,7 @@ class DataNavigationController: UIViewController {
       if (progress > 0.5 || velocity > 300) && velocity > -300 {
         let distanceToTravel = (1.0 - progress) * TransitionDistance
         
+        moveDataHeaderViewBackward()
         
         animateToPreviousView(withDistanceToTravel: distanceToTravel, andVelocity: velocity) {
           self.makePreviousDataViewCurrent()
@@ -159,7 +189,7 @@ class DataNavigationController: UIViewController {
       var progress = recognizer.translation(in: view).x / -TransitionDistance
       progress = min(1.0, max(0.0, progress))
       
-      if currentViewController?.timeRangeType == .annual {
+      if Utilities.datesRepresentAnnualRange(currentDateRange.startDate, currentDateRange.endDate) {
         progress = progress / (1.0 + (progress * 4.0))
       }
       
@@ -186,7 +216,7 @@ class DataNavigationController: UIViewController {
       var velocity = recognizer.velocity(in: view).x
       
       
-      if currentViewController?.timeRangeType == .annual {
+      if Utilities.datesRepresentAnnualRange(currentDateRange.startDate, currentDateRange.endDate) {
         progress = progress / (1.0 + (progress * 4.0))
         velocity = velocity / (1.0 + (velocity * 4.0))
         let distanceToTravel = progress * TransitionDistance
@@ -206,6 +236,8 @@ class DataNavigationController: UIViewController {
       } else {
         let distanceToTravel = oppositeProgress * TransitionDistance
         
+        moveDataHeaderViewForward()
+        
         animateToNextView(withDistanceToTravel: distanceToTravel, andVelocity: -velocity) {
           self.makeNextDataViewCurrent()
         }
@@ -216,6 +248,14 @@ class DataNavigationController: UIViewController {
       currentViewController?.view.isUserInteractionEnabled = true
       previousViewController?.view.isUserInteractionEnabled = true
     }
+  }
+  
+  private func moveDataHeaderViewForward() {
+    dataHeaderViewController.update(withStartDate: nextDateRange.startDate, endDate: nextDateRange.endDate, user: dataHeaderViewController.user, animation: false)
+  }
+  
+  private func moveDataHeaderViewBackward() {
+    dataHeaderViewController.update(withStartDate: previousDateRange.startDate, endDate: previousDateRange.endDate, user: dataHeaderViewController.user, animation: false)
   }
   
   private func animateToNextView(withDistanceToTravel distanceToTravel: CGFloat, andVelocity velocity: CGFloat, completion: (() -> ())?) {
@@ -337,19 +377,11 @@ class DataNavigationController: UIViewController {
   
   func buildPreviousDataViewController() {
     
-    let dates: (startDate: Date, endDate: Date)
-    
-    if currentViewController.timeRangeType == .annual {
-      dates = Date().startAndEndOfMonth()
-    } else {
-      dates = currentViewController.startDate.startOfPreviousMonth().startAndEndOfMonth()
-    }
-    
     if dataPresentationType == .amounts {
       
       let amountDataViewController: AmountDataViewController = (self.previousViewController as? AmountDataViewController) ?? AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
-      amountDataViewController.startDate = dates.startDate
-      amountDataViewController.endDate = dates.endDate
+      amountDataViewController.startDate = previousDateRange.startDate
+      amountDataViewController.endDate = previousDateRange.endDate
       amountDataViewController.userFilter = currentViewController.userFilter
       amountDataViewController.updateData()
       if let previousViewController = previousViewController {
@@ -362,8 +394,8 @@ class DataNavigationController: UIViewController {
     } else {
       
       let expenseDataViewController = ((self.previousViewController as? ExpenseDataViewController) ?? ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil))
-      expenseDataViewController.startDate = dates.startDate
-      expenseDataViewController.endDate = dates.endDate
+      expenseDataViewController.startDate = previousDateRange.startDate
+      expenseDataViewController.endDate = previousDateRange.endDate
       expenseDataViewController.userFilter = currentViewController.userFilter
       expenseDataViewController.updateData()
       if let previousViewController = previousViewController {
@@ -379,7 +411,39 @@ class DataNavigationController: UIViewController {
   
   func buildNextDataViewController() {
     
-    let nextDate = currentViewController.endDate.startOfNextMonth()
+    if dataPresentationType == .amounts {
+      
+      let amountDataViewController = (self.nextViewController as? AmountDataViewController) ?? AmountDataViewController(nibName: "AmountDataViewController", bundle: nil)
+      amountDataViewController.startDate = nextDateRange.startDate
+      amountDataViewController.endDate = nextDateRange.endDate
+      amountDataViewController.userFilter = currentViewController.userFilter
+      amountDataViewController.updateData()
+      if let nextViewController = nextViewController {
+        nextViewController.removeFromContainerView()
+      }
+      
+      nextViewController = amountDataViewController
+      add(nextViewController!, to: nextView)
+      
+    } else {
+      
+      let expenseDataViewController = (self.nextViewController as? ExpenseDataViewController) ?? ExpenseDataViewController(nibName: "ExpenseDataViewController", bundle: nil)
+      expenseDataViewController.startDate = nextDateRange.startDate
+      expenseDataViewController.endDate = nextDateRange.endDate
+      expenseDataViewController.userFilter = currentViewController.userFilter
+      expenseDataViewController.updateData()
+      if let nextViewController = nextViewController {
+        nextViewController.removeFromContainerView()
+      }
+      
+      nextViewController = expenseDataViewController
+      add(nextViewController!, to: nextView)
+    }
+    
+    nextViewController?.scrollToTop()
+    
+    
+    /*let nextDate = currentViewController.endDate.startOfNextMonth()
     
     if nextDate > Date() {
       
@@ -447,7 +511,7 @@ class DataNavigationController: UIViewController {
         add(nextViewController!, to: nextView)
       }
     }
-    nextViewController?.scrollToTop()
+    nextViewController?.scrollToTop()*/
   }
   
   func navigate(to viewController: (UIViewController & DataDisplaying), withAnimatedTransition shouldAnimateTransition: Bool = false) {
@@ -489,6 +553,7 @@ class DataNavigationController: UIViewController {
     add(currentViewController, to: currentView)
     repositionViews()
     
+    currentDateRange = nextDateRange
     buildNextDataViewController()
     buildPreviousDataViewController()
   }
@@ -503,6 +568,7 @@ class DataNavigationController: UIViewController {
     add(currentViewController, to: currentView)
     repositionViews()
     
+    currentDateRange = previousDateRange
     buildNextDataViewController()
     buildPreviousDataViewController()
   }

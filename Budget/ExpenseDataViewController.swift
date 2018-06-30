@@ -19,7 +19,7 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
   
   weak var expenseDataDelegate: ExpenseDataDelegate?
   
-  var dataHeaderViewController: DataHeaderViewController?
+  //var dataHeaderViewController: DataHeaderViewController?
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var headerView: UIView!
@@ -47,11 +47,10 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
     NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateDataViewNotification), name: .updateDataView, object: nil)
     
     if shouldIncludeDataHeader {
-      dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
-      dataHeaderViewController!.date = startDate
-      dataHeaderViewController!.user = userFilter
-      dataHeaderViewController!.timeRangeType = timeRangeType
-      add(dataHeaderViewController!, to: headerView)
+      headerViewHeightConstraint.constant = 0
+      headerLabel.isHidden = true
+      closeButton.isHidden = true
+      view.layoutIfNeeded()
     } else {
       
       if let category = category {
@@ -109,7 +108,7 @@ class ExpenseDataViewController: UIViewController, TableViewController, Interact
     }
     
     currentPage = 0
-    dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter, animation: animationEnabled)
+    //dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter, animation: animationEnabled)
     
     self.expenseArray = BKExpense.fetchExpenses(forUser: self.userFilter, category: self.category, startDate: startDate, endDate: endDate)
     self.tableView.reloadData()

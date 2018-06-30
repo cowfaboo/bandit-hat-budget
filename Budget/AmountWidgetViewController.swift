@@ -23,10 +23,11 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
   @IBOutlet weak var categoryLabel: UILabel!
   @IBOutlet weak var amountLabel: UILabel!
   
-  var timeRangeType: TimeRangeType = .monthly
   var amount: BKAmount!
   var completionPercentage: Float = 0
   var shouldHideLabels: Bool = false
+  var startDate: Date
+  var endDate: Date
   
   private var category: BKCategory? {
     didSet {
@@ -38,26 +39,24 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
     }
   }
   
-  init(withAmount amount: BKAmount, timeRangeType: TimeRangeType?, completionPercentage: Float?) {
-    super.init(nibName: "AmountWidgetViewController", bundle: nil);
+  init(withAmount amount: BKAmount, startDate: Date, endDate: Date, completionPercentage: Float?) {
         
     self.amount = amount
     
-    if let timeRangeType = timeRangeType {
-      self.timeRangeType = timeRangeType
-    }
+    self.startDate = startDate
+    self.endDate = endDate
     
     if let completionPercentage = completionPercentage {
       self.completionPercentage = completionPercentage
     }
+    
+    super.init(nibName: "AmountWidgetViewController", bundle: nil);
   }
   
   required init?(coder aDecoder: NSCoder) {
+    self.startDate = Date()
+    self.endDate = Date()
     super.init(coder: aDecoder)
-  }
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
   
   func refreshView(withAnimation animationEnabled: Bool) {
@@ -84,7 +83,7 @@ class AmountWidgetViewController: UIViewController, InteractivePresenter {
     if let monthlyBudget = monthlyBudget {
       
       var totalAmount: Float
-      if timeRangeType == .monthly {
+      if Utilities.datesRepresentMonthlyRange(startDate, endDate) {
         totalAmount = monthlyBudget
       } else {
         totalAmount = monthlyBudget * 12

@@ -12,7 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmountDataViewController" customModule="Budget" customModuleProvider="target">
             <connections>
                 <outlet property="dataScrollView" destination="8eZ-8E-O2j" id="3IT-fh-fcd"/>
-                <outlet property="headerView" destination="j8U-C1-rvz" id="VWH-nh-5xx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,26 +20,16 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8U-C1-rvz">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="100" id="BgO-xo-dsP"/>
-                    </constraints>
-                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eZ-8E-O2j">
-                    <rect key="frame" x="0.0" y="100" width="375" height="567"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="8eZ-8E-O2j" secondAttribute="bottom" id="JgU-1J-7L6"/>
-                <constraint firstItem="j8U-C1-rvz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="WMa-zb-YI2"/>
-                <constraint firstAttribute="trailing" secondItem="j8U-C1-rvz" secondAttribute="trailing" id="YOR-Nv-qkV"/>
-                <constraint firstItem="j8U-C1-rvz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gBV-7v-R5B"/>
+                <constraint firstItem="8eZ-8E-O2j" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="PvK-TO-kZ9"/>
                 <constraint firstItem="8eZ-8E-O2j" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n05-88-8Vt"/>
                 <constraint firstAttribute="trailing" secondItem="8eZ-8E-O2j" secondAttribute="trailing" id="oGL-o7-OuQ"/>
-                <constraint firstItem="8eZ-8E-O2j" firstAttribute="top" secondItem="j8U-C1-rvz" secondAttribute="bottom" id="xm6-eo-deE"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="55.5" y="54.5"/>

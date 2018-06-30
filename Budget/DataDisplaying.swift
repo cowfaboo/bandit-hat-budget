@@ -13,7 +13,7 @@ protocol DataDisplaying: class {
   var userFilter: BKUser? { get set }
   var startDate: Date { get set }
   var endDate: Date { get set }
-  var timeRangeType: TimeRangeType { get }
+  //var timeRangeType: TimeRangeType { get }
   
   func fadeOut(completion: (() -> ())?)
   func fadeIn(completion: (() -> ())?)
@@ -21,7 +21,7 @@ protocol DataDisplaying: class {
   func updateData()
 }
 
-extension DataDisplaying {
+/*extension DataDisplaying {
   var timeRangeType: TimeRangeType {
     if startDate.monthYearString() == endDate.monthYearString() {
       return .monthly
@@ -31,4 +31,4 @@ extension DataDisplaying {
       return .other
     }
   }
-}
+}*/

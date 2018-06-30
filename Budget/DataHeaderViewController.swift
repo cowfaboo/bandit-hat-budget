@@ -13,7 +13,10 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
   
   var presentationAnimator: PresentationAnimator = TopSlideAnimator()
   
-  var date: Date = Date() {
+  var startDate: Date = Date().startAndEndOfMonth().startDate
+  var endDate: Date = Date().startAndEndOfMonth().endDate
+  
+  /*var date: Date = Date() {
     didSet {
       if viewIsLoaded {
         if timeRangeType == .monthly {
@@ -23,9 +26,9 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
         }
       }
     }
-  }
+  }*/
   
-  var user: BKUser? {
+  var user: BKUser? /*{
     didSet {
       if viewIsLoaded {
         if let user = user {
@@ -35,8 +38,9 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
         }
       }
     }
-  }
-  var timeRangeType: TimeRangeType = .monthly {
+  }*/
+  
+  /*var timeRangeType: TimeRangeType = .monthly {
     didSet {
       if viewIsLoaded {
         if timeRangeType == .monthly {
@@ -46,7 +50,7 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
         }
       }
     }
-  }
+  }*/
   
   @IBOutlet private weak var dateLabel: UILabel!
   @IBOutlet private weak var filterButton: BHButton!
@@ -57,12 +61,6 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if timeRangeType == .monthly {
-      dateLabel.text = date.monthYearString()
-    } else {
-      dateLabel.text = date.yearString()
-    }
-    
     dateLabel.textColor = UIColor.text
     filterButton.themeColor = UIColor.text
     filterButton.isCircular = true
@@ -70,27 +68,48 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
     
     if let user = user {
       filterButton.setTitle(user.name ?? "", for: .normal)
+    } else {
+      filterButton.setTitle("Everyone", for: .normal)
     }
     
-    self.overallAmountPieView.alpha = 0.0
+    if Utilities.datesRepresentMonthlyRange(startDate, endDate) {
+      dateLabel.text = startDate.monthYearString()
+    } else if Utilities.datesRepresentAnnualRange(startDate, endDate) {
+      dateLabel.text = startDate.yearString()
+    } else {
+      dateLabel.text = "\(startDate.monthYearString()) - \(endDate.monthYearString())"
+    }
+    
+    BKAmount.getAmount(forUser: user, startDate: startDate, endDate: endDate) { (amount) in
+      self.overallAmount = amount
+      self.reloadOverallAmountDataView(withAnimation: false)
+    }
     
     viewIsLoaded = true
   }
   
-  func update(withDate date: Date, timeRangeType: TimeRangeType, user: BKUser?, animation: Bool) {
+  func update(withStartDate startDate: Date, endDate: Date, user: BKUser?, animation: Bool) {
     
-    self.timeRangeType = timeRangeType
-    self.date = date
     self.user = user
+    self.startDate = startDate
+    self.endDate = endDate
     
-    let startDate: Date
-    let endDate: Date
-    if timeRangeType == .monthly {
-      startDate = date.startAndEndOfMonth().startDate
-      endDate = date.startAndEndOfMonth().endDate
+    if !viewIsLoaded {
+      return
+    }
+    
+    if let user = user {
+      filterButton.setTitle(user.name ?? "", for: .normal)
     } else {
-      startDate = date.startAndEndOfYear().startDate
-      endDate = date.startAndEndOfYear().endDate
+      filterButton.setTitle("Everyone", for: .normal)
+    }
+    
+    if Utilities.datesRepresentMonthlyRange(startDate, endDate) {
+      dateLabel.text = startDate.monthYearString()
+    } else if Utilities.datesRepresentAnnualRange(startDate, endDate) {
+      dateLabel.text = startDate.yearString()
+    } else {
+      dateLabel.text = "\(startDate.monthYearString()) - \(endDate.monthYearString())"
     }
     
     BKAmount.getAmount(forUser: user, startDate: startDate, endDate: endDate) { (amount) in
@@ -102,9 +121,10 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
   func reloadOverallAmountDataView(withAnimation animationEnabled: Bool) {
     
     let completionPercentage: Float
-    if (timeRangeType == .monthly && date.isMonthEqualTo(Date())) {
+    
+    if Utilities.datesRepresentMonthlyRange(startDate, endDate) && startDate.isMonthEqualTo(Date()) {
       completionPercentage = Date().completionPercentageOfMonth()
-    } else if (timeRangeType == .annual && date.isYearEqualTo(Date())) {
+    } else if Utilities.datesRepresentAnnualRange(startDate, endDate) && startDate.isYearEqualTo(Date()) {
       completionPercentage = Date().completionPercentageOfYear()
     } else {
       completionPercentage = 0
@@ -115,7 +135,7 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
       for category in categories {
         
         let monthlyBudget = category.monthlyBudget
-        if timeRangeType == .monthly {
+        if Utilities.datesRepresentMonthlyRange(startDate, endDate) {
           totalAmount += monthlyBudget
         } else {
           totalAmount += monthlyBudget * 12
@@ -126,10 +146,6 @@ class DataHeaderViewController: UIViewController, InteractivePresenter {
     overallAmountPieView.updateTotalAmount(totalAmount)
     overallAmountPieView.updatePrimaryAmount(overallAmount.amount, withAnimation: animationEnabled)
     overallAmountPieView.updateSecondaryAmount(totalAmount * completionPercentage, withAnimation: animationEnabled)
-    
-    UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowUserInteraction, .curveEaseIn], animations: {
-      self.overallAmountPieView.alpha = 1.0;
-    }, completion: nil)
   }
   
   override func didReceiveMemoryWarning() {

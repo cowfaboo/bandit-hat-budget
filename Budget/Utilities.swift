@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-enum TimeRangeType {
+/*enum TimeRangeType {
   case monthly
   case annual
   case other
-}
+}*/
 
 enum DataPresentationType {
   case amounts
@@ -21,8 +21,6 @@ enum DataPresentationType {
 }
 
 let DataViewNeedsUpdateKey = "DataViewNeedsUpdate"
-
-//let Colors = [#colorLiteral(red: 0.1176470588, green: 0.2196078431, blue: 0.3921568627, alpha: 1), #colorLiteral(red: 0.2705882353, green: 0.3882352941, blue: 0.3333333333, alpha: 1), #colorLiteral(red: 0.4168243387, green: 0.3121102968, blue: 0.5244659871, alpha: 1), #colorLiteral(red: 0, green: 0.6274509804, blue: 0.5411764706, alpha: 1), #colorLiteral(red: 0.3568627451, green: 0.737254902, blue: 0.8392156863, alpha: 1), #colorLiteral(red: 0.8941176471, green: 0.3843137255, blue: 0.4, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.721568644, blue: 0.3647058904, alpha: 1), #colorLiteral(red: 0.6784313725, green: 0.2039215686, blue: 0.2431372549, alpha: 1), #colorLiteral(red: 0.9803921569, green: 0.6392156863, blue: 0, alpha: 1), #colorLiteral(red: 0.968627451, green: 0.6156862745, blue: 0.5176470588, alpha: 1), #colorLiteral(red: 0.3490196078, green: 0.5843137255, blue: 0.9294117647, alpha: 1)]
 
 class Utilities {
   
@@ -54,6 +52,20 @@ class Utilities {
   
   class func updateDataViews() {
     NotificationCenter.default.post(name: .updateDataView, object: nil)
+  }
+  
+  class func datesRepresentMonthlyRange(_ startDate: Date, _ endDate: Date) -> Bool {
+    let dateRange = (startDate: startDate, endDate: endDate)
+    return dateRange.startDate.startAndEndOfMonth() == dateRange && dateRange.endDate.startAndEndOfMonth() == dateRange
+  }
+  
+  class func datesRepresentAnnualRange(_ startDate: Date, _ endDate: Date) -> Bool {
+    let dateRange = (startDate: startDate, endDate: endDate)
+    return dateRange.startDate.startAndEndOfYear() == dateRange && dateRange.endDate.startAndEndOfYear() == dateRange
+  }
+  
+  class func datesRepresentCustomRange(_ startDate: Date, _ endDate: Date) -> Bool {
+    return !datesRepresentMonthlyRange(startDate, endDate) && !datesRepresentAnnualRange(startDate, endDate)
   }
 }
 
@@ -233,7 +245,6 @@ extension Date {
     dateFormatter.dateFormat = "yyyy"
     return dateFormatter.string(from: self)
   }
-  
 }
 
 extension Float {

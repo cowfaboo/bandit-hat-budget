@@ -13,10 +13,10 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
   
   var presentationAnimator: PresentationAnimator = BottomSlideAnimator()
   
-  @IBOutlet weak var headerView: UIView!
+  //@IBOutlet weak var headerView: UIView!
   @IBOutlet weak var dataScrollView: UIScrollView!
   
-  var dataHeaderViewController: DataHeaderViewController?
+  //var dataHeaderViewController: DataHeaderViewController?
   
   var amountWidgetArray = [AmountWidgetViewController]()
   var containerViewArray = [UIView]()
@@ -32,11 +32,11 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
     
     NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateDataViewNotification), name: .updateDataView, object: nil)
     
-    dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
+    /*dataHeaderViewController = DataHeaderViewController(nibName: "DataHeaderViewController", bundle: nil)
     dataHeaderViewController!.date = startDate
     dataHeaderViewController!.timeRangeType = timeRangeType
     dataHeaderViewController!.user = userFilter
-    add(dataHeaderViewController!, to: headerView)
+    add(dataHeaderViewController!, to: headerView)*/
     
     viewIsLoaded = true
     updateData()
@@ -56,7 +56,7 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
       return
     }
     
-    dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter, animation: animationEnabled)
+    //dataHeaderViewController?.update(withDate: startDate, timeRangeType: timeRangeType, user: userFilter, animation: animationEnabled)
     BKAmount.getAmountsByCategory(forUser: userFilter, startDate: startDate, endDate: endDate, completion: { (amounts) in
       self.amountArray = amounts
       self.reloadDataViews(withAnimation: animationEnabled)
@@ -71,12 +71,13 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
     var index = 0
     for amountWidget in amountWidgetArray {
       amountWidget.amount = amountArray[index]
-      amountWidget.timeRangeType = timeRangeType
+      amountWidget.startDate = startDate
+      amountWidget.endDate = endDate
       
       let completionPercentage: Float
-      if (timeRangeType == .monthly && startDate.isMonthEqualTo(Date())) {
+      if Utilities.datesRepresentMonthlyRange(startDate, endDate) && startDate.isMonthEqualTo(Date()) {
         completionPercentage = Date().completionPercentageOfMonth()
-      } else if (timeRangeType == .annual && startDate.isYearEqualTo(Date())) {
+      } else if Utilities.datesRepresentAnnualRange(startDate, endDate) && startDate.isYearEqualTo(Date()) {
         completionPercentage = Date().completionPercentageOfYear()
       } else {
         completionPercentage = 0
@@ -94,10 +95,12 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
     
     self.dataScrollView.alpha = 0.0
     
+    
+    
     let completionPercentage: Float
-    if (timeRangeType == .monthly && startDate.isMonthEqualTo(Date())) {
+    if (Utilities.datesRepresentMonthlyRange(startDate, endDate) && startDate.isMonthEqualTo(Date())) {
       completionPercentage = Date().completionPercentageOfMonth()
-    } else if (timeRangeType == .annual && startDate.isYearEqualTo(Date())) {
+    } else if (Utilities.datesRepresentAnnualRange(startDate, endDate) && startDate.isYearEqualTo(Date())) {
       completionPercentage = Date().completionPercentageOfYear()
     } else {
       completionPercentage = 0
@@ -133,7 +136,7 @@ class AmountDataViewController: UIViewController, InteractivePresenter {
       containerViewArray.append(containerView)
       dataScrollView.addSubview(containerView)
       
-      let amountWidgetViewController = AmountWidgetViewController(withAmount: amount, timeRangeType: timeRangeType, completionPercentage: completionPercentage)
+      let amountWidgetViewController = AmountWidgetViewController(withAmount: amount, startDate: startDate, endDate: endDate, completionPercentage: completionPercentage)
       amountWidgetViewController.amountWidgetDelegate = self
       add(amountWidgetViewController, to: containerView)
       amountWidgetViewController.refreshView(withAnimation: false)
