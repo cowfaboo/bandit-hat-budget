@@ -106,6 +106,7 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
     if let fetchedCategories = BKCategory.fetchCategories() {
       categoryArray = fetchedCategories
       categoryCollectionView.reloadData()
+      self.selectedCategory = categoryArray[0]
     }
     
     if let existingExpense = existingExpense {
@@ -169,6 +170,9 @@ class ExpenseEntryViewController: TopLevelViewController, InteractivePresenter {
       if let selectedCategory = self.selectedCategory {
         if let categoryIndex = categoryArray.index(of: selectedCategory) {
           self.categoryCollectionView.selectItem(at: IndexPath(item: categoryIndex, section: 0), animated: false, scrollPosition: .left)
+        } else {
+          self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .left)
+          self.selectedCategory = categoryArray[0]
         }
       }
       self.updateFormValidity()
