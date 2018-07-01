@@ -54,7 +54,7 @@ class BottomSlideViewController: UIViewController {
     containerView.layer.allowsEdgeAntialiasing = true
     
     let panGestureRecognizer = OneWayPanGestureRecognizer(target: self, action: #selector(handleDrag(recognizer:)))
-    view.addGestureRecognizer(panGestureRecognizer)
+    containerView.addGestureRecognizer(panGestureRecognizer)
     
     
     if let tableViewController = viewController as? TableViewController {
@@ -102,7 +102,7 @@ class BottomSlideViewController: UIViewController {
       
       containerView.transform = CGAffineTransform(rotationAngle: CGFloat((Double.pi/4) / 10.0) * xTranslationPercent)
       
-    } else if recognizer.state == .ended {
+    } else {
       var progress = recognizer.translation(in: view).y / (Utilities.screenHeight - 115.0)
       progress = min(1.0, max(0.0, progress))
       var velocity = recognizer.velocity(in: view).y

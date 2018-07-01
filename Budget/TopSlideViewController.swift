@@ -59,7 +59,7 @@ class TopSlideViewController: UIViewController {
     
     let panGestureRecognizer = OneWayPanGestureRecognizer(target: self, action: #selector(handleDrag(recognizer:)))
     panGestureRecognizer.direction = .up
-    view.addGestureRecognizer(panGestureRecognizer)
+    containerView.addGestureRecognizer(panGestureRecognizer)
     
     if let tableViewController = viewController as? TableViewController {
       
@@ -108,7 +108,7 @@ class TopSlideViewController: UIViewController {
       
       containerView.transform = CGAffineTransform(rotationAngle: CGFloat((Double.pi/4) / 10.0) * xTranslationPercent)
       
-    } else if recognizer.state == .ended {
+    } else {
       var progress = -recognizer.translation(in: view).y / (96.0 + containerView.frame.size.height)
       progress = min(1.0, max(0.0, progress))
       let velocity = recognizer.velocity(in: view).y
