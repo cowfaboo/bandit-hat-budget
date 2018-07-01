@@ -33,7 +33,9 @@ class OneWayPanGestureRecognizer: UIPanGestureRecognizer {
     moveY += Int(prevPoint.y - nowPoint.y)
     
     if !drag {
-      if (direction == .down && moveY > 0) || (direction == .up && moveY < 0) {
+      if moveY == 0 {
+        drag = false
+      } else if (direction == .down && moveY > 0) || (direction == .up && moveY < 0) {
         state = .failed
       } else {
         drag = true
